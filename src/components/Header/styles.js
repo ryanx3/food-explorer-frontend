@@ -13,16 +13,13 @@ export const NavBar = styled.header`
   grid-area: header;
   
   > svg {
-    font-size: 3.2rem;
+    font-size: 32px;
     fill: ${({ theme }) => theme.COLORS.LIGHT.LIGHT_100};
 
     &:hover {
       cursor: pointer;
     }
   }
-
-
-
 `
 
 export const Brand = styled.div`
