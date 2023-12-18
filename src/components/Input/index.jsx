@@ -4,7 +4,10 @@ export function Input({icon: Icon, value, ...rest}) {
   return(
     <Container>
       {Icon && <Icon size={24}/>}
-      <input {...rest} value={value} />
+      <input 
+      value={value}
+      {...rest}
+       />
     </Container>
   )
 }

@@ -6,18 +6,18 @@ export const Container = styled.div`
    align-items: center;
    justify-content: center;
 
-   background-color: ${({ theme }) => theme.COLORS.DARK.DARK_900};
+   background-color: ${({ theme }) => theme.COLORS.DARK_900};
    padding: 1.2rem 1.4rem;
    border-radius: 5px;
    
    > svg {
-     fill: ${({ theme }) => theme.COLORS.LIGHT.LIGHT_100};
+     fill: ${({ theme }) => theme.COLORS.LIGHT_100};
      text-align: center;
    }
 
    input {
     width: 100%;
-    color: ${({ theme }) => theme.COLORS.LIGHT.LIGHT_100};
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
      
     gap: 1.4rem;
     outline: none;
@@ -30,7 +30,7 @@ export const Container = styled.div`
     
     &::placeholder {
       text-align: center;
-      color: ${({ theme }) => theme.COLORS.LIGHT.LIGHT_500};
+      color: ${({ theme }) => theme.COLORS.LIGHT_500};
       font-family: Roboto;
       font-size: 1.6rem;
       font-weight: 400;

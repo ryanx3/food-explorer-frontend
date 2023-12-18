@@ -1,6 +1,5 @@
 export default {
   COLORS: {
-    LIGHT: {
       LIGHT_100: "#FFFFFF",
       LIGHT_200: "#FFFAF1",
       LIGHT_300: "#E1E1E6",
@@ -8,8 +7,7 @@ export default {
       LIGHT_500: "#7C7C8A",
       LIGHT_600: "#76797B",
       LIGHT_700: "#4D585E",
-    },
-    DARK: {
+     
       DARK_100: "#4D585E",
       DARK_200: "#000405",
       DARK_300: "#00070A",
@@ -20,12 +18,13 @@ export default {
       DARK_800: "#001119",
       DARK_900: "#0D161B",
       DARK_1000: "#0D1D25",
-    },
-    GRADIENTS: {
+    
       GRADIENTS_100: "#00111A",
       GRADIENTS_200: "#001119",
-    },
-    TINTS: {
+
+      GRADIENTS_300: "#091E26",
+      GRADIENTS_400: "#00131C",
+
       TOMATO_100: "#750310",
       TOMATO_200: "#92000E",
       TOMATO_300: "#AB222E",
@@ -34,7 +33,6 @@ export default {
       MINT_100: "#04D361",
       CAKE_200: "#82F3FF",
       CAKE_100: "#065E7C",
-    },
   }
 }
 

@@ -15,7 +15,7 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-smooth: always;
-    background-color: ${({ theme }) => theme.COLORS.DARK.DARK_400}; 
+  background-color: ${({ theme }) => theme.COLORS.DARK_400}; 
 }
 
 button, a {

@@ -1,40 +1,68 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
   height: 100vh;
 
   display: grid;
-  grid-template-rows: 10.5rem auto;
-  grid-template-areas: 'header' 'content';
-  
-  main {
+  grid-template-rows: 10.5rem auto 7.7rem;
+  grid-template-areas: 
+  'header'
+  'content'
+  'footer';
+
+  overflow-x: hidden;
+
+  ::-webkit-scrollbar {
+      height: 10px;
+    }
     
-    section:nth-child(1) {
+    ::-webkit-scrollbar-thumb {
+      background: ${({ theme }) => theme.COLORS.CAKE_100};
+      border-radius: 5px;
+      bottom: 0;
+    }
+  `
+
+export const Content = styled.div`
+    grid-area: content;
+    width: 100vw;
+    padding: 16.4rem 12.3rem 4.5rem;
+
+    .wrapper-cards {
+      gap: 2.7rem;
+      display: flex;
+      overflow-x: auto;
+    }
+`
+
+export const TopBox = styled.section`
       display: flex;
       align-items: center;
-      justify-content: end;
+      justify-content: flex-end;
 
       position: relative;
 
-      margin: 16.4rem 0 4.5rem 0;
-      padding: 8.8rem 9.2rem;
+      height: 26rem;
+      padding-right: 10rem;
       
       background: linear-gradient(180deg, #091E26 0%, #00131C 100%);
       border-radius: 8px;
 
       > img {
         position: absolute;
-        left: -55px;
-        bottom: 0px;
+        left: -7rem;
+        bottom: -1.4rem;
+        
+        width: 65.6rem;        
       }
 
-      > .rectangle-text {
-        color: ${({ theme }) => theme.COLORS.LIGHT.LIGHT_300};
+      > div {
+        color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
         h1 {
           font-size: 4rem;
           font-weight: 500;
-
           margin-bottom: 0.8rem;
         }
   
@@ -44,11 +72,4 @@ export const Container = styled.div`
           font-weight: 400 ;
         }
       }
-  }
-}
-`
-
-export const Content = styled.div`
-    grid-area: content;
-    padding: 0rem 12.4rem;
 `

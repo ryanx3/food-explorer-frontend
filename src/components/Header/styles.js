@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const NavBar = styled.header`
+export const Container = styled.header`
   width: 100%;
-  background-color: ${({ theme }) => theme.COLORS.DARK.DARK_600};
+  background-color: ${({ theme }) => theme.COLORS.DARK_600};
 
   display: flex;
   align-items: center;
@@ -13,8 +13,8 @@ export const NavBar = styled.header`
   grid-area: header;
   
   > svg {
-    font-size: 32px;
-    fill: ${({ theme }) => theme.COLORS.LIGHT.LIGHT_100};
+    font-size: 3.2rem;
+    fill: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     &:hover {
       cursor: pointer;
@@ -27,16 +27,17 @@ export const Brand = styled.div`
     align-items: center;
     white-space: nowrap;
 
-    color: ${({ theme }) => theme.COLORS.LIGHT.LIGHT_100};
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+    gap: 10px;
 
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Roboto';
     font-size: 2.4rem;
     font-weight: bold;
-    gap: 10px;
+
     
     > svg {
       font-size: 3.2rem;
-      fill: ${({ theme }) => theme.COLORS.TINTS.CAKE_100};
+      fill: ${({ theme }) => theme.COLORS.CAKE_100};
     }
     
 `
