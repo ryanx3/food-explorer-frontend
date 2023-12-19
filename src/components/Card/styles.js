@@ -3,11 +3,14 @@ import styled from "styled-components";
 export const Container = styled.div`
     position: relative;
 
+    overflow-wrap: hidden;
+
     display: flex;
     align-items: center;
     flex-direction: column;
     text-align: center;
     width: 304px;
+    height: 462px;
 
     background: ${({ theme }) => theme.COLORS.DARK_300};
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
@@ -43,9 +46,11 @@ export const Container = styled.div`
       }
 
       p {
-          color: white ;
+          color: ${({ theme }) => theme.COLORS.LIGHT_100} ;
           font-family: Roboto;
           font-size: 1.4rem;
+          overflow-wrap: break-word;
+          
       }
 `
 

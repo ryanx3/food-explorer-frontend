@@ -23,19 +23,6 @@ export const Container = styled.div`
       bottom: 0;
     }
   `
-
-export const Content = styled.div`
-    grid-area: content;
-    width: 100vw;
-    padding: 16.4rem 12.3rem 4.5rem;
-
-    .wrapper-cards {
-      gap: 2.7rem;
-      display: flex;
-      overflow-x: auto;
-    }
-`
-
 export const TopBox = styled.section`
       display: flex;
       align-items: center;
@@ -72,4 +59,50 @@ export const TopBox = styled.section`
           font-weight: 400 ;
         }
       }
+`
+
+export const Content = styled.div`
+    grid-area: content;
+    width: 100vw;
+    padding: 16.4rem 12.3rem 4.5rem;
+
+    swiper-container::before,
+    swiper-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 34rem;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    swiper-container::before {
+      left: 0;
+      background: linear-gradient(
+        90deg, 
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.5) 50%,
+        transparent 100%
+      );
+    }
+
+    swiper-container::after {
+      right: 0;
+      background: linear-gradient(
+        90deg, 
+        transparent 0%,
+        rgba(0, 0, 0, 0.5) 50%,
+        rgba(0, 0, 0, 1) 100%
+      );
+    } 
+
+    .swiperX {
+      .swiper-button-next, .swiper-button-prev {
+        color: red !important;
+      }
+    }
+
+    
+    
 `

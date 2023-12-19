@@ -16,6 +16,16 @@ body {
   -webkit-font-smoothing: antialiased;
   font-smooth: always;
   background-color: ${({ theme }) => theme.COLORS.DARK_400}; 
+
+  ::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: ${({ theme }) => theme.COLORS.CAKE_100};
+      border-radius: 5px;
+      bottom: 0;
+    }
 }
 
 button, a {
@@ -25,5 +35,5 @@ button, a {
 
   button:hover, a:hover {
     filter: brightness(1.2);
-  } 
+  }
 `

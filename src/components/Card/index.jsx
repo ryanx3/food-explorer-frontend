@@ -10,7 +10,7 @@ export function Card({ data, isAdmin=false, ...rest }) {
 
       {isAdmin ? <PiPencilSimple/> : <PiHeartBold/> }
 
-      <img src={data.dish} alt={`Image of dish ${data.name}`} />
+      <img src={data.image} alt={`Image of dish ${data.name}`} />
 
       <h1>{data.name}<PiCaretRightBold/></h1>
       <p>{data.description}</p>
