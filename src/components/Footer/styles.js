@@ -12,14 +12,10 @@ export const Container = styled.footer`
 `
 
 
-export const Brand = styled.div` 
-  display: flex;
-  align-items: center;
-  color: ${({ theme }) => theme.COLORS.DARK_100};
-  gap: 10px;
-
-  svg {
-    font-size: 3rem;
+export const Logo = styled.div` 
+  * {
+    color: ${({ theme }) => theme.COLORS.DARK_100};
+    fill: ${({ theme }) => theme.COLORS.DARK_100};
   }
 `
 

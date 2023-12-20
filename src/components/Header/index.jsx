@@ -1,19 +1,18 @@
-import { BsFillHexagonFill } from "react-icons/bs";
 import { PiSignOut, PiMagnifyingGlassLight, PiReceipt } from "react-icons/pi";
 
 import { Search } from "../Search";
 import { Button } from "../Button";
+import { Brand } from "../Brand";
 
-import { Container, Brand } from './styles'
+import { Container, Logo } from './styles'
 
 export function Header({ ...rest }) {
   return (
     <Container {...rest}>
 
-      <Brand>
-        <BsFillHexagonFill/>
-        food explorer
-      </Brand>
+      <Logo>
+        <Brand/>
+      </Logo>
 
       <Search 
       placeholder="Busque por pratos ou ingredientes"

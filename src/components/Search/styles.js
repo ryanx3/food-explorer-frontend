@@ -6,25 +6,24 @@ export const Container = styled.div`
   border-radius: 0.5rem;
 
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_500};
-  
+
   &:focus-within {
-    border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
+  
+    /* box-shadow: 0 0 10px ${({ theme }) => theme.COLORS.CAKE_200}; */
   }
   
   svg {
     fill: ${({ theme }) => theme.COLORS.LIGHT_400};
   }
-
+  
   input {
-    max-width: 28.2rem;
+      width: 24%;
+    
+      &:focus-within {
+        transition: 400ms ease-out;
+        width: 100%;
+      }
 
-    &:focus {
-      border: none;
-      outline: none;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-    }
+    
   }
 `

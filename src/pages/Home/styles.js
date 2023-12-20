@@ -28,12 +28,14 @@ export const TopBox = styled.section`
       align-items: center;
       justify-content: flex-end;
 
+      box-shadow: 0 0px 10px ${({ theme }) => theme.COLORS.CAKE_200};
+
       position: relative;
 
       height: 26rem;
       padding-right: 10rem;
       
-      background: linear-gradient(180deg, #091E26 0%, #00131C 100%);
+      background: linear-gradient(90deg, #00131C, #091E26, #00131C);
       border-radius: 8px;
 
       > img {

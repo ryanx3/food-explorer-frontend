@@ -1,15 +1,14 @@
-import { BsFillHexagonFill } from "react-icons/bs";
+import { Brand } from '../Brand'
 
-import { Container, Brand, Copyright } from './styles'
+import { Container, Logo, Copyright } from './styles'
 
 export function Footer() {
   return( 
     <Container>
       
-      <Brand>
-      <BsFillHexagonFill/>
-      <h1>food explorer</h1>
-      </Brand>
+      <Logo>
+       <Brand/>
+      </Logo>
 
       <Copyright>
       © 2023 - Todos os direitos reservados.

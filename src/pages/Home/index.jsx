@@ -162,7 +162,7 @@ export function Home() {
           </TopBox>
 
           <Section title="Refeições">
-            <swiper-container style={{color:'red'}}
+            <swiper-container
               slides-per-view="5"
               navigation="true"
               loop="true"
