@@ -14,7 +14,7 @@ export const Container = styled.div`
     font-weight: bold;
 
     
-    > svg {
+     svg {
       font-size: 3.2rem;
       fill: ${({ theme }) => theme.COLORS.CAKE_100};
     }

@@ -15,7 +15,7 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-smooth: always;
-  background-color: ${({ theme }) => theme.COLORS.DARK_400}; 
+  background-color: ${({ theme }) => theme.COLORS.DARK_500}; 
 
   ::-webkit-scrollbar {
       width: 5px;
@@ -31,6 +31,7 @@ body {
 button, a {
     cursor: pointer;
     transition: filter 0.2s;
+    text-decoration: none;
   }
 
   button:hover, a:hover {

@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-width: 100%;
-height: 100vh;
+  width: 100%;
+  height: 100vh;
 
-display: flex;
-align-items: center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-gap: 305px;
+  gap: 305px;
 `
 
 export const Form = styled.form`
@@ -24,26 +24,20 @@ export const Form = styled.form`
   gap: 3.2rem;
   background-color: ${({ theme }) => theme.COLORS.DARK_800};
 
-  h1{
+  > h1{
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     font-size: 3.2rem;
     font-weight: 500;
     line-height: 140%;
-
     white-space: nowrap;
   }
 
-  a {
+  > a {
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     font-size: 1.4rem;
     font-weight: 500;
     line-height: 2.4rem;
-
     text-decoration: none;
-  }
-
-  button {
-    width: 100%;
   }
 `
 

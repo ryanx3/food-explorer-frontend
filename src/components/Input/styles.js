@@ -19,10 +19,6 @@ export const Container = styled.div`
 `
 
 export const InputContainer = styled.div`
-  &:focus-within {
-    border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_100};
-  }
-
    width: 100%;
    display: flex;
    align-items: center;
@@ -32,8 +28,13 @@ export const InputContainer = styled.div`
    padding: 1.2rem 1.4rem;
    border-radius: .5rem;
 
+   > div {
+    display: flex;
+    align-self: flex-start;
+   }
+
   >  input {
-      width: 100%;
+       width: 100%;
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
       font-size: 1.6rem;
@@ -45,8 +46,6 @@ export const InputContainer = styled.div`
       border: none;
       background: transparent;
 
-      
-      
       &::placeholder {
         color: ${({ theme }) => theme.COLORS.LIGHT_500};
         font-family: Roboto;
@@ -55,6 +54,10 @@ export const InputContainer = styled.div`
       }
     }
 
+    
+    &:focus-within {
+      border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_100};
+    }
 
     > svg {
      fill: ${({ theme }) => theme.COLORS.LIGHT_100};

@@ -43,9 +43,6 @@ export const Form = styled.form`
     text-decoration: none;
   }
 
-  button {
-    width: 100%;
-  }
 `
 
 export const Logo = styled.div`

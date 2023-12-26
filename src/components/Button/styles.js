@@ -1,24 +1,25 @@
 import styled from "styled-components";
 
 export const Container = styled.button`
+  width: 100%;
+
   display: flex;
   align-items: center; 
   justify-content: center;  
 
   gap: .8rem;
-
-  background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
+  padding: 1.2rem 3.2rem;
+  border-radius: .5rem;
 
   font-family: inherit;
-  font-size: 1.4rem;
   font-weight: 500;
+  font-size: 1.4rem;
   line-height: 2.4rem;
-
+  
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
 
-  padding: 1.2rem 3.2rem;
   white-space: nowrap;
-  border-radius: .5rem;
   border: none;
     
   > svg {

@@ -1,33 +1,51 @@
-import { PiPlus, PiMinus, PiHeartBold, PiCaretRightBold, PiPencilSimple } from "react-icons/pi";
+import { PiHeartStraightBold, PiHeartStraightFill, PiCaretRightBold, PiPencilSimple } from "react-icons/pi";
+import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 
-import { Button } from '../Button'
+import { Counter } from '../Counter'
 
 import { Container, Title, Order } from "./styles";
+import { useState } from "react";
+import { Button } from "../Button";
 
-export function Card({ data, isAdmin=false, ...rest }) {
+export function Card({ data, isAdmin = false, ...rest }) {
+  const [favorite, setFavorites] = useState(false)
+
+  function handleIsFavorite() {
+    setFavorites(true);
+  }
+
+  function handleRemoveFavorite() {
+    setFavorites(false)
+  }
+
   return (
     <Container {...rest}>
+        {!isAdmin ? 
+        (favorite ? 
+        (<PiHeartStraightFill fill="#750310" onClick={handleRemoveFavorite}/>) 
+        : (<PiHeartStraightBold onClick={handleIsFavorite} />)) 
+        : (<PiPencilSimple />)}
 
-      {isAdmin ? <PiPencilSimple/> : <PiHeartBold/> }
 
       <img src={data.image} alt={`Image of dish ${data.name}`} />
 
-      <h1>{data.name}<PiCaretRightBold/></h1>
-      <p>{data.description}</p>
-
-      <Title>
-      <h2>R$ {data.value}</h2>
+      <Title>   
+        <h2>{data.name}</h2>
+        <PiCaretRightBold/>
       </Title>
 
+      <p>{data.description}</p>
 
-      { isAdmin=true && 
-      <Order>
-        <button><PiMinus/></button>
-        <span>01</span>
-        <button><PiPlus/></button>
+      <h3>R$ {data.price}</h3>
+      
 
-        <Button title="incluir"/>
-      </Order>}
+
+      {!isAdmin &&
+        <Order>
+          <Counter />
+          <Button title="incluir" />
+        </Order>
+      }
 
     </Container>
   );

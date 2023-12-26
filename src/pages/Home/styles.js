@@ -22,6 +22,7 @@ export const Container = styled.div`
       border-radius: 5px;
       bottom: 0;
     }
+
   `
 export const TopBox = styled.section`
       display: flex;
@@ -74,37 +75,31 @@ export const Content = styled.div`
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 34rem;
+      width: 27.7rem;
       z-index: 2;
       pointer-events: none;
+      flex-shrink: 0;
     }
 
     swiper-container::before {
-      left: 0;
+      left: 0px;
       background: linear-gradient(
         90deg, 
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.5) 50%,
-        transparent 100%
-      );
+        #000A0F 0%, rgba(0, 10, 15, 0.27) 90%, transparent 100%)
+      ;
     }
 
     swiper-container::after {
-      right: 0;
+      right: 0px;
       background: linear-gradient(
         90deg, 
-        transparent 0%,
-        rgba(0, 0, 0, 0.5) 50%,
-        rgba(0, 0, 0, 1) 100%
-      );
+        transparent 0%, rgba(0, 10, 15, 0.27) 10%, #000A0F 90%);
     } 
 
-    .swiperX {
-      .swiper-button-next, .swiper-button-prev {
-        color: red !important;
+    @media (max-width: 1368px) {
+      swiper-container::before,
+      swiper-container::after {
+        width: 6.7rem;
       }
     }
-
-    
-    
 `

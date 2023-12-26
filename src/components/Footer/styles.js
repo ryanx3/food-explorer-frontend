@@ -7,7 +7,7 @@ export const Container = styled.footer`
 
   grid-area: footer;
 
-  background: ${({ theme }) => theme.COLORS.DARK_600};
+  background: ${({ theme }) => theme.COLORS.DARK_700};
   padding: 2.4rem 12.3rem;
 `
 
