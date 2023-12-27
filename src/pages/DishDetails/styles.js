@@ -12,28 +12,18 @@ export const Container = styled.div`
   'footer';
 
   overflow-x: hidden;
-
-  main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 4rem 12.3rem 4rem 12.3rem;
-  }
   `
 
 export const Content = styled.div`
   grid-area: content;
-  position: relative;
+  display: grid;
+  grid-template-rows: 100px auto;
+  justify-content: center;
 
   a {
-    position: absolute;
-    top: -120px;
-    left: 0;
-
     display: flex;
     align-items: center;
-    justify-content: left;
-
+    
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
     font-family: inherit;
@@ -50,11 +40,10 @@ export const Content = styled.div`
   `
 
 export const Dish = styled.div`
+
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 5rem;
-
 
     > img {
       width: 39rem;

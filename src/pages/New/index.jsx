@@ -1,14 +1,15 @@
-import { PiCaretLeft, PiUploadSimpleBold } from "react-icons/pi";
+import { PiCaretLeft } from "react-icons/pi";
 
-import { Tag } from '../../components/Tag'
-import { Input } from "../../components/Input";
+import * as Tag from '../../components/Tag'
+import * as Input from "../../components/Input";
+import { Select } from '../../components/Select'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { Button } from '../../components/Button'
 import { Textarea } from '../../components/Textarea'
 
 
-import { Category, Container, Form, Image, Tags } from './styles'
+import { Container, Content, FormField } from './styles'
 
 export function New({ isAdmin = true }) {
   return (
@@ -16,56 +17,43 @@ export function New({ isAdmin = true }) {
       <Header />
 
       <main>
-        <a href="#"><PiCaretLeft /> voltar</a>
-        <h1>Adicionar prato</h1>
+        <Content>
 
-        <Form>
-          <div className="first-column">
+          <a href="#"><PiCaretLeft /> voltar</a>
+          <h1>Adicionar prato</h1>
 
-            <Image>
-              <p>Imagem do prato</p>
-              <label htmlFor="image">
-                <input id="image" type="file" />
-                <PiUploadSimpleBold />
-                <span> Selecionar imagem</span>
-              </label>
-            </Image>
+          <FormField>
 
-            <Input title="Nome" placeholder="Exemplo: Salada Caesar" />
+            <div className="first-column">
 
-            <Category>
+              <Input.Picture title="Imagem do prato" />
+              <Input.Root 
+              title="Nome" 
+              placeholder="Exemplo: Salada Caesar"/>
+              <Select title="Categorias" />
 
-              <label htmlFor="category">
-                <p>Categoria</p>
-                <select name="" id="">
-                  <option value="">Selecionar</option>
-                  <option value="meal">Refeição</option>
-                  <option value="dessert">Sobremesa</option>
-                  <option value="beverage">Bebida</option>
-                </select>
-              </label>
+            </div>
 
-            </Category>
+            <div className="second-column">
 
-          </div>
+              <Input.Background title="Ingredientes">
+                <Tag.Created title="Pão Naan" />
+                <Tag.New />
+              </Input.Background>
 
-          <div className="second-column">
-            <Tags>
-              <p>Ingredientes</p>
-              <div className="tags">
-                <Tag title="Pão Naan" />
-              </div>
-            </Tags>
+              <Input.Root title="Preço"
+              placeholder="R$ 00,00" />
 
-            <Input title="Preço" placeholder="R$ 00,00" />
-          </div>
+            </div>
 
-          <Textarea
-            placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
-            title="Descrição" />
+            <Textarea
+              placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
+              title="Descrição"
+            />
 
-          <Button className="save-button" title="Salvar alterações" />
-        </Form>
+            <Button className="save-button" title="Salvar alterações" />
+          </FormField>
+        </Content>
       </main>
 
       <Footer />

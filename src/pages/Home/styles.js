@@ -85,7 +85,7 @@ export const Content = styled.div`
       left: 0px;
       background: linear-gradient(
         90deg, 
-        #000A0F 0%, rgba(0, 10, 15, 0.27) 90%, transparent 100%)
+        #000A0F 0%, rgba(0, 10, 15, 0.27) 95%, transparent 100%)
       ;
     }
 
@@ -93,13 +93,13 @@ export const Content = styled.div`
       right: 0px;
       background: linear-gradient(
         90deg, 
-        transparent 0%, rgba(0, 10, 15, 0.27) 10%, #000A0F 90%);
+        transparent 0%, rgba(0, 10, 15, 0.27) 10%, #000A0F 100%);
     } 
 
-    @media (max-width: 1368px) {
+    /* @media (max-width: 1368px) {
       swiper-container::before,
       swiper-container::after {
         width: 6.7rem;
       }
-    }
+    } */
 `

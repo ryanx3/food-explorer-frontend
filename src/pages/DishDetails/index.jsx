@@ -3,7 +3,7 @@ import { PiCaretLeft } from "react-icons/pi";
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { Section } from '../../components/Section'
-import { Tag } from '../../components/Tag'
+import * as Tag  from '../../components/Tag'
 import { Button } from '../../components/Button'
 import { Counter } from '../../components/Counter'
 
@@ -29,7 +29,7 @@ export function DishDetails({ isAdmin = false} ) {
       <main>
         <Content>
           <a href="#"><PiCaretLeft /> voltar</a>
-
+          
           <Dish>
             <img src={data.image} alt={`Imagem do prato ${data.name}`} />
 
@@ -41,12 +41,12 @@ export function DishDetails({ isAdmin = false} ) {
               </Section>
 
               <Section className="tags-section">
-                <Tag title={data.tags} />
-                <Tag title={data.tags} />
-                <Tag title={data.tags} />
-                <Tag title={data.tags} />
-                <Tag title={data.tags} />
-                <Tag title={data.tags} />
+                <Tag.Default title={data.tags} />
+                <Tag.Default title={data.tags} />
+                <Tag.Default title={data.tags} />
+                <Tag.Default title={data.tags} />
+                <Tag.Default title={data.tags} />
+                <Tag.Default title={data.tags} />
               </Section>
 
               <Section className="counter-section"> 
