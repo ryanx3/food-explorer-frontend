@@ -22,8 +22,9 @@ export const Logo = styled.div`
 export const Copyright = styled.div` 
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
   font-family: Roboto;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 160%
+  line-height: 160%;
+  white-space: none;
 `

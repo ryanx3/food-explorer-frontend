@@ -22,7 +22,3 @@ export const Container = styled.header`
     }
   }
 `
-
-export const Logo = styled.div`
-
-`

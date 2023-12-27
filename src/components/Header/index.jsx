@@ -2,17 +2,19 @@ import { PiSignOut, PiMagnifyingGlassLight, PiReceipt } from "react-icons/pi";
 
 import { Search } from "../Search";
 import { Button } from "../Button";
-import { Brand } from "../Brand";
 
-import { Container, Logo } from './styles'
+import { Brand } from '../../assets/brand' 
+import { BrandAdmin } from '../../assets/brand-admin' 
 
-export function Header({ ...rest }) {
+import { Container } from './styles'
+
+export function Header({isAdmin = false, ...rest }) {
+  const logo = !isAdmin ? <Brand/> : <BrandAdmin/>
+
   return (
     <Container {...rest}>
 
-      <Logo>
-        <Brand/>
-      </Logo>
+      { logo }
 
       <Search 
       placeholder="Busque por pratos ou ingredientes"
