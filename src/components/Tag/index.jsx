@@ -1,9 +1,39 @@
-import { Container } from "./styles";
+import { PiPlusBold, PiXBold } from 'react-icons/pi'
 
-export function Tag({title, ...rest}) {
-return(
-  <Container {...rest}>
-    {title}
-  </Container>
-)
+import { TagDefault, TagCreated, TagNew } from "./styles";
+
+export function Default({ title, ...rest }) {
+  return (
+    <TagDefault {...rest}>
+      {title}
+    </TagDefault>
+  )
 }
+
+export function Created({ title, ...rest }) {
+  return (
+    <TagCreated {...rest}>
+      {title}
+
+      <button>
+        <PiXBold />
+      </button>
+
+    </TagCreated>
+  )
+}
+
+export function New({ title, icon: Icon, value, ...rest }) {
+  return (
+    <TagNew {...rest}>
+      <input type="text" placeholder="Adicionar"/>
+        
+
+
+      <button>
+        <PiPlusBold />
+      </button>
+
+    </TagNew>
+  )
+} 
