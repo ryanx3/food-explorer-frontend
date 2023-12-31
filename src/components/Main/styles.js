@@ -6,4 +6,11 @@ export const Container = styled.main`
     width: 80%;
 
     grid-area: main;
+
+    @media (max-width: 1024px) {
+        width: 90%;
+    }
+    @media (max-width: 768px) {
+        width: 95%;
+    }
 `

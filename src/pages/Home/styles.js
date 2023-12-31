@@ -12,71 +12,135 @@ export const Container = styled.div`
   'footer';
 
   overflow-x: hidden;
+
   `
 export const TopBox = styled.section`
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      margin-top: 16.4rem;
-
-      position: relative;
-
-      height: 26rem;
+      justify-content: center;
       
+      height: 26rem;
+      margin-top: 16.4rem;
+      
+      position: relative;
       background: linear-gradient(90deg, #00131C, #091E26, #00131C);
-      border-radius: 8px;
-
+      border-radius: .8rem;
+      
       > img {
-        position: absolute;
-        left: -7rem;
-        bottom: -1.4rem;
         width: 65.6rem;        
+        position: absolute;
+        height: auto;
+        
+        left: -7.1rem;
+        bottom: -1.4rem;
       }
-
+      
       > div {
+        padding-left: 50%;
         color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
         h1 {
           font-size: 4rem;
           font-weight: 500;
-          margin-bottom: 0.8rem;
+          font-family: inherit;
         }
   
         span {
-          font-family: 'Roboto', sans-serif;
+          font-family: Roboto;
           font-size: 1.6rem;
-          font-weight: 400 ;
+          font-weight: 400;
         }
       }
 
-      @media (max-width: 768px) {
-  height: 18rem;
-  margin-top: 6.6rem; /* 4.4rem * (18/12) = 6.6rem */
+      @media (max-width: 1280px) {
+      height: 20rem;
+      margin-top: 14rem;
 
+      img {
+      width: 51.2rem;
+      bottom: -1.1rem;
+      left: -5.5rem; 
+      } 
+
+      > div {
+      h1 {
+        font-size: 3.5rem;
+        
+      }
+
+      span {
+        font-size: 1.4rem;
+      }
+      }
+    }
+
+    @media (max-width: 1024px) {
+      height: 18rem;
+      margin-top: 12.6rem; 
+      margin-left: 1.8rem;
+      img {
+        width: 28.5rem; 
+        bottom: 0; 
+        left: -4rem;
+      }
+
+      > div {
+        padding-left:40%;
+        h1 {
+          font-size: 3.4rem;
+          font-weight: 600;
+          line-height: 140%; 
+        }
+
+        span {
+          font-size: 1.2rem; 
+          font-family: inherit;
+          font-weight: 400;
+          line-height: 140%;
+        }
+      }
+    }
+
+  @media (max-width: 768px) {
+    height: 12rem;
+    margin-top: 4.4rem;
+    img {
+      width: 19rem;
+      left: -2.4rem;
+    } 
+    
+    > div {
+        padding-right: 2rem;
+        padding-left:50%;
+        display: flex;
+        flex-direction: column;
+        
+      h1 {
+        font-size: 1.8rem;
+        white-space: nowrap;
+      }
+    }
+  }
+    
+  @media (max-width: 428px) {
+  height: 9rem;
+  margin-top: 3.6rem; 
   img {
-    width: 28.5rem; /* 19rem * (18/12) = 28.5rem */
-    height: auto;
-    bottom: 0rem;
-    left: -3.6rem; /* -2.4rem * (18/12) = -3.6rem */
+    width: 15rem; 
+    left: -2rem; 
   } 
 
-  .text-box {
+  div {
     h1 {
-      font-family: inherit;
-      font-size: 27px; /* 18px * (18/12) = 27px */
-      font-weight: 600;
-      line-height: 140%;
+      font-size: 1.4rem; 
+      white-space: nowrap;
     }
 
     span {
-      font-family: inherit;
-      font-size: 18px; /* 12px * (18/12) = 18px */
-      font-style: normal;
-      font-weight: 400;
-      line-height: 140%;
+      font-size: .8rem; 
     }
   }
-    }
+}
 `
 
 export const Content = styled.div`

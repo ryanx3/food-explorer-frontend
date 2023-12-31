@@ -26,13 +26,18 @@ export const Container = styled.header`
     cursor: pointer;
   }
 
-  @media (max-width: 768px) {
-    padding: 6rem 10% 2.8rem;
+  @media (max-width: 1024px) {
+      padding: 6rem 5% 2.8rem;
+      padding: 0 5%;
+    }
 
+    @media (max-width: 768px) {
+      padding: 6rem 2% 2.8rem;
     > svg { 
       font-size: 2.4rem;
     }
   }
+
 `
 
 export const Menu = styled.div`

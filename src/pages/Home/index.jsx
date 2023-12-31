@@ -9,14 +9,17 @@ import { Footer } from '../../components/Footer'
 import { Card } from '../../components/Card'
 import { Main } from '../../components/Main'
 
-import homeBanner from '../../assets/home-banner.png';
+import bannerDesktop from '../../assets/home-banner.png';
+import bannerMobile from '../../assets/banner-mobile.png';
 import passionFruit from '../../assets/passionFruit.png';
 import sweet from '../../assets/sweet.png';
 
 import { Container, Content, TopBox } from './styles'
+import { useMediaQuery } from 'react-responsive';
 
 export function Home() {
-
+  const isMobile = useMediaQuery({maxWidth: 1024})
+  const Banner = isMobile ? bannerMobile : bannerDesktop
   const swiperRef1 = useRef(null);
   const swiperRef2 = useRef(null);
   const swiperRef3 = useRef(null);
@@ -189,7 +192,7 @@ export function Home() {
 
         <Content>
           <TopBox>
-            <img src={homeBanner} alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas." />
+            <img src={Banner} alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas." />
             <div>
               <h1>Sabores inigualáveis</h1>
               <span>Sinta o cuidado do preparo com ingredientes selecionados</span>
