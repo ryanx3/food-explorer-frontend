@@ -1,22 +1,23 @@
 import styled from "styled-components";
 
 export const Container = styled.footer` 
+  margin: 0 auto;
+  max-width: 100vw;
+  width: 100%;
+  padding: 0 10%;
+
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  
 
   grid-area: footer;
-
   background: ${({ theme }) => theme.COLORS.DARK_700};
-  padding: 2.4rem 12.3rem;
 `
 
 
-export const Logo = styled.div` 
-  * {
-    color: ${({ theme }) => theme.COLORS.DARK_100};
-    fill: ${({ theme }) => theme.COLORS.DARK_100};
-  }
+export const Brand = styled.div` 
+
 `
 
 export const Copyright = styled.div` 
@@ -27,4 +28,13 @@ export const Copyright = styled.div`
   font-weight: 400;
   line-height: 160%;
   white-space: none;
+
+  @media (max-width: 768px) {
+    text-align: right;
+font-family: DM Sans;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+  }
 `
