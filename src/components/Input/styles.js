@@ -23,6 +23,7 @@ export const InputContainer = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
+   height: 4.8rem;
 
    background-color: ${({ theme }) => theme.COLORS.DARK_1000};
    padding: 1.2rem 1.4rem;
@@ -69,12 +70,12 @@ export const Content = styled.div`
    width: 100%;
    display: flex;
    align-items: center;
- 
+   flex-wrap: wrap;
 
    background-color: ${({ theme }) => theme.COLORS.DARK_1000};
    padding: .4rem .8rem;
    border-radius: .5rem;
-   height: 4.8rem;
+   gap: 3.2rem;
 `
 export const Image = styled.div`
   display: flex;
