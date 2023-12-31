@@ -5,11 +5,12 @@ import { Footer } from '../../components/Footer'
 import { Section } from '../../components/Section'
 import * as Tag  from '../../components/Tag'
 import { Button } from '../../components/Button'
+import { Main } from '../../components/Main'
 import { Counter } from '../../components/Counter'
 
 import sweet from '../../assets/sweet.png';
 
-import { Container, Content, Dish } from './styles'
+import { Container, Dish } from './styles'
 
 const data =
 {
@@ -26,12 +27,14 @@ export function DishDetails({ isAdmin = false} ) {
     <Container>
       <Header />
 
-      <main>
-        <Content>
-          <a href="#"><PiCaretLeft /> voltar</a>
+      <Main>
+
+          <a href="#"><PiCaretLeft size={32} /> voltar</a>
           
           <Dish>
+            <Section>
             <img src={data.image} alt={`Imagem do prato ${data.name}`} />
+            </Section>
 
             <div className="details-of-dish">
 
@@ -58,8 +61,8 @@ export function DishDetails({ isAdmin = false} ) {
               </Section>
             </div>
           </Dish>
-        </Content>
-      </main>
+
+      </Main>
 
       <Footer />
     </Container>
