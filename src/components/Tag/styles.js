@@ -35,7 +35,6 @@ export const TagCreated = styled.div`
     gap: .8rem;
     padding: 1rem 1.6rem;
     border-radius: .8rem;
-    margin-right: 1.6rem;
     
     font-family: Roboto;
     font-size: 1.6rem;
@@ -83,7 +82,6 @@ export const TagNew = styled.div`
 
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
-      
       &::placeholder {
         color: ${({ theme }) => theme.COLORS.LIGHT_500};
       }

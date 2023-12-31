@@ -7,6 +7,7 @@ import { Header } from '../../components/Header'
 import { Section } from '../../components/Section'
 import { Footer } from '../../components/Footer'
 import { Card } from '../../components/Card'
+import { Main } from '../../components/Main'
 
 import homeBanner from '../../assets/home-banner.png';
 import passionFruit from '../../assets/passionFruit.png';
@@ -15,6 +16,7 @@ import sweet from '../../assets/sweet.png';
 import { Container, Content, TopBox } from './styles'
 
 export function Home() {
+
   const swiperRef1 = useRef(null);
   const swiperRef2 = useRef(null);
   const swiperRef3 = useRef(null);
@@ -28,21 +30,6 @@ export function Home() {
       navigation: true,
       grabCursor: true,
       breakpoints: {
-        768: { slidesPerView: 2, spaceBetween: 300 },
-        860: { spaceBetween: 300 },
-        1024: { slidesPerView: 3, spaceBetween: 220 },
-        1120: { slidesPerView: 3, spaceBetween: 210 },
-        1280: { slidesPerView: 4, spaceBetween: 200 },
-        1320: { slidesPerView: 4, spaceBetween: 350 },
-        1368: { slidesPerView: 4, spaceBetween: 340 },
-        1420: { slidesPerView: 5, spaceBetween: 330 },
-        1460: { slidesPerView: 5, spaceBetween: 320 },
-        1520: { slidesPerView: 5, spaceBetween: 300 },
-        1540: { slidesPerView: 5, spaceBetween: 280 },
-        1580: { slidesPerView: 5, spaceBetween: 240 },
-        1640: { slidesPerView: 5, spaceBetween: 200 },
-        1700: { slidesPerView: 5, spaceBetween: 150 },
-        1780: { slidesPerView: 5, spaceBetween: 90 },
         1860: { slidesPerView: 5, spaceBetween: 0 }
       },
       injectStyles: [
@@ -198,7 +185,8 @@ export function Home() {
   return (
     <Container>
       <Header />
-      <main>
+      <Main>
+
         <Content>
           <TopBox>
             <img src={homeBanner} alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas." />
@@ -238,10 +226,8 @@ export function Home() {
               ))}
             </swiper-container>
           </Section>
-
-
         </Content>
-      </main>
+      </Main>
 
       <Footer />
 

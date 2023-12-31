@@ -8,33 +8,20 @@ export const Container = styled.div`
   grid-template-rows: 10.5rem auto 7.7rem;
   grid-template-areas: 
   'header'
-  'content'
+  'main'
   'footer';
 
   overflow-x: hidden;
-
-  ::-webkit-scrollbar {
-      height: 10px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: ${({ theme }) => theme.COLORS.CAKE_100};
-      border-radius: 5px;
-      bottom: 0;
-    }
-
   `
 export const TopBox = styled.section`
       display: flex;
       align-items: center;
       justify-content: flex-end;
-
-      box-shadow: 0 0px 10px ${({ theme }) => theme.COLORS.CAKE_200};
+      margin-top: 16.4rem;
 
       position: relative;
 
       height: 26rem;
-      padding-right: 10rem;
       
       background: linear-gradient(90deg, #00131C, #091E26, #00131C);
       border-radius: 8px;
@@ -43,7 +30,6 @@ export const TopBox = styled.section`
         position: absolute;
         left: -7rem;
         bottom: -1.4rem;
-        
         width: 65.6rem;        
       }
 
@@ -62,12 +48,38 @@ export const TopBox = styled.section`
           font-weight: 400 ;
         }
       }
+
+      @media (max-width: 768px) {
+  height: 18rem;
+  margin-top: 6.6rem; /* 4.4rem * (18/12) = 6.6rem */
+
+  img {
+    width: 28.5rem; /* 19rem * (18/12) = 28.5rem */
+    height: auto;
+    bottom: 0rem;
+    left: -3.6rem; /* -2.4rem * (18/12) = -3.6rem */
+  } 
+
+  .text-box {
+    h1 {
+      font-family: inherit;
+      font-size: 27px; /* 18px * (18/12) = 27px */
+      font-weight: 600;
+      line-height: 140%;
+    }
+
+    span {
+      font-family: inherit;
+      font-size: 18px; /* 12px * (18/12) = 18px */
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+    }
+  }
+    }
 `
 
 export const Content = styled.div`
-    grid-area: content;
-    width: 100vw;
-    padding: 16.4rem 12.3rem 4.5rem;
 
     swiper-container::before,
     swiper-container::after {
