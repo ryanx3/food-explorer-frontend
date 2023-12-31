@@ -5,62 +5,64 @@ import * as Input from "../../components/Input";
 import { Select } from '../../components/Select'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
+import { Section } from '../../components/Section'
 import { Button } from '../../components/Button'
+import { Main } from '../../components/Main'
 import { Textarea } from '../../components/Textarea'
 
 
-import { Container, Content, FormField, Buttons } from './styles'
+import { Container, Form, Buttons } from './styles'
 
 export function Edit({ isAdmin = true }) {
   return (
     <Container>
       <Header />
 
-      <main>
-        <Content>
+      <Main>
 
-          <a href="#"><PiCaretLeft /> voltar</a>
-          <h1>Adicionar prato</h1>
+        <a href="#"><PiCaretLeft /> voltar</a>
+        <h1>Editar prato</h1>
 
-          <FormField>
+        <Form>
 
-            <div className="first-column">
+          <Section className="first-section">
+            <Input.Picture title="Imagem do prato" />
+            <Input.Root
+              title="Nome"
+              placeholder="Exemplo: Salada Caesar" />
+            <Select title="Categorias" />
+          </Section>
 
-              <Input.Picture title="Imagem do prato" />
-              <Input.Root
-                title="Nome"
-                placeholder="Exemplo: Salada Caesar" />
-              <Select title="Categorias" />
 
-            </div>
 
-            <div className="second-column">
+          <Section className="second-section">
 
-              <Input.Background title="Ingredientes">
-                <Tag.Created title="Pão Naan" />
-                <Tag.New />
-              </Input.Background>
+            <Input.Background title="Ingredientes">
+              <Tag.Created title="Pão Naan" />
+              <Tag.Created title="Pão Naan" />
 
-              <Input.Root title="Preço"
-                placeholder="R$ 00,00" />
+              <Tag.New />
+            </Input.Background>
 
-            </div>
+            <Input.Root title="Preço"
+              placeholder="R$ 00,00" />
+          </Section>
 
-            <Textarea
-              placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
-              title="Descrição"
-            />
+          <Textarea
+            placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
+            title="Descrição"
+          />
 
-            <Buttons>
+          <Buttons>
 
-              <Button className="delete-button" title="Excluir prato" />
-              <Button className="save-button"  title="Salvar alterações"/>
+            <Button className="delete-button" title="Excluir prato" />
+            <Button className="save-button" title="Salvar alterações" />
 
-            </Buttons>
+          </Buttons>
 
-          </FormField>
-        </Content>
-      </main>
+        </Form>
+
+      </Main>
 
       <Footer />
     </Container>

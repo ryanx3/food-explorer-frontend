@@ -5,56 +5,58 @@ import * as Input from "../../components/Input";
 import { Select } from '../../components/Select'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
+import { Section } from '../../components/Section'
 import { Button } from '../../components/Button'
+import { Main } from '../../components/Main'
 import { Textarea } from '../../components/Textarea'
 
-
-import { Container, Content, FormField } from './styles'
+import { Container, Form, Buttons } from './styles'
 
 export function New({ isAdmin = true }) {
   return (
     <Container>
       <Header />
 
-      <main>
-        <Content>
+      <Main>
 
-          <a href="#"><PiCaretLeft /> voltar</a>
-          <h1>Adicionar prato</h1>
+        <a href="#"><PiCaretLeft /> voltar</a>
+        <h1>Adicionar prato</h1>
 
-          <FormField>
+        <Form>
 
-            <div className="first-column">
+          <Section className="first-section">
+            <Input.Picture title="Imagem do prato" />
+            <Input.Root
+              title="Nome"
+              placeholder="Exemplo: Salada Caesar" />
+            <Select title="Categorias" />
+          </Section>
 
-              <Input.Picture title="Imagem do prato" />
-              <Input.Root 
-              title="Nome" 
-              placeholder="Exemplo: Salada Caesar"/>
-              <Select title="Categorias" />
+          <Section className="second-section">
 
-            </div>
+            <Input.Background title="Ingredientes">
+              <Tag.Created title="Pão Naan" />
+              <Tag.Created title="Pão Naan" />
 
-            <div className="second-column">
+              <Tag.New />
+            </Input.Background>
 
-              <Input.Background title="Ingredientes">
-                <Tag.Created title="Pão Naan" />
-                <Tag.New />
-              </Input.Background>
-
-              <Input.Root title="Preço"
+            <Input.Root title="Preço"
               placeholder="R$ 00,00" />
+          </Section>
 
-            </div>
+          <Textarea
+            placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
+            title="Descrição"
+          />
 
-            <Textarea
-              placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
-              title="Descrição"
-            />
+          <Buttons>
+            <Button title="Salvar alterações" />
+          </Buttons>
 
-            <Button className="save-button" title="Salvar alterações" />
-          </FormField>
-        </Content>
-      </main>
+        </Form>
+
+      </Main>
 
       <Footer />
     </Container>
