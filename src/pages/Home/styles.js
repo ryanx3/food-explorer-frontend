@@ -76,7 +76,7 @@ export const TopBox = styled.section`
 
     @media (max-width: 1024px) {
       height: 18rem;
-      margin-top: 12.6rem; 
+      margin-top: 6.6rem; 
       margin-left: 1.8rem;
       img {
         width: 28.5rem; 

@@ -4,7 +4,7 @@ export const Container = styled.header`
   margin: 0 auto;
   max-width: 100vw;
   width: 100%;
-  padding: 0 10%;
+  padding: 0 10%; 
   
   display: flex;
   justify-content: space-between;
@@ -28,7 +28,6 @@ export const Container = styled.header`
 
   @media (max-width: 1024px) {
       padding: 6rem 5% 2.8rem;
-      padding: 0 5%;
     }
 
     @media (max-width: 768px) {

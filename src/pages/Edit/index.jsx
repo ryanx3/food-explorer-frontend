@@ -15,10 +15,10 @@ import { Container, Form, Buttons } from './styles'
 
 export function Edit({ isAdmin = true }) {
   return (
+      <Main>
     <Container>
       <Header />
 
-      <Main>
 
         <a href="#"><PiCaretLeft /> voltar</a>
         <h1>Editar prato</h1>
@@ -62,9 +62,9 @@ export function Edit({ isAdmin = true }) {
 
         </Form>
 
-      </Main>
 
       <Footer />
     </Container>
+      </Main>
   );
 }

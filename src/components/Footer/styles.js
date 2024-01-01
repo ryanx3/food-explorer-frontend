@@ -11,8 +11,17 @@ export const Container = styled.footer`
   align-items: center;
   
 
+
   grid-area: footer;
   background: ${({ theme }) => theme.COLORS.DARK_700};
+
+  @media (max-width: 1024px) {
+      padding: 0 5%;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0 2%;
+    }
 `
 
 
