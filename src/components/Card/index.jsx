@@ -3,7 +3,7 @@ import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 
 import { Counter } from '../Counter'
 
-import { Container, Title, Order } from "./styles";
+import { Container, Title, Description, Order } from "./styles";
 import { useState } from "react";
 import { Button } from "../Button";
 
@@ -20,25 +20,27 @@ export function Card({ data, isAdmin = false, ...rest }) {
 
   return (
     <Container {...rest}>
-        {!isAdmin ? 
-        (favorite ? 
-        (<PiHeartStraightFill fill="#750310" onClick={handleRemoveFavorite}/>) 
-        : (<PiHeartStraightBold onClick={handleIsFavorite} />)) 
+
+      {!isAdmin ?
+        (favorite ?
+          (<PiHeartStraightFill fill="white" onClick={handleRemoveFavorite} />)
+          : (<PiHeartStraightBold onClick={handleIsFavorite} />))
         : (<PiPencilSimple />)}
 
 
       <img src={data.image} alt={`Image of dish ${data.name}`} />
 
-      <Title>   
+      <Title>
         <h2>{data.name}</h2>
-        <PiCaretRightBold/>
+        <PiCaretRightBold />
       </Title>
 
-      <p>{data.description}</p>
+      <Description>
+        <p>{data.description}</p>
 
-      <h3>R$ {data.price}</h3>
-      
+        <h3>R$ {data.price}</h3>
 
+      </Description>
 
       {!isAdmin &&
         <Order>

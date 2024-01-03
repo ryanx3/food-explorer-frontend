@@ -15,6 +15,7 @@ export const Container = styled.div`
 
     button:nth-child(1),
     button:nth-child(3) {
+      display: flex;
       border: none;
       background: transparent;
       color: ${({ theme }) => theme.COLORS. LIGHT_100};
@@ -24,4 +25,10 @@ export const Container = styled.div`
       }
   }
   
+  @media (max-width: 768px) { 
+    span {
+
+      font-size: 1.6rem;
+    }
+  }
 `;
