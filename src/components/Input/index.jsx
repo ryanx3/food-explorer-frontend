@@ -1,16 +1,16 @@
 import { PiUploadSimpleBold } from "react-icons/pi";
 
-import { InputContainer, Content, Container, Image } from './styles'
+import { Container, InputDefault, InputBackground, InputFile } from './styles'
 
-export function Root({ icon: Icon, title, ...rest }) {
+export function Default({ icon: Icon, title, ...rest }) {
   return (
     <Container>
       {title && <p>{title}</p>}
 
-      <InputContainer {...rest}>
+      <InputDefault {...rest}>
         {Icon && <Icon size={24} />}
         <input {...rest} />
-      </InputContainer>
+      </InputDefault>
 
     </Container>
   )
@@ -21,26 +21,26 @@ export function Background({ children, title, ...rest }) {
     <Container>
       {title && <p>{title}</p>}
       
-      <Content>
+      <InputBackground>
         {children}
-      </Content>
+      </InputBackground>
 
     </Container>
   )
 }
 
-export function Picture({ children, title, ...rest }) {
+export function File({ children, title, ...rest }) {
   return (
     <Container>
       {title && <p>{title}</p>}
 
-      <Image>
+      <InputFile>
         <label htmlFor="image">
           <input id="image" type="file" />
           <PiUploadSimpleBold />
           <span> Selecionar imagem</span>
         </label>
-      </Image>
+      </InputFile>
 
     </Container>
   )

@@ -18,7 +18,7 @@ export const Container = styled.div`
     }
 `
 
-export const InputContainer = styled.div`
+export const InputDefault = styled.div`
    width: 100%;
    display: flex;
    align-items: center;
@@ -26,6 +26,7 @@ export const InputContainer = styled.div`
    height: 4.8rem;
 
    background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+  
    padding: 1.2rem 1.4rem;
    border-radius: .5rem;
 
@@ -35,14 +36,13 @@ export const InputContainer = styled.div`
    }
 
   >  input {
-       width: 100%;
+      width: 100%;
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
-      font-size: 1.6rem;
-       
-      gap: 1.4rem;
       outline: none;
       margin-left: 1rem;
+      font-size: 1.6rem;
+      gap: 1.4rem;
       
       border: none;
       background: transparent;
@@ -55,29 +55,30 @@ export const InputContainer = styled.div`
       }
     }
 
-    
-    &:focus-within {
+      &:focus-within {
       border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_100};
-    }
+      }
 
-    > svg {
+      > svg {
      fill: ${({ theme }) => theme.COLORS.LIGHT_100};
      text-align: center;
-   }
+    }
 `
 
-export const Content = styled.div`
+export const InputBackground = styled.div`
    width: 100%;
    display: flex;
    align-items: center;
    flex-wrap: wrap;
+   min-height: 48px;
 
    background-color: ${({ theme }) => theme.COLORS.DARK_1000};
    padding: .4rem .8rem;
    border-radius: .5rem;
-   gap: 3.2rem;
+   gap: 1.6rem;
 `
-export const Image = styled.div`
+
+  export const InputFile = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
