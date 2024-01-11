@@ -1,63 +1,92 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import { PiCaretLeft } from "react-icons/pi";
 
 import * as Tag from '../../components/Tag'
 import * as Input from "../../components/Input";
+import * as Layout from "../../components/Layouts";
+
+import { SideMenu } from '../../components/SideMenu'
 import { Select } from '../../components/Select'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { Section } from '../../components/Section'
 import { Button } from '../../components/Button'
-import { Main } from '../../components/Main'
 import { Textarea } from '../../components/Textarea'
 
 import { Container, Form, Buttons } from './styles'
 
 export function New({ isAdmin = true }) {
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const navigate = useNavigate()
+  function handleBack() {
+    navigate(-1)
+  }
+
+  useEffect(() => {
+    if (!isMobile && isMenuOpen === true) {
+      setIsMenuOpen(false);
+    }
+  }, [isMobile]);
+
   return (
     <Container>
-      <Header />
+      <SideMenu
+        isMenuOpen={isMenuOpen}
+        isMenuClose={() => setIsMenuOpen(false)}
+      />
 
-      <Main>
+      <Header
+        onOpenMenu={() => setIsMenuOpen(true)} />
 
-        <a href="#"><PiCaretLeft /> voltar</a>
-        <h1>Adicionar prato</h1>
+      <Layout.Page>
+        <main>
 
-        <Form>
+          <a onClick={handleBack}><PiCaretLeft /> voltar</a>
+          <h1>Adicionar prato</h1>
 
-          <Section className="first-section">
-            <Input.Picture title="Imagem do prato" />
-            <Input.Root
-              title="Nome"
-              placeholder="Exemplo: Salada Caesar" />
-            <Select title="Categorias" />
-          </Section>
+          <Form>
 
-          <Section className="second-section">
+            <Section className="first-section">
+              <Input.File title="Imagem do prato" />
+              <Input.Default
+                title="Nome"
+                placeholder="Exemplo: Salada Caesar" />
+              <Select title="Categorias" />
+            </Section>
 
-            <Input.Background title="Ingredientes">
-              <Tag.Created title="Pão Naan" />
-              <Tag.Created title="Pão Naan" />
+            <Section className="second-section">
 
-              <Tag.New />
-            </Input.Background>
+              <Input.Background title="Ingredientes">
+                <Tag.Delete title="Pão Naan" />
+                <Tag.Delete title="Pão Naan" />
+                <Tag.Delete title="Pão Naan" />
 
-            <Input.Root title="Preço"
-              placeholder="R$ 00,00" />
-          </Section>
+                <Tag.New />
+              </Input.Background>
 
-          <Textarea
-            placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
-            title="Descrição"
-          />
+              <Input.Default title="Preço"
+                placeholder="R$ 00,00" />
+            </Section>
 
-          <Buttons>
-            <Button title="Salvar alterações" />
-          </Buttons>
+            <Section>
+              <Textarea
+                placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
+                title="Descrição" />
+            </Section>
 
-        </Form>
+            <Buttons>
+              <Button title="Salvar alterações" />
+            </Buttons>
 
-      </Main>
+          </Form>
 
+        </main>
+      </Layout.Page>
+      
       <Footer />
     </Container>
   );

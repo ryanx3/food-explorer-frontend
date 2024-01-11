@@ -1,26 +1,35 @@
+import { useNavigate } from 'react-router-dom'
+
 import * as Input from '../../components/Input'
 import { Button } from '../../components/Button'
 import { Brand } from '../../assets/brand'
 
+
 import { Container, Form, Logo } from './styles'
 
 export function SignIn() {
+  const navigate = useNavigate()
+
+  function handleRegister() {
+    navigate("/register")
+  }
+
   return (
     <Container>
       <Logo>
-        <Brand/>  
+        <Brand />
       </Logo>
-      
-      <Form>
-        <h1>Faça login</h1>
 
-        <Input.Root title="Email" type="email" placeholder="Exemplo: exemplo@exemplo.com.br" />
-        <Input.Root type="password" title="Senha" placeholder="No mínimo 6 caracteres" />
+        <Form>
+          <h1>Faça login</h1>
 
-        <Button title="Entrar" />
+          <Input.Default title="Email" type="email" placeholder="Exemplo: exemplo@exemplo.com.br" />
+          <Input.Default type="password" title="Senha" placeholder="No mínimo 6 caracteres" />
 
-        <a href='#'>Criar uma conta</a>
-      </Form> 
+          <Button title="Entrar" />
+
+          <a onClick={handleRegister}>Criar uma conta</a>
+        </Form>
 
     </Container>
   )

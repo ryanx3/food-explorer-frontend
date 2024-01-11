@@ -1,26 +1,24 @@
 import styled from "styled-components";
 
-export const Container = styled.div`  
+export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
- 
-   p {
-      display: flex;
 
-      color: ${({ theme }) => theme.COLORS.LIGHT_400};
-      font-family: Roboto;
-      font-size: 1.6rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 100%;
-    }
-`
+  p {
+    display: flex;
+    color: ${({ theme }) => theme.COLORS.LIGHT_400};
+    font-family: Roboto;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+  }
+`;
 
 export const SelectContainer = styled.div`
-
-> label {
+  > label {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
@@ -39,4 +37,4 @@ export const SelectContainer = styled.div`
       font-size: 1.4rem;
     }
   }
-`
+`;

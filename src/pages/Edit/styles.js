@@ -4,36 +4,43 @@ export const Container = styled.div`
   height: 100vh;
 
   display: grid;
-  grid-template-rows: 10.5rem auto 7.7rem;
+  grid-template-rows: 11.4rem auto 7.7rem;
   grid-template-areas: 
     'header'
-    'main'
+    'content'
     'footer';
 
-  a {
-  display: flex;
-  color: ${({ theme }) => theme.COLORS.LIGHT_300};
-  width: fit-content;
+    main {
+    > a {
+      display: flex;
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
+      width: fit-content;
+    
+      font-family: inherit;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 140%;
+      margin-top: 4rem;
+      > svg {
+        font-size: 3.2rem;
+        }
 
-  font-family: inherit;
-  font-size: 2.4rem;
-  font-weight: 700;
-  line-height: 140%;
-  margin-top: 4rem;
-  svg {
-    font-size: 3.2rem;
+      @media (max-width: 1024px) { 
+      font-weight: 500;
+      }
+    }
+
+      > h1 {
+      font-family: inherit;
+      font-size: 3.2rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 140%;
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
+      margin: 2.4rem 0 3.2rem;
     }
   }
 
-  h1 {
-  font-family: inherit;
-  font-size: 3.2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%;
-  color: ${({ theme }) => theme.COLORS.LIGHT_300};
-  margin: 2.4rem 0 3.2rem;
-}
 `
 
 export const Form = styled.form`

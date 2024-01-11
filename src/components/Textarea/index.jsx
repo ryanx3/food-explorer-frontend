@@ -1,12 +1,10 @@
-import { Container, InputContainer } from './styles'
+import { Container, TextareaContainer } from './styles'
 
 export function Textarea({ value, title, ...rest }) {
   return (
     <Container {...rest}>
       {title && <p>{title}</p>}
-
-      <InputContainer {...rest}/>
-
+      <TextareaContainer {...rest}/>
     </Container>
   )
 }

@@ -1,16 +1,20 @@
+import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 import { PiCaretLeft } from "react-icons/pi";
 
+//Components
+import * as Layout from "../../components/Layouts";
+import * as Tag from '../../components/Tag'
+import { SideMenu } from '../../components/SideMenu'
+import { Section } from '../../components/Section'
+import { Counter } from '../../components/Counter'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
-import { Section } from '../../components/Section'
-import * as Tag  from '../../components/Tag'
 import { Button } from '../../components/Button'
-import { Main } from '../../components/Main'
-import { Counter } from '../../components/Counter'
 
 import sweet from '../../assets/sweet.png';
-
-import { Container, Dish } from './styles'
 
 const data =
 {
@@ -21,24 +25,48 @@ const data =
   price: '24,90'
 }
 
+import { Container, Content, Details, CounterSection } from './styles'
 
-export function DishDetails({ isAdmin = false} ) {
+export function DishDetails({ isAdmin = false }) {
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  
+  const navigate = useNavigate()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  function handleBack() {
+    navigate(-1)
+  }
+
+  useEffect(() => {
+    if (!isMobile && isMenuOpen === true) {
+      setIsMenuOpen(false);
+    }
+  }, [isMobile]);
+
   return (
     <Container>
-      <Header />
+      <SideMenu
+        isMenuOpen={isMenuOpen}
+        isMenuClose={() => setIsMenuOpen(false)}
+      />
 
-      <Main>
+      <Header
+        onOpenMenu={() => setIsMenuOpen(true)}
+      />
 
-          <a href="#"><PiCaretLeft size={32} /> voltar</a>
-          
-          <Dish>
-            <Section>
+      <main>
+        <Layout.Page>
+
+          <a onClick={handleBack}><PiCaretLeft size={32} />
+            voltar
+          </a>
+
+          <Content>
             <img src={data.image} alt={`Imagem do prato ${data.name}`} />
-            </Section>
 
-            <div className="details-of-dish">
+            <Details>
 
-              <Section className='description-of-dish'>
+              <Section>
                 <h1>{data.name}</h1>
                 <p>{data.description}</p>
               </Section>
@@ -52,18 +80,19 @@ export function DishDetails({ isAdmin = false} ) {
                 <Tag.Default title={data.tags} />
               </Section>
 
-              <Section className="counter-section"> 
-                { isAdmin ? "" : <Counter/>}
-                <Button title={ 
+
+              <CounterSection>
+                {isAdmin ? "" : <Counter />}
+                <Button title={
                   isAdmin ?
-                  `Editar prato` : `incluir - R$ ${data.price}`
-                  }/>
-              </Section>
-            </div>
-          </Dish>
+                    `Editar prato` : `incluir - R$ ${data.price}`
+                } />
+              </CounterSection>
+            </Details>
 
-      </Main>
-
+          </Content>
+        </Layout.Page>
+      </main>
       <Footer />
     </Container>
   );

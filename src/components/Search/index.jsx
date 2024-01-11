@@ -1,13 +1,15 @@
+//SVG
 import { PiMagnifyingGlassLight } from "react-icons/pi";
 
+//Components
 import * as Input from "../Input";
 
 import { Container } from './styles'
 
-export function Search({ ...rest}) {
+export function Search({icon, ...rest}) {
   return(
     <Container {...rest}>
-      <Input.Root 
+      <Input.Default 
       icon={PiMagnifyingGlassLight}
       placeholder='Busque por pratos ou ingredientes'
       />

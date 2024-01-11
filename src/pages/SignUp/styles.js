@@ -4,38 +4,25 @@ const commonTransition = css`
   transition: 300ms linear;
 `;
 
-export const Container = styled.div`
-  width: 100%;
+export const Container = styled.main`
+  margin: 0 auto;
+  max-width: 100vw;
   height: 100vh;
-  display: flex;
+  display: grid;
+  grid-template-columns: 50% 50%;
   align-items: center;
-  justify-content: center;
-  gap: 40.5rem;
 
-  @media (max-width: 1380px) {
-    gap: 30.5rem;
+  @media (max-width: 1024px) {
     ${commonTransition}
-  }
-
-  @media (max-width: 1280px) {
-    gap: 20.5rem;
-    ${commonTransition}
-  }
-
-  @media (max-width: 1200px) {
-    gap: 10.5rem;
-    ${commonTransition}
-  }
-
-  @media (max-width: 1120px) {
     display: flex;
+    justify-content: center;
+    gap: 7.3rem;
     flex-direction: column;
-    gap: 7.5rem;
-    ${commonTransition}
   }
 `;
 
 export const Form = styled.form`
+  justify-self: center;
   padding: 6.4rem;
   border-radius: 1.6rem;
   width: 47.6rem;
@@ -63,10 +50,10 @@ export const Form = styled.form`
   }
 
   @media (max-width: 768px) {
+    ${commonTransition}
     width: 31.6rem;
     padding: 0;
     background-color: transparent;
-    ${commonTransition}
 
     h1 {
       display: none;
@@ -84,12 +71,12 @@ export const Logo = styled.div`
   justify-self: center;
 
   svg {
-    width: 324px;
-    height: 48px;
+    width: 32.4rem;
+    height: 4.8rem;
   }
 
   @media (max-width: 368px) {
     width: 24.6rem;
     ${commonTransition}
   }
-`;
+`
