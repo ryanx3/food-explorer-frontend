@@ -1,32 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.footer` 
-  margin: 0 auto;
-  max-width: 100vw;
-  width: 100%;
-  padding: 0 10%;
-
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  
-
-
-  grid-area: footer;
+  justify-content: center;
   background: ${({ theme }) => theme.COLORS.DARK_700};
-
-  @media (max-width: 1024px) {
-      padding: 0 5%;
-    }
-
-    @media (max-width: 768px) {
-      padding: 0 2%;
-    }
-`
-
-
-export const Brand = styled.div` 
-
+  grid-area: footer;
 `
 
 export const Copyright = styled.div` 
@@ -37,13 +16,43 @@ export const Copyright = styled.div`
   font-weight: 400;
   line-height: 160%;
   white-space: none;
-
+  
   @media (max-width: 768px) {
     text-align: right;
-font-family: DM Sans;
-font-size: 12px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    font-family: DM Sans;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
+  `
+  export const Brand = styled.div` 
+    display: flex;
+  `
+
+export const Profile = styled.div` 
+  display: flex;
+  gap: .8rem;
+  
+  img {
+    width: 4.8rem;
+    height: auto;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .user {
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+    > h1 {
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+    span {
+      font-size: 1.2rem;
+      font-weight: 400;
+      cursor: pointer;
+    }
+  }
+
 `
