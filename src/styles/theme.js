@@ -18,7 +18,7 @@ export default {
       DARK_800: "#001119",
       DARK_900: "#0D161B",
       DARK_1000: "#0D1D25",
-      DARK_TAG: "#192227",
+      DARK_1100: "#192227",
     
       GRADIENTS_100: "#00111A",
       GRADIENTS_200: "#001119",
@@ -34,6 +34,6 @@ export default {
       MINT_100: "#04D361",
       CAKE_100: "#065E7C",
       CAKE_200: "#82F3FF",
-  }
+  },
 }
 
