@@ -33,12 +33,12 @@ export const Copyright = styled.div`
 export const Profile = styled.div` 
   display: flex;
   gap: .8rem;
+  cursor: pointer;
   
   img {
     width: 4.8rem;
     height: auto;
     border-radius: 999px;
-    cursor: pointer;
   }
 
   .user {

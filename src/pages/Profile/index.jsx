@@ -68,7 +68,7 @@ export function Profile() {
               title="Nova senha"
               placeholder="No mínimo 6 caracteres" />
 
-            <Button title="Salvar alterações" />
+            <Button title="Salvar alterações" onClick={handleBack} />
 
           </Form>
         </main>

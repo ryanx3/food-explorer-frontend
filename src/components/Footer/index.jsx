@@ -32,7 +32,8 @@ export function Footer() {
             <h1>Ryan Gabriel</h1>
             <span>Editar Perfil</span>
           </div>
-        </Profile>}
+        </Profile>
+        }
 
          {isMobile && 
          <Brand>
