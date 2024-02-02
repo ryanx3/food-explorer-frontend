@@ -1,11 +1,20 @@
 import { createGlobalStyle } from "styled-components";
-
 export default createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
+
+  .Toastify__toast {
+  font-size: 16px; 
+  } 
+
+  .Toastify__progress-bar {
+  background-color: #00ff00;
+}
+
+
 
   :root {
     font-size: 62.5%;
@@ -24,6 +33,7 @@ export default createGlobalStyle`
 
   body {
     font-family: 'Poppins', sans-serif;
+    text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased;
     background-color: ${({ theme }) => theme.COLORS.DARK_500};
     overflow-x: hidden;
