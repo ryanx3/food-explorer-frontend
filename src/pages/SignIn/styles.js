@@ -49,7 +49,7 @@ export const Form = styled.form`
     text-decoration: none;
   }
 
-  @media (max-width: 7668px) {
+  @media (max-width: 768px) {
     ${commonTransition}
     width: 31.6rem;
     padding: 0;
@@ -60,7 +60,7 @@ export const Form = styled.form`
     }
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 368px) {
     width: 24.6rem;
     ${commonTransition}
   }
@@ -75,7 +75,8 @@ export const Logo = styled.div`
     height: 4.8rem;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 368px) {
     width: 24.6rem;
     ${commonTransition}
-  }`
+  }
+`
