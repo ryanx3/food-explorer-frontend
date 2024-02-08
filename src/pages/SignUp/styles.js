@@ -33,6 +33,13 @@ export const Form = styled.form`
   gap: 3.2rem;
   background-color: ${({ theme }) => theme.COLORS.DARK_800};
 
+  > span {
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+    font-size: 1.2rem;
+    align-self: start;
+    margin: -20px 0 0;
+  }
+
   > h1 {
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     font-size: 3.2rem;

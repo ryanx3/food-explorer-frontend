@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-
 //SVG
+import { useAuth } from "../../hooks/Auth";
+
 import { 
   PiSignOut, 
   PiMagnifyingGlassLight,
@@ -25,11 +26,16 @@ export function Header({ isAdmin = true, onOpenMenu, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 })
   const navigate = useNavigate()
 
+  const { signOut } = useAuth()
+
   function handleOpenDetails() {
     isAdmin ? navigate("/new") : navigate("")
   }
-  function handleLogout() {
-    navigate("/")
+  function handeSignOut() {
+    const userConfirm = confirm("Deseja realmente encerrar a sessão?")
+    if(userConfirm){
+      signOut()
+    }
   }
 
   const LogoDesktop = !isAdmin ? <Brand /> : <BrandAdmin />
@@ -62,7 +68,7 @@ export function Header({ isAdmin = true, onOpenMenu, ...rest }) {
 
         {isMobile ?
           (isAdmin ? <div /> : <PiReceipt />) :
-          <PiSignOut onClick={handleLogout} />}
+          <PiSignOut onClick={handeSignOut} />}
       </Layout.Header>
     </Container>
   )

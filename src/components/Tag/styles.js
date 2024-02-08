@@ -21,7 +21,7 @@ export const TagDefault = styled.div`
   }
 `;
 
-export const TagDelete = styled.div`
+export const TagRemover = styled.div`
   display: flex;
   align-items: center;
 
@@ -56,7 +56,7 @@ export const TagDelete = styled.div`
   }
 `;
 
-export const TagNew = styled.div`
+export const TagCreator = styled.div`
   display: flex;
   align-items: center;
   height: 3.2rem;

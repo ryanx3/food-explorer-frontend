@@ -1,13 +1,13 @@
-import { Container, SelectContainer } from './styles'
+import React, { forwardRef } from "react";
+import { Container, SelectContainer } from './styles';
 
-export function Select({ value, title, ...rest }) {
+export const Select = forwardRef(({ value, title, ...rest }, ref) => {
   return (
     <Container {...rest}>
       {title && <p>{title}</p>}
-
       <SelectContainer {...rest}>
         <label htmlFor="category">
-          <select name="" id="">
+          <select ref={ref} {...rest}>
             <option value="">Selecionar</option>
             <option value="meal">Refeição</option>
             <option value="dessert">Sobremesa</option>
@@ -15,7 +15,7 @@ export function Select({ value, title, ...rest }) {
           </select>
         </label>
       </SelectContainer>
-
     </Container>
-  )
-}
+  );
+});
+

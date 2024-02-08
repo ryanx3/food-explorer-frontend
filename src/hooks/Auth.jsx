@@ -1,4 +1,4 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
 
@@ -13,6 +13,9 @@ function AuthProvider({ children }) {
 
       const { user, token } = response.data;
 
+      localStorage.setItem("foodexplorer:user", JSON.stringify(user));
+      localStorage.setItem("foodexplorer:token", token);
+
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       setData({ user, token });
@@ -25,9 +28,51 @@ function AuthProvider({ children }) {
     }
   }
 
+  async function signOut() {
+    localStorage.removeItem("foodexplorer:user");
+    localStorage.removeItem("foodexplorer:token");
+
+    setData({});
+  }
+
+  async function updateProfile({ user, avatarFile }) {
+    try {
+      if (avatarFile) {
+        const fileUploadForm = new FormData();
+        fileUploadForm.append("avatar", avatarFile);
+        const response = await api.patch("/users/avatar", fileUploadForm);
+
+        user.avatar = response.data.avatar;
+      }
+      await api.put("/users", user);
+      localStorage.setItem("foodexplorer:user", JSON.stringify(user));
+
+      setData({ user, token: data.token });
+      toast.success("Perfil atualizado!");
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Erro ao atualizar o perfil.");
+      }
+    }
+  }
+
+  useEffect(() => {
+    const user = localStorage.getItem("foodexplorer:user");
+    const token = localStorage.getItem("foodexplorer:token");
+
+    if (token && user) {
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      setData({ token, user: JSON.parse(user) });
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider 
-    value={{ signIn, user: data.user }}>
+    <AuthContext.Provider
+      value={{ signIn, signOut, user: data.user, updateProfile }}
+    >
       {children}
     </AuthContext.Provider>
   );

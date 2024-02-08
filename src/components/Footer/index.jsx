@@ -7,12 +7,22 @@ import { BrandMobileFooter } from '../../assets/brand-mobile-footer'
 
 //Components
 import * as Layout from "../Layouts";
+import { api } from "../../services/api";
 
 import { Container, Brand, Copyright, Profile } from './styles'
+import { useState } from 'react';
+import { useAuth } from '../../hooks/Auth';
+import AvatarPlaceholder from "../../assets/avatarPlaceholder.png"
 
 export function Footer() {
   const isMobile = useMediaQuery({ maxWidth: 768 })
   const navigate = useNavigate()
+
+  const { user } = useAuth()
+
+  const AvatarURL = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : AvatarPlaceholder
+
+  const [ avatar, setAvatar ] = useState(AvatarURL)
 
   function handleProfile() {
     navigate("/profile")
@@ -27,9 +37,9 @@ export function Footer() {
 
         {!isMobile && 
         <Profile onClick={handleProfile}>
-          <img src="https://github.com/ryanx3.png" alt="Imagem do usuário" />
+          <img src={avatar} alt={user.avatar} />
           <div className="user">
-            <h1>Ryan Gabriel</h1>
+            <h1>{user.name}</h1>
             <span>Editar Perfil</span>
           </div>
         </Profile>

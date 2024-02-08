@@ -1,26 +1,41 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../../hooks/Auth";
+import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
+import { api } from "../../services/api";
 
 //SVG
-import { PiXBold, PiSignOut } from 'react-icons/pi';
-
-import { BrandMobileAdmin } from '../../assets/brand-mobile-admin'
+import { PiXBold, PiSignOut } from "react-icons/pi";
 
 //Components
 import { Search } from "../Search";
 
 import { Container, Main, Header, Footer } from "./styles";
 
-export function SideMenu({ isMenuOpen, isMenuClose, isAdmin = false, ...rest }) {
-  const navigate = useNavigate()
+export function SideMenu({
+  isMenuOpen,
+  isMenuClose,
+  isAdmin = false,
+  ...rest
+}) {
+  const navigate = useNavigate();
+
+  const { user } = useAuth();
+
+  const AvatarURL = user.avatar
+    ? `${api.defaults.baseURL}/files/${user.avatar}`
+    : AvatarPlaceholder;
+
+  const [avatar, setAvatar] = useState(AvatarURL);
 
   function handleLogout() {
-    isMenuClose()
-    navigate("/") //Aqui é pra ir pra logout
+    isMenuClose();
+    navigate("/");
   }
 
   function handleProfile() {
-    isMenuClose()
-    navigate("/profile")
+    isMenuClose();
+    navigate("/profile");
   }
 
   return (
@@ -36,25 +51,25 @@ export function SideMenu({ isMenuOpen, isMenuClose, isAdmin = false, ...rest }) 
         <nav>
           <Search />
 
-          {isAdmin ?
+          {isAdmin ? (
             <a href="/new">Adicionar novo prato</a>
-            : <a href="">Meus Favoritos</a>
-          }
+          ) : (
+            <a href="">Meus Favoritos</a>
+          )}
         </nav>
       </Main>
 
       <Footer>
-
-       
-          {!isAdmin && 
+        {!isAdmin && (
           <div className="user" onClick={handleProfile}>
-            <img src="https://github.com/ryanx3.png" alt="Imagem do usuário" />
+            <img src={avatar} alt={`Imagem de ${user.name}`} />
 
             <div className="name-user">
-              <h1>Ryan Gabriel</h1>
+              <h1>{user.name}</h1>
               <span>Editar Perfil</span>
             </div>
-          </div>}
+          </div>
+        )}
 
         <PiSignOut onClick={handleLogout} />
       </Footer>

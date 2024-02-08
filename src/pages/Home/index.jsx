@@ -17,7 +17,7 @@ import sweet from '../../assets/sweet.png';
 
 import { Container, Content, TopBox } from './styles';
 
-export function Home({isAdmin = false}) {
+export function Home({ isAdmin = false }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const Banner = isMobile ? bannerMobile : bannerDesktop;
 
@@ -201,9 +201,9 @@ export function Home({isAdmin = false}) {
               >
                 {Foods.map((data) => (
                   <swiper-slide key={data.id}>
-                    <Card 
-                    isAdmin={isAdmin}
-                    data={data} />
+                    <Card
+                      isAdmin={isAdmin}
+                      data={data} />
                   </swiper-slide>
                 ))}
               </swiper-container>
@@ -217,9 +217,9 @@ export function Home({isAdmin = false}) {
               >
                 {Desserts.map((data) => (
                   <swiper-slide key={data.id}>
-                    <Card 
-                    isAdmin={isAdmin}
-                    data={data} />
+                    <Card
+                      isAdmin={isAdmin}
+                      data={data} />
                   </swiper-slide>
                 ))}
               </swiper-container>
@@ -231,9 +231,9 @@ export function Home({isAdmin = false}) {
                 ref={swiperRef3}>
                 {Beverages.map((data) => (
                   <swiper-slide key={data.id}>
-                    <Card 
-                    isAdmin={isAdmin}
-                    data={data} />
+                    <Card
+                      isAdmin={isAdmin}
+                      data={data} />
                   </swiper-slide>
                 ))}
               </swiper-container>

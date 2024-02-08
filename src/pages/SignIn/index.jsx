@@ -7,14 +7,16 @@ import { Brand } from "../../assets/brand";
 import { useAuth } from "../../hooks/Auth";
 
 import { Container, Form, Logo } from "./styles";
-import { useState } from "react";
-import { api } from "../../services/api";
+import { useForm } from "react-hook-form";
 
 export function SignIn() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const { signIn } = useAuth();
 
@@ -22,9 +24,9 @@ export function SignIn() {
     navigate("/register");
   }
 
-  async function handleLogin() {
-    signIn({ email, password });
-  }
+  const handleLogin = (data) => {
+    signIn(data);
+  };
 
   return (
     <Container>
@@ -32,7 +34,7 @@ export function SignIn() {
         <Brand />
       </Logo>
 
-      <Form>
+      <Form onSubmit={handleSubmit(handleLogin)}>
         <h1>Faça login</h1>
 
         <Input.Default
@@ -40,15 +42,19 @@ export function SignIn() {
           type="email"
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Exemplo: exemplo@exemplo.com.br"
+          {...register("email", { required: "Por favor, insira seu nome." })}
         />
         <Input.Default
           type="password"
           title="Senha"
           onChange={(e) => setPassword(e.target.value)}
           placeholder="No mínimo 6 caracteres"
+          {...register("password", {
+            required: "Por favor, insira a sua senha.",
+          })}
         />
 
-        <Button title="Entrar" onClick={handleLogin} />
+        <Button type="submit" title="Entrar"/>
 
         <a onClick={handleRegister}>Criar uma conta</a>
       </Form>

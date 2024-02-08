@@ -39,7 +39,7 @@ export const Header = styled.header`
     font-weight: 400;
     line-height: normal;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
-
+    
     > svg {
       font-size: 1.8rem;
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
@@ -108,6 +108,7 @@ export const Footer = styled.footer`
     align-items: center;
     gap: 1.6rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
+    cursor: pointer;
     
     .name-user {
       > h1 {
@@ -117,7 +118,6 @@ export const Footer = styled.footer`
       span {
         font-size: 1.2rem;
         font-weight: 400;
-        cursor: pointer;
       }
     }
 

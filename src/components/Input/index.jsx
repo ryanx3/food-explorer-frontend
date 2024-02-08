@@ -1,47 +1,55 @@
+import React, { forwardRef } from "react";
 import { PiUploadSimpleBold } from "react-icons/pi";
 
-import { Container, InputDefault, InputBackground, InputFile } from './styles'
+import { Container, InputDefault, InputBackground, InputFile } from "./styles";
 
-export function Default({ icon: Icon, title, ...rest }) {
+export const Default = forwardRef(
+  ({ icon: Icon, title, className, ...rest }, ref) => {
+    return (
+      <Container>
+        {title && <p>{title}</p>}
+        <InputDefault className={className} {...rest} ref={ref}>
+          {Icon && <Icon size={24} />}
+          <input {...rest} />
+        </InputDefault>
+      </Container>
+    );
+  }
+);
+
+export const Background = forwardRef(
+  ({ children, title, ...rest }, ref) => {
+    return (
+      <Container>
+        {title && <p>{title}</p>}
+        <InputBackground {...rest} ref={ref}>
+          {children}
+        </InputBackground>
+      </Container>
+    );
+  }
+);
+
+export function File({ title, value, onChange, ...rest }) {
   return (
     <Container>
       {title && <p>{title}</p>}
 
-      <InputDefault {...rest}>
-        {Icon && <Icon size={24} />}
-        <input {...rest} />
-      </InputDefault>
+      <InputFile className="image" >
 
-    </Container>
-  )
-}
-
-export function Background({ children, title, ...rest }) {
-  return (
-    <Container>
-      {title && <p>{title}</p>}
-      
-      <InputBackground>
-        {children}
-      </InputBackground>
-
-    </Container>
-  )
-}
-
-export function File({ children, title, ...rest }) {
-  return (
-    <Container>
-      {title && <p>{title}</p>}
-
-      <InputFile>
         <label htmlFor="image">
-          <input id="image" type="file" />
-          <PiUploadSimpleBold />
-          <span> Selecionar imagem</span>
-        </label>
-      </InputFile>
 
+          <PiUploadSimpleBold />
+          <span> {value || "Selecionar imagem"}</span>
+          <input
+            id="image"
+            type="file"
+            onChange={onChange}
+            {...rest}
+          />
+        </label>
+
+      </InputFile>
     </Container>
-  )
-}
+  );
+}; 

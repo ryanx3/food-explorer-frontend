@@ -1,36 +1,32 @@
 //SVG
-import { PiPlusBold, PiXBold } from 'react-icons/pi'
+import { PiPlusBold, PiXBold } from "react-icons/pi";
 
-import { TagDefault, TagDelete, TagNew } from "./styles";
+import { TagDefault, TagRemover, TagCreator } from "./styles";
 
 export function Default({ title, ...rest }) {
-  return (
-    <TagDefault {...rest}>
-      {title}
-    </TagDefault>
-  )
+  return <TagDefault {...rest}>{title}</TagDefault>;
 }
 
-export function New({ title, icon: Icon, value, ...rest }) {
+export function Creator({ title, icon: Icon, onClick, ...rest }) {
   return (
-    <TagNew {...rest}>
-      <input type="text" placeholder="Adicionar" />
+    <TagCreator {...rest}>
+      <input type="text" placeholder="Adicionar" {...rest}/>
 
-      <button>
+      <button type="button" onClick={onClick}>
         <PiPlusBold />
       </button>
-
-    </TagNew>
-  )
+    </TagCreator>
+  );
 }
 
-export function Delete({ title, ...rest }) {
+export function Remover({ title, onClick, readOnly = true, ...rest }) {
   return (
-    <TagDelete {...rest}>
+    <TagRemover readOnly {...rest}>
       {title}
-      <button>
+
+      <button type="button" onClick={onClick}>
         <PiXBold />
       </button>
-    </TagDelete>
-  )
+    </TagRemover>
+  );
 }
