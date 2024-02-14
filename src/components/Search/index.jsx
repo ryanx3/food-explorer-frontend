@@ -1,18 +1,27 @@
-//SVG
 import { PiMagnifyingGlassLight } from "react-icons/pi";
-
-//Components
+import { Container } from './styles'
+import { useState } from "react";
 import * as Input from "../Input";
 
-import { Container } from './styles'
+export function Search({ onChange, icon, ...rest }) {
+  const [searchTerm, setSearchTerm] = useState("");
 
-export function Search({icon, ...rest}) {
-  return(
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    if (onChange) {
+      onChange(value);
+    }
+  };
+
+  return (
     <Container {...rest}>
       <Input.Default 
-      icon={PiMagnifyingGlassLight}
-      placeholder='Busque por pratos ou ingredientes'
+        icon={PiMagnifyingGlassLight}
+        placeholder='Busque por pratos ou ingredientes'
+        value={searchTerm}
+        onChange={handleChange}
       />
     </Container>
-  )
+  );
 }

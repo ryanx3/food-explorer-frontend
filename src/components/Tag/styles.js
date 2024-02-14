@@ -70,6 +70,7 @@ export const TagCreator = styled.div`
 
   input {
     width: 6.8rem;
+   
     max-height: 1.6rem;
     background: none;
     border: none;

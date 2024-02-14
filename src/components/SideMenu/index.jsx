@@ -20,7 +20,7 @@ export function SideMenu({
 }) {
   const navigate = useNavigate();
 
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   const AvatarURL = user.avatar
     ? `${api.defaults.baseURL}/files/${user.avatar}`
@@ -29,9 +29,14 @@ export function SideMenu({
   const [avatar, setAvatar] = useState(AvatarURL);
 
   function handleLogout() {
+    const userConfirm = confirm("Deseja realmente encerrar a sessão?")
+    if(userConfirm){
+      signOut()
+    }
     isMenuClose();
-    navigate("/");
   }
+
+  
 
   function handleProfile() {
     isMenuClose();

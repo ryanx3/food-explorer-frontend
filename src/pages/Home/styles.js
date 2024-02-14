@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   height: 100vh;
@@ -122,34 +122,36 @@ export const TopBox = styled.section`
 export const Content = styled.div`
   margin-bottom: 4.5rem;
 
-  swiper-container::before,
-  swiper-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: 2;
-    pointer-events: none;
-    flex-shrink: 0;
-  }
+  ${({ isEmpty }) => !isEmpty && css`
+    swiper-container::before,
+    swiper-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      pointer-events: none;
+      flex-shrink: 0;
+    }
 
-  swiper-container::before {
-    left: 0px;
-    width: 27.7rem;
-    background: linear-gradient(
-      90deg, 
-      #000A0F 0%, rgba(0, 10, 15, 0.27) 95%, transparent 100%
-    );
-  }
+    swiper-container::before {
+      left: 0px;
+      width: 27.7rem;
+      background: linear-gradient(
+        90deg, 
+        #000A0F 0%, rgba(0, 10, 15, 0.27) 95%, transparent 100%
+      );
+    }
 
-  swiper-container::after {
-    right: 0px;
-    width: 22.4rem;
-    background: linear-gradient(
-      90deg, 
-      transparent 0%, rgba(0, 10, 15, 0.27) 10%, #000A0F 100%
-    );
-  } 
+    swiper-container::after {
+      right: 0px;
+      width: 22.4rem;
+      background: linear-gradient(
+        90deg, 
+        transparent 0%, rgba(0, 10, 15, 0.27) 10%, #000A0F 100%
+      );
+    } 
+  `}
 
   swiper-slide  {
     width: fit-content !important;
@@ -164,14 +166,14 @@ export const Content = styled.div`
     }
 
     swiper-container {
-    margin-right: -24px;
-  }
+      margin-right: -24px;
+    }
 
     margin-bottom: 2.5rem;
     padding-right: 0rem !important;
 
     section > div:nth-child(3) {
-    margin-right: -28px;
-  }
+      margin-right: -28px;
+    }
   }
 `;

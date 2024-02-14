@@ -14,7 +14,6 @@ import { api } from "../../services/api";
 import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
 
 import { Container, Header, Avatar, Form } from "./styles";
-import { object } from "yup";
 
 export function Profile() {
   const isMobile = useMediaQuery({ maxWidth: 768 });

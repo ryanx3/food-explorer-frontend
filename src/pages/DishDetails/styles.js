@@ -6,32 +6,31 @@ export const Container = styled.div`
 
   display: grid;
   grid-template-rows: 11.4rem auto 7.7rem;
-  grid-template-areas: 
-    'header'
-    'content'
-    'footer';
+  grid-template-areas:
+    "header"
+    "content"
+    "footer";
 
   main {
+    > a {
+      display: flex;
+      align-items: center;
+      align-self: flex-start;
 
-   > a {
-    display: flex;
-    align-items: center;
-    align-self: flex-start;
-    
-    color: ${({ theme }) => theme.COLORS.LIGHT_300};
-    font-family: inherit;
-    font-size: 2.4rem;
-    font-weight: 700;
-    line-height: 140%;
-    
-    margin: 2.4rem 0 4.2rem;
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
+      font-family: inherit;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 140%;
 
-    @media (max-width: 1024px) { 
-      margin: 1.6rem 0 3.6rem;
-      font-weight: 500;
+      margin: 2.4rem 0 4.2rem;
+
+      @media (max-width: 1024px) {
+        margin: 1.6rem 0 3.6rem;
+        font-weight: 500;
+      }
     }
   }
-}
 `;
 
 export const Content = styled.div`
@@ -41,8 +40,10 @@ export const Content = styled.div`
   gap: 5rem;
 
   > img {
-    min-width: 39rem;
-    height: auto;
+    width: 39rem;
+    height: 39rem;
+    border-radius: 999px;
+    object-fit: cover;
   }
 
   @media (max-width: 1024px) {
@@ -52,7 +53,8 @@ export const Content = styled.div`
     gap: 1.6rem;
 
     img {
-      min-width: 26.4rem;
+      width: 26.4rem;
+      height: 26.4rem;
     }
   }
 `;
@@ -78,38 +80,37 @@ export const Details = styled.div`
     font-size: 2.4rem;
     font-weight: 400;
     line-height: 140%;
-  } 
+  }
 
   .tags-section {
     display: flex;
     flex-wrap: wrap;
     gap: 2.4rem;
-
-  } 
+  }
 
   @media (max-width: 1024px) {
-  .tags-section {
-    justify-content: center;
-    gap: 1.6rem;
-  }
-  
+    .tags-section {
+      justify-content: center;
+      gap: 1.6rem;
+    }
 
-  h1 {
-    font-size: 2.7rem;
+    h1 {
+      font-size: 2.7rem;
+    }
+    p {
+      font-size: 1.6rem;
+    }
   }
-  p {
-    font-size: 1.6rem;
-  }
-}`
+`;
 
 export const CounterSection = styled.section`
   display: flex;
   gap: 3.3rem;
-  
+
   button {
     width: fit-content;
   }
-  
+
   @media (max-width: 1024px) {
     justify-content: center;
     text-align: center;

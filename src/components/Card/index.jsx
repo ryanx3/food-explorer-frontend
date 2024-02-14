@@ -10,31 +10,31 @@ import {
 //Components
 import { Counter } from '../Counter';
 import { Button } from "../Button";
+import { api } from "../../services/api";
 
 import { Container, Picture, Title, Description, Order } from "./styles";
 
-export function Card({ data, isAdmin = false, ...rest }) {
+export function Card({ data, onClick, isAdmin = false, ...rest }) {
   const navigate = useNavigate();
   const [favorite, setFavorites] = useState(false);
+
 
   function handleIsFavorite() {
     setFavorites(true);
   }
 
-  function handleOpenDetails() {
-    navigate("/details");
-  }
-
   function handleAdminEdit() {
-      navigate("/edit");
+    navigate("/edit");
   }
 
   function handleRemoveFavorite() {
     setFavorites(false);
   }
 
+  const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
+
   return (
-    <Container isAdmin={isAdmin} {...rest}>
+    <Container isAdmin={isAdmin} data={data} {...rest}>
       {!isAdmin ? (
         favorite ? (
           <PiHeartStraightFill onClick={handleRemoveFavorite} />
@@ -42,17 +42,17 @@ export function Card({ data, isAdmin = false, ...rest }) {
           <PiHeartStraightBold onClick={handleIsFavorite} />
         )
       ) : (
-        <PiPencilSimple onClick={handleAdminEdit}/>
+        <PiPencilSimple onClick={handleAdminEdit} />
       )}
 
-      <Picture onClick={handleOpenDetails}>
+      <Picture onClick={onClick}>
         <img
-          src={data.image}
+          src={imageURL}
           alt={`Image of dish ${data.name}`}
         />
       </Picture>
 
-      <Title onClick={handleOpenDetails}>
+      <Title onClick={onClick}>
         <h2>{data.name}</h2>
         <PiCaretRightBold />
       </Title>
@@ -62,7 +62,7 @@ export function Card({ data, isAdmin = false, ...rest }) {
         <h3>R$ {data.price}</h3>
       </Description>
 
-      {!isAdmin && 
+      {!isAdmin &&
         <Order>
           <Counter />
           <Button title="incluir" />

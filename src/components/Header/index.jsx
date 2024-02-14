@@ -3,11 +3,12 @@ import { useMediaQuery } from "react-responsive";
 //SVG
 import { useAuth } from "../../hooks/Auth";
 
-import { 
-  PiSignOut, 
+import {
+  PiSignOut,
   PiMagnifyingGlassLight,
-  PiReceipt, 
-  PiList } from "react-icons/pi";
+  PiReceipt,
+  PiList
+} from "react-icons/pi";
 
 //Components
 import { Search } from "../Search";
@@ -22,7 +23,7 @@ import { BrandMobileAdmin } from '../../assets/brand-mobile-admin'
 
 import { Container, Menu, Logo } from './styles'
 
-export function Header({ isAdmin = true, onOpenMenu, ...rest }) {
+export function Header({ isAdmin = true, onOpenMenu, onChangeSearch, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 })
   const navigate = useNavigate()
 
@@ -33,7 +34,7 @@ export function Header({ isAdmin = true, onOpenMenu, ...rest }) {
   }
   function handeSignOut() {
     const userConfirm = confirm("Deseja realmente encerrar a sessão?")
-    if(userConfirm){
+    if (userConfirm) {
       signOut()
     }
   }
@@ -50,15 +51,17 @@ export function Header({ isAdmin = true, onOpenMenu, ...rest }) {
             <PiList />
           </Menu>
         }
-        
+
         <Logo>
           {isMobile ? LogoMobile : LogoDesktop}
         </Logo>
 
-        {!isMobile && <Search
-          placeholder="Busque por pratos ou ingredientes"
-          icon={PiMagnifyingGlassLight}
-        />}
+        {!isMobile &&
+          <Search
+            onChange={onChangeSearch}
+            placeholder="Busque por pratos ou ingredientes"
+            icon={PiMagnifyingGlassLight}
+          />}
 
         {!isMobile && <Button
           onClick={handleOpenDetails}

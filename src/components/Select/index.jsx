@@ -9,9 +9,9 @@ export const Select = forwardRef(({ value, title, ...rest }, ref) => {
         <label htmlFor="category">
           <select ref={ref} {...rest}>
             <option value="">Selecionar</option>
-            <option value="meal">Refeição</option>
-            <option value="dessert">Sobremesa</option>
-            <option value="beverage">Bebida</option>
+            <option value="meals">Refeição</option>
+            <option value="desserts">Sobremesa</option>
+            <option value="beverages">Bebida</option>
           </select>
         </label>
       </SelectContainer>

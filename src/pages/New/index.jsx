@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { PiCaretLeft } from "react-icons/pi";
+import { toast } from "react-toastify";
 
 import * as Tag from "../../components/Tag";
 import * as Input from "../../components/Input";
 import * as Layout from "../../components/Layouts";
-
 import { SideMenu } from "../../components/SideMenu";
 import { Select } from "../../components/Select";
 import { Header } from "../../components/Header";
@@ -17,39 +17,34 @@ import { Textarea } from "../../components/Textarea";
 import { NumericFormatInput } from "../../components/NumericFormat";
 
 import { Container, Form, Buttons } from "./styles";
-import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
-import { toast } from "react-toastify";
 
 export function New({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
 
-  const [image, setImage] = useState(null)
-  const [filename, setFilename] = useState("")
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm();
+  const [image, setImage] = useState(null);
+  const [filename, setFilename] = useState("");
 
   function handleImage(e) {
-    const file = e.target.files[0]
-    setImage(file)
-    setFilename(file.name)
+    const file = e.target.files[0];
+    setImage(file);
+    setFilename(file.name);
   }
 
   function handleAddIngredients() {
-    if (newIngredient.trim() !== "") {
-      setIngredients((prevState) => [...prevState, newIngredient.trim()]);
-      setNewIngredient("");
-    }
+    setIngredients((prevState) => [...prevState, newIngredient.trim()]);
+    setNewIngredient("");
   }
 
   function handleRemoveIngredients(deleted) {
@@ -62,42 +57,39 @@ export function New({ isAdmin = true }) {
     navigate(-1);
   }
 
+  async function handleCreateDish() {
+    const priceValue = parseFloat(price.replace(/[^\d.,]/g, "").replace(",", "."));
 
-  const onSubmitDish = async (data) => {
+    if (!image) {
+      return toast.error("Por favor, selecione uma imagem para o seu prato.");
+    }
 
-    const priceValue = data.price ? parseFloat(data.price.replace(/\D/g, '').replace(',', '.')) : null;
-
-    if (priceValue === null || isNaN(priceValue) || priceValue <= 0) {
+    if (isNaN(priceValue) || priceValue <= 0) {
       return toast.error("Por favor, insira um preço válido.");
     }
-    console.log(priceValue)
+    if (ingredients.length === 0) {
+      return toast.error("Digite ao menos um ingrediente do seu prato.");
+    }
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("name", name);
+    formData.append("category", category);
+    formData.append("price", priceValue);
+    formData.append("description", description);
+    formData.append("ingredients", JSON.stringify(ingredients));
 
     try {
-      if (ingredients.length === 0) {
-        return toast.error("Digite ao menos um ingrediente do seu prato.")
-      }
-
-      const formData = new FormData();
-      formData.append("image", image); // Adicione a imagem ao formulário
-      formData.append("name", data.name);
-      formData.append("category", data.category);
-      formData.append("price", priceValue);
-      formData.append("description", data.description);
-      formData.append("ingredients", JSON.stringify(ingredients));
-
-      await api.post("/dishes", formData); // Envie o formulário com a imagem
-
+      await api.post("/dishes", formData);
       toast.success("Prato criado com sucesso!");
-      reset();
+      handleBack()
     } catch (error) {
       if (error.response) {
-        return toast.error(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        return toast.error("Erro ao criar prato!");
+        toast.error("Erro ao criar prato!");
       }
     }
-  };
-
+  }
 
   useEffect(() => {
     if (!isMobile && isMenuOpen === true) {
@@ -121,7 +113,7 @@ export function New({ isAdmin = true }) {
           </a>
           <h1>Adicionar prato</h1>
 
-          <Form onSubmit={handleSubmit(onSubmitDish)}>
+          <Form>
             <Section className="first-section">
               <Input.File
                 title="Imagem do prato"
@@ -132,10 +124,15 @@ export function New({ isAdmin = true }) {
               <Input.Default
                 title="Nome"
                 placeholder="Exemplo: Salada Caesar"
-                {...register("name", { required: true })}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
 
-              <Select title="Categorias" {...register("category")} />
+              <Select
+                title="Categorias"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
             </Section>
 
             <Section className="second-section">
@@ -150,7 +147,7 @@ export function New({ isAdmin = true }) {
 
                 <Tag.Creator
                   value={newIngredient}
-                  onChange={e => setNewIngredient(e.target.value)}
+                  onChange={(e) => setNewIngredient(e.target.value)}
                   onClick={handleAddIngredients}
                 />
               </Input.Background>
@@ -161,8 +158,8 @@ export function New({ isAdmin = true }) {
                 placeholder="R$ 00,00"
                 prefix={"R$"}
                 thousandSeparator=","
-                decimalScale={1}
-                {...register("price", { required: true })}
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </Section>
 
@@ -170,12 +167,13 @@ export function New({ isAdmin = true }) {
               <Textarea
                 placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
                 title="Descrição"
-                {...register("description", { required: true })}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </Section>
 
             <Buttons>
-              <Button type="submit" title="Salvar alterações" />
+              <Button type="button" onClick={handleCreateDish} title="Salvar alterações" />
             </Buttons>
           </Form>
         </main>

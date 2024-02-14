@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { register } from 'swiper/element/bundle';
@@ -7,13 +8,12 @@ import { Section } from '../../components/Section';
 import { Footer } from '../../components/Footer';
 import { SideMenu } from '../../components/SideMenu';
 import { Card } from '../../components/Card';
+import { api } from '../../services/api';
 
 import * as Layout from '../../components/Layouts';
 
 import bannerDesktop from '../../assets/home-banner.png';
 import bannerMobile from '../../assets/banner-mobile.png';
-import passionFruit from '../../assets/passionFruit.png';
-import sweet from '../../assets/sweet.png';
 
 import { Container, Content, TopBox } from './styles';
 
@@ -22,6 +22,13 @@ export function Home({ isAdmin = false }) {
   const Banner = isMobile ? bannerMobile : bannerDesktop;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [search, setSearch] = useState("")
+  const [cards, setCards] = useState({ meals: [], beverages: [], desserts: [] })
+
+  const navigate = useNavigate()
+  function handleOpenDetails(dish_id) {
+    navigate(`/details/${dish_id}`)
+  }
 
   const swiperRef1 = useRef(null);
   const swiperRef2 = useRef(null);
@@ -30,7 +37,7 @@ export function Home({ isAdmin = false }) {
   useEffect(() => {
     register();
     const configs = {
-      loop: true,
+      loop: cards > 3 ? true : false,
       slidesPerView: 'auto',
       spaceBetween: isMobile ? 16 : 27,
       grabCursor: true,
@@ -43,7 +50,6 @@ export function Home({ isAdmin = false }) {
         `,
       ],
     };
-
     Object.assign(swiperRef1.current, configs);
     Object.assign(swiperRef2.current, configs);
     Object.assign(swiperRef3.current, configs);
@@ -53,116 +59,16 @@ export function Home({ isAdmin = false }) {
     swiperRef3.current.initialize();
   }, []);
 
-  const Foods = [{
-    id: '1',
-    image: sweet,
-    name: 'Spaguetti Gambe de 15',
-    description: 'Massa fresca com camarões e pesto.',
-    price: '1100,50'
-  },
-  {
-    id: '2',
-    image: passionFruit,
-    name: 'Suco de maracujá',
-    description: 'Suco de maracujá gelado, cremoso, docinho.',
-    price: '13,97'
-  },
-  {
-    id: '3',
-    image: sweet,
-    name: 'Peachy pastrie',
-    description: 'Delicioso folheado de pêssego com folhas de hortelã.',
-    price: '32,97'
-  },
-  {
-    id: '4',
-    image: sweet,
-    name: 'Peachy pastrie',
-    description: 'Delicioso folheado de pêssego com folhas de hortelã.',
-    price: '32,97'
-  },
-  {
-    id: '5',
-    image: sweet,
-    name: 'Peachy pastrie',
-    description: 'Delicioso folheado de pêssego com folhas de hortelã.',
-    price: '32,97'
-  }
-  ];
-
-  const Desserts = [{
-    id: '1',
-    image: sweet,
-    name: 'Spaguetti Gambe de 15',
-    description: 'Massa fresca com camarões e pesto.',
-    price: '1100,50'
-  },
-  {
-    id: '2',
-    image: passionFruit,
-    name: 'Suco de maracujá',
-    description: 'Suco de maracujá gelado, cremoso, docinho.',
-    price: '13,97'
-  },
-  {
-    id: '3',
-    image: sweet,
-    name: 'Peachy pastrie',
-    description: 'Delicioso folheado de pêssego com folhas de hortelã.',
-    price: '32,97'
-  },
-  {
-    id: '4',
-    image: sweet,
-    name: 'Peachy pastrie',
-    description: 'Delicioso folheado de pêssego com folhas de hortelã.',
-    price: '32,97'
-  },
-  {
-    id: '5',
-    image: sweet,
-    name: 'Peachy pastrie',
-    description: 'Delicioso folheado de pêssego com folhas de hortelã.',
-    price: '32,97'
-  }
-  ];
-
-  const Beverages = [{
-    id: '1',
-    image: sweet,
-    name: 'Spaguetti Gambe de 15',
-    description: 'Massa fresca com camarões e pesto.',
-    price: '1100,50'
-  },
-  {
-    id: '2',
-    image: passionFruit,
-    name: 'Suco de maracujá',
-    description: 'Suco de maracujá gelado, cremoso, docinho.',
-    price: '13,97'
-  },
-  {
-    id: '3',
-    image: sweet,
-    name: 'Peachy pastrie',
-    description: 'Delicioso folheado de pêssego com folhas de hortelã.',
-    price: '32,97'
-  },
-  {
-    id: '4',
-    image: sweet,
-    name: 'Peachy pastrie',
-    description: 'Delicioso folheado de pêssego com folhas de hortelã.',
-    price: '32,97'
-  },
-  {
-    id: '5',
-    image: sweet,
-    name: 'Peachy pastrie',
-    description: 'Delicioso folheado de pêssego com folhas de hortelã.',
-    price: '32,97'
-  }
-  ];
+  useEffect(() => {
+    async function FetchCards() {
+      const response = await api.get(`/dishes?name=${search}`)
+      const meals = response.data.filter(dish => dish.category === "meals")
+      const desserts = response.data.filter(dish => dish.category === "desserts")
+      const beverages = response.data.filter(dish => dish.category === "beverages")
+      setCards({ meals, beverages, desserts })
+    }
+    FetchCards()
+  }, [search])
 
   useEffect(() => {
     if (!isMobile && isMenuOpen === true) {
@@ -178,20 +84,22 @@ export function Home({ isAdmin = false }) {
       />
 
       <Header
+        onChangeSearch={(value) => setSearch(value)}
         onOpenMenu={() => setIsMenuOpen(true)}
         isAdmin={isAdmin}
       />
 
       <Layout.Page>
         <main>
-          <Content>
-            <TopBox>
-              <img src={Banner} alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas." />
-              <div>
-                <h1>Sabores inigualáveis</h1>
-                <span>Sinta o cuidado do preparo com ingredientes selecionados</span>
-              </div>
-            </TopBox>
+          <Content isEmpty={search}>
+            {!search &&
+              <TopBox>
+                <img src={Banner} alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas." />
+                <div>
+                  <h1>Sabores inigualáveis</h1>
+                  <span>Sinta o cuidado do preparo com ingredientes selecionados</span>
+                </div>
+              </TopBox>}
 
             <Section title="Refeições">
               <swiper-container
@@ -199,13 +107,17 @@ export function Home({ isAdmin = false }) {
                 navigation={isMobile ? 'false' : 'true'}
                 ref={swiperRef1}
               >
-                {Foods.map((data) => (
-                  <swiper-slide key={data.id}>
+                {cards.meals.map(card => (
+                  <swiper-slide key={String(card.id)}>
                     <Card
                       isAdmin={isAdmin}
-                      data={data} />
+                      key={String(card.id)}
+                      data={card}
+                      onClick={() => handleOpenDetails(card.id)}
+                    />
                   </swiper-slide>
-                ))}
+                ))
+                }
               </swiper-container>
             </Section>
 
@@ -215,13 +127,17 @@ export function Home({ isAdmin = false }) {
                 navigation={isMobile ? 'false' : 'true'}
                 ref={swiperRef2}
               >
-                {Desserts.map((data) => (
-                  <swiper-slide key={data.id}>
+                {cards.beverages.map(card => (
+                  <swiper-slide key={String(card.id)} >
                     <Card
                       isAdmin={isAdmin}
-                      data={data} />
+                      key={String(card.id)}
+                      onClick={() => handleOpenDetails(card.id)}
+                      data={card} />
                   </swiper-slide>
-                ))}
+                ))
+                }
+
               </swiper-container>
             </Section>
 
@@ -229,13 +145,18 @@ export function Home({ isAdmin = false }) {
               <swiper-container init="false"
                 navigation={isMobile ? 'false' : 'true'}
                 ref={swiperRef3}>
-                {Beverages.map((data) => (
-                  <swiper-slide key={data.id}>
+
+                {cards.desserts.map(card => (
+                  <swiper-slide key={String(card.id)} >
                     <Card
                       isAdmin={isAdmin}
-                      data={data} />
+                      key={String(card.id)}
+                      onClick={() => handleOpenDetails(card.id)}
+                      data={card} />
                   </swiper-slide>
-                ))}
+                ))
+                }
+
               </swiper-container>
             </Section>
           </Content>

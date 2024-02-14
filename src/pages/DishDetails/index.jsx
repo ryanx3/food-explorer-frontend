@@ -1,5 +1,5 @@
 import { useMediaQuery } from "react-responsive";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { PiCaretLeft } from "react-icons/pi";
@@ -14,24 +14,17 @@ import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { Button } from '../../components/Button'
 
-import sweet from '../../assets/sweet.png';
-
-const data =
-{
-  image: sweet,
-  name: "Salada Ravanello",
-  description: "Rabanetes, folhas verdes e molho agridoce salpicados com gergelim. O pão naan dá um toque especial.",
-  tags: 'alface',
-  price: '24,90'
-}
-
 import { Container, Content, Details, CounterSection } from './styles'
+import { api } from "../../services/api";
+import { TagDefault } from "../../components/Tag/styles";
 
 export function DishDetails({ isAdmin = false }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  
+
   const navigate = useNavigate()
+  const params = useParams()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [data, setData] = useState(null)
 
   function handleBack() {
     navigate(-1)
@@ -42,6 +35,22 @@ export function DishDetails({ isAdmin = false }) {
       setIsMenuOpen(false);
     }
   }, [isMobile]);
+
+  useEffect(() => {
+    async function fetchCardDetails() {
+      const response = await api.get(`/dishes/${params.id}`)
+      console.log(response.data)
+      setData(response.data)
+    }
+
+    fetchCardDetails()
+  }, [])
+
+  if (!data) {
+    return <div>Carregando...</div>;
+  }
+  const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
+
 
   return (
     <Container>
@@ -54,45 +63,49 @@ export function DishDetails({ isAdmin = false }) {
         onOpenMenu={() => setIsMenuOpen(true)}
       />
 
-      <main>
-        <Layout.Page>
+      {data &&
+        <main>
+          <Layout.Page>
 
-          <a onClick={handleBack}><PiCaretLeft size={32} />
-            voltar
-          </a>
+            <a onClick={handleBack}><PiCaretLeft size={32} />
+              voltar
+            </a>
 
-          <Content>
-            <img src={data.image} alt={`Imagem do prato ${data.name}`} />
+            <Content>
+              <img src={imageURL} alt={`Imagem do prato ${data.name}`} />
 
-            <Details>
+              <Details>
 
-              <Section>
-                <h1>{data.name}</h1>
-                <p>{data.description}</p>
-              </Section>
+                <Section>
+                  <h1>{data.name}</h1>
+                  <p>{data.description}</p>
+                </Section>
 
-              <Section className="tags-section">
-                <Tag.Default title={data.tags} />
-                <Tag.Default title={data.tags} />
-                <Tag.Default title={data.tags} />
-                <Tag.Default title={data.tags} />
-                <Tag.Default title={data.tags} />
-                <Tag.Default title={data.tags} />
-              </Section>
+                {data.ingredients &&
+                  <Section className="tags-section">
+                    {
+                      data.ingredients.map(ingredient => (
+                        <Tag.Default
+                          key={String(ingredient.id)}
+                          title={ingredient.ingredient}
+                        />
+                      ))
+                    }
 
+                  </Section>
+                }
+                <CounterSection>
+                  {isAdmin ? "" : <Counter />}
+                  <Button title={
+                    isAdmin ?
+                      `Editar prato` : `incluir - R$ ${data.price}`
+                  } />
+                </CounterSection>
+              </Details>
 
-              <CounterSection>
-                {isAdmin ? "" : <Counter />}
-                <Button title={
-                  isAdmin ?
-                    `Editar prato` : `incluir - R$ ${data.price}`
-                } />
-              </CounterSection>
-            </Details>
-
-          </Content>
-        </Layout.Page>
-      </main>
+            </Content>
+          </Layout.Page>
+        </main>}
       <Footer />
     </Container>
   );

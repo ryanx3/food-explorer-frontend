@@ -35,12 +35,14 @@ export const Container = styled.div`
 export const Picture = styled.div`
   img {
     width: 17.6rem;
-    height: auto;
+    height: 17.6rem;
     flex-shrink: 0;
     cursor: pointer;
-
+    border-radius: 50%;
+    object-fit: cover;
     @media (max-width: 768px) {
         width: 8.8rem;
+        height: 8.8rem;
     }
   }
 
