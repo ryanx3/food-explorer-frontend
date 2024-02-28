@@ -13,21 +13,28 @@ import { Counter } from '../../components/Counter'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { Button } from '../../components/Button'
+import { Error404 } from '../../components/Errors/404'
 
 import { Container, Content, Details, CounterSection } from './styles'
 import { api } from "../../services/api";
-import { TagDefault } from "../../components/Tag/styles";
+import { toast } from "react-toastify";
 
-export function DishDetails({ isAdmin = false }) {
+
+export function DishDetails({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   const navigate = useNavigate()
   const params = useParams()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
 
   function handleBack() {
     navigate(-1)
+  }
+
+  function handleEditDish(dish_id) {
+    navigate(`/edit/${dish_id}`)
   }
 
   useEffect(() => {
@@ -37,20 +44,25 @@ export function DishDetails({ isAdmin = false }) {
   }, [isMobile]);
 
   useEffect(() => {
-    async function fetchCardDetails() {
-      const response = await api.get(`/dishes/${params.id}`)
-      console.log(response.data)
-      setData(response.data)
+    async function fetchDishDetails() {
+      try {
+        const response = await api.get(`/dishes/${params.id}`)
+        setData(response.data)
+      } catch (error) {
+        toast.error("Erro ao encontrar este prato.");
+        navigate("/");
+      }
     }
-
-    fetchCardDetails()
+    fetchDishDetails()
   }, [])
 
   if (!data) {
-    return <div>Carregando...</div>;
+    return (
+      <Error404 />
+    )
   }
-  const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
 
+  const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
 
   return (
     <Container>
@@ -63,15 +75,18 @@ export function DishDetails({ isAdmin = false }) {
         onOpenMenu={() => setIsMenuOpen(true)}
       />
 
-      {data &&
+      <Layout.Page>
+
         <main>
-          <Layout.Page>
+          <Content>
+            <div>
+              <a onClick={handleBack}><PiCaretLeft size={32} />
+                Voltar
+              </a>
+            </div>
 
-            <a onClick={handleBack}><PiCaretLeft size={32} />
-              voltar
-            </a>
+            <div className="Details">
 
-            <Content>
               <img src={imageURL} alt={`Imagem do prato ${data.name}`} />
 
               <Details>
@@ -96,17 +111,24 @@ export function DishDetails({ isAdmin = false }) {
                 }
                 <CounterSection>
                   {isAdmin ? "" : <Counter />}
-                  <Button title={
-                    isAdmin ?
-                      `Editar prato` : `incluir - R$ ${data.price}`
-                  } />
+
+                  <Button
+                    title={`Editar prato`}
+                    onClick={() => handleEditDish(data.id)} />
+
+                  {!isAdmin && <Button
+                    title={`incluir - R$ ${data.price}`}
+                  />}
                 </CounterSection>
               </Details>
 
-            </Content>
-          </Layout.Page>
-        </main>}
+            </div>
+          </Content>
+        </main>
+      </Layout.Page>
+
       <Footer />
     </Container>
+
   );
 }

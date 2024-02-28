@@ -7,10 +7,10 @@ export const Default = forwardRef(
   ({ icon: Icon, title, className, ...rest }, ref) => {
     return (
       <Container>
-        {title && <p>{title}</p>}
+        {title && <label>{title}</label>}
         <InputDefault className={className} {...rest} ref={ref}>
           {Icon && <Icon size={24} />}
-          <input {...rest} />
+          <input id="input-default"{...rest} />
         </InputDefault>
       </Container>
     );

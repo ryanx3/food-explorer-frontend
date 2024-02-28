@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 //SVG
 import { useAuth } from "../../hooks/Auth";
 
 import {
-  PiSignOut,
   PiMagnifyingGlassLight,
   PiReceipt,
   PiList
@@ -20,27 +19,47 @@ import { Brand } from '../../assets/brand'
 import { BrandAdmin } from '../../assets/brand-admin'
 import { BrandMobile } from '../../assets/brand-mobile'
 import { BrandMobileAdmin } from '../../assets/brand-mobile-admin'
+import avatarPlaceholder from '../../assets/avatarPlaceholder.png'
+import { Container, Menu, Logo, Profile } from './styles'
+import { api } from "../../services/api";
+import { useState } from "react";
 
-import { Container, Menu, Logo } from './styles'
-
-export function Header({ isAdmin = true, onOpenMenu, onChangeSearch, ...rest }) {
+export function Header({ isAdmin = true, onOpenMenu, onChangeSearch, onClick, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 })
+
+  const { signOut, user } = useAuth()
   const navigate = useNavigate()
 
-  const { signOut } = useAuth()
+  const AvatarURL = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder
+
+  const [avatar, setAvatar] = useState(AvatarURL)
+  const [isOpenList, setIsOpenList] = useState(false)
+
+  function handleHome() {
+    navigate("/");
+  }
 
   function handleOpenDetails() {
-    isAdmin ? navigate("/new") : navigate("")
+    isAdmin ? navigate("/new") : navigate("");
   }
-  function handeSignOut() {
-    const userConfirm = confirm("Deseja realmente encerrar a sessão?")
-    if (userConfirm) {
-      signOut()
+
+  function handleOpenList() {
+    setIsOpenList(prev => !prev);
+    if (isMobile && isOpenList === true) {
+      setIsOpenList(prev => !prev);
     }
   }
 
-  const LogoDesktop = !isAdmin ? <Brand /> : <BrandAdmin />
-  const LogoMobile = !isAdmin ? <BrandMobile /> : <BrandMobileAdmin />
+  function handleSignOut() {
+    const userConfirm = window.confirm("Deseja realmente encerrar a sessão?");
+    if (userConfirm) {
+      navigate("/");
+      signOut();
+    }
+  }
+
+  const LogoDesktop = !isAdmin ? <Brand /> : <BrandAdmin />;
+  const LogoMobile = !isAdmin ? <BrandMobile /> : <BrandMobileAdmin />;
 
   return (
     <Container {...rest}>
@@ -52,26 +71,40 @@ export function Header({ isAdmin = true, onOpenMenu, onChangeSearch, ...rest }) 
           </Menu>
         }
 
-        <Logo>
+        <Logo onClick={handleHome}>
           {isMobile ? LogoMobile : LogoDesktop}
         </Logo>
 
         {!isMobile &&
           <Search
             onChange={onChangeSearch}
+            onClickButton={onClick}
             placeholder="Busque por pratos ou ingredientes"
             icon={PiMagnifyingGlassLight}
           />}
 
         {!isMobile && <Button
           onClick={handleOpenDetails}
-          title={isAdmin ? "Novo Prato" : 'Pedidos (0)'}
+          title={isAdmin ? "Novo Prato" : `Pedidos (0)`}
           icon={isAdmin ? "" : PiReceipt}
         />}
 
-        {isMobile ?
-          (isAdmin ? <div /> : <PiReceipt />) :
-          <PiSignOut onClick={handeSignOut} />}
+        <Profile>
+          {isMobile ?
+            (isAdmin ? <div /> : <PiReceipt />) :
+            <img src={avatar} onClick={handleOpenList} />
+          }
+          {isOpenList &&
+            <nav>
+              <ul>
+                <li><Link to={"/profile"}>Perfil</Link></li>
+                <li><Link>Favoritos</Link></li>
+                <li onClick={handleSignOut}>Sair</li>
+              </ul>
+            </nav>
+          }
+
+        </Profile>
       </Layout.Header>
     </Container>
   )

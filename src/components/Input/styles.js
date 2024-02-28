@@ -10,7 +10,7 @@ export const Container = styled.div`
     color: red;
   }
 
-  p {
+  label, p {
     display: flex;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_400};

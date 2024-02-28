@@ -7,15 +7,15 @@ import { Edit } from '../pages/Edit'
 import { Profile } from '../pages/Profile'
 
 export function AppRoutes() {
-  return(
+  return (
     <Routes>
-      <Route element={<Home/>} path="/"/>
-      <Route element={<DishDetails/>} path="/details/:id"/>
-      <Route element={<Profile/>} path="/profile"/>
-      <Route element={<New/>} path="/new"/>
-      <Route element={<Edit/>} path="/edit"/>
-    
-      <Route path="*" element={<Navigate to="/"/>}/>
+      <Route element={<Home />} path="/" />
+      <Route element={<DishDetails />} path="/details/:id" />
+      <Route element={<Profile />} path="/profile" />
+      <Route element={<New />} path="/new" />
+      <Route element={<Edit />} path="/edit/:id" />
+
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
 }

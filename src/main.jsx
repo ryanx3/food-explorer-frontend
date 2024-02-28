@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 import GlobalStyles from "./styles/global";
 
+
 import { Routes } from "./routes";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./hooks/Auth";
@@ -22,12 +23,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       draggable
       pauseOnHover
       theme="dark"
-      transition:Slide
+      transition: Slide
     />
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <AuthProvider>
-        <Routes />
+          <Routes />
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>

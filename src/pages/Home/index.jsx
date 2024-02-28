@@ -15,7 +15,7 @@ import * as Layout from '../../components/Layouts';
 import bannerDesktop from '../../assets/home-banner.png';
 import bannerMobile from '../../assets/banner-mobile.png';
 
-import { Container, Content, TopBox } from './styles';
+import { Container, Content, Presentation } from './styles';
 
 export function Home({ isAdmin = false }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -24,6 +24,7 @@ export function Home({ isAdmin = false }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [search, setSearch] = useState("")
   const [cards, setCards] = useState({ meals: [], beverages: [], desserts: [] })
+  const [ category, setCategory ] = useState("")
 
   const navigate = useNavigate()
   function handleOpenDetails(dish_id) {
@@ -59,9 +60,10 @@ export function Home({ isAdmin = false }) {
     swiperRef3.current.initialize();
   }, []);
 
+
   useEffect(() => {
     async function FetchCards() {
-      const response = await api.get(`/dishes?name=${search}`)
+      const response = await api.get(`/dishes?name=${search}&category=${category}`)
       const meals = response.data.filter(dish => dish.category === "meals")
       const desserts = response.data.filter(dish => dish.category === "desserts")
       const beverages = response.data.filter(dish => dish.category === "beverages")
@@ -78,10 +80,6 @@ export function Home({ isAdmin = false }) {
 
   return (
     <Container>
-      <SideMenu
-        isMenuOpen={isMenuOpen}
-        isMenuClose={() => setIsMenuOpen(false)}
-      />
 
       <Header
         onChangeSearch={(value) => setSearch(value)}
@@ -89,19 +87,25 @@ export function Home({ isAdmin = false }) {
         isAdmin={isAdmin}
       />
 
+      <SideMenu
+        isMenuOpen={isMenuOpen}
+        isMenuClose={() => setIsMenuOpen(false)}
+        onChangeSearch={(value) => setSearch(value)}
+      />
+
       <Layout.Page>
         <main>
           <Content isEmpty={search}>
             {!search &&
-              <TopBox>
+              <Presentation>
                 <img src={Banner} alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas." />
                 <div>
                   <h1>Sabores inigualáveis</h1>
                   <span>Sinta o cuidado do preparo com ingredientes selecionados</span>
                 </div>
-              </TopBox>}
+              </Presentation>}
 
-            <Section title="Refeições">
+            <Section title={cards.meals.length > 0 ? "Refeições" : ""}>
               <swiper-container
                 init="false"
                 navigation={isMobile ? 'false' : 'true'}
@@ -121,7 +125,7 @@ export function Home({ isAdmin = false }) {
               </swiper-container>
             </Section>
 
-            <Section title="Bebidas">
+            <Section title={cards.beverages.length > 0 ? "Bebidas" : ""}>
               <swiper-container
                 init="false"
                 navigation={isMobile ? 'false' : 'true'}
@@ -141,7 +145,7 @@ export function Home({ isAdmin = false }) {
               </swiper-container>
             </Section>
 
-            <Section title="Sobremesas">
+              <Section title={cards.desserts.length > 0 ? "Sobremesas" : ""}>
               <swiper-container init="false"
                 navigation={isMobile ? 'false' : 'true'}
                 ref={swiperRef3}>
@@ -156,14 +160,14 @@ export function Home({ isAdmin = false }) {
                   </swiper-slide>
                 ))
                 }
-
               </swiper-container>
             </Section>
+            
           </Content>
         </main>
       </Layout.Page>
 
       <Footer />
-    </Container>
+    </Container >
   );
 }

@@ -11,7 +11,7 @@ export const Container = styled.div`
     'footer';
 `
 
-export const TopBox = styled.section`
+export const Presentation = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;

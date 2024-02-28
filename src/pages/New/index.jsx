@@ -14,10 +14,10 @@ import { Footer } from "../../components/Footer";
 import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
 import { Textarea } from "../../components/Textarea";
-import { NumericFormatInput } from "../../components/NumericFormat";
 
 import { Container, Form, Buttons } from "./styles";
 import { api } from "../../services/api";
+
 
 export function New({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -58,13 +58,14 @@ export function New({ isAdmin = true }) {
   }
 
   async function handleCreateDish() {
-    const priceValue = parseFloat(price.replace(/[^\d.,]/g, "").replace(",", "."));
+
+    const priceValue = parseFloat(price.replace(",", "."));
 
     if (!image) {
       return toast.error("Por favor, selecione uma imagem para o seu prato.");
     }
 
-    if (isNaN(priceValue) || priceValue <= 0) {
+    if (priceValue <= 0) {
       return toast.error("Por favor, insira um preço válido.");
     }
     if (ingredients.length === 0) {
@@ -104,7 +105,9 @@ export function New({ isAdmin = true }) {
         isMenuClose={() => setIsMenuOpen(false)}
       />
 
-      <Header onOpenMenu={() => setIsMenuOpen(true)} />
+      <Header
+        onOpenMenu={() => setIsMenuOpen(true)}
+      />
 
       <Layout.Page>
         <main>
@@ -152,13 +155,12 @@ export function New({ isAdmin = true }) {
                 />
               </Input.Background>
 
-              <NumericFormatInput
-                customInput={Input.Default}
+              <Input.Default
+                type="text"
                 title="Preço"
+                autoComplete="off"
                 placeholder="R$ 00,00"
-                prefix={"R$"}
-                thousandSeparator=","
-                value={price}
+                value={price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Section>

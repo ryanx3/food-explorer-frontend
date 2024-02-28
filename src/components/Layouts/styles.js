@@ -48,8 +48,4 @@ export const LayoutHeader = styled.div`
     }
   }
 
-  @media (max-width: 768px) {
-    gap: 0;
-    padding: 5.6rem 2.4rem 2.8rem;
-  }
 `;

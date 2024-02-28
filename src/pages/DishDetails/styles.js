@@ -5,56 +5,68 @@ export const Container = styled.div`
   height: 100vh;
 
   display: grid;
-  grid-template-rows: 11.4rem auto 7.7rem;
+  grid-template-rows: 11.4rem 1fr 7.7rem;
   grid-template-areas:
     "header"
     "content"
     "footer";
 
-  main {
-    > a {
-      display: flex;
-      align-items: center;
-      align-self: flex-start;
-
-      color: ${({ theme }) => theme.COLORS.LIGHT_300};
-      font-family: inherit;
-      font-size: 2.4rem;
-      font-weight: 700;
-      line-height: 140%;
-
-      margin: 2.4rem 0 4.2rem;
-
-      @media (max-width: 1024px) {
-        margin: 1.6rem 0 3.6rem;
-        font-weight: 500;
+    .error {
+      h1 {
+        color:${({ theme }) => theme.COLORS.LIGHT_300} ;
       }
+
     }
-  }
+
 `;
 
 export const Content = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5rem;
+  flex-direction: column;
+  grid-area: content;
+  gap: 4rem;
+  
+  div a {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
 
-  > img {
-    width: 39rem;
-    height: 39rem;
-    border-radius: 999px;
-    object-fit: cover;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+    font-family: inherit;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 140%;
+
+
+    @media (max-width: 1024px) {
+      font-weight: 500;
+    }
   }
 
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    gap: 1.6rem;
+  .Details {
+    display: flex;
+    place-items: center;
+    place-self: center;
+    gap: 5rem;
 
-    img {
-      width: 26.4rem;
-      height: 26.4rem;
+    > img {
+      width: 39rem;
+      height: 39rem;
+      border-radius: 999px;
+      object-fit: cover;
+    }
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      gap: 1.6rem;
+
+      img {
+        width: 26.4rem;
+        height: 26.4rem;
+      }
     }
   }
 `;
@@ -109,6 +121,7 @@ export const CounterSection = styled.section`
 
   button {
     width: fit-content;
+    margin-bottom: 2rem;
   }
 
   @media (max-width: 1024px) {

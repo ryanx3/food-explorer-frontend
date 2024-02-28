@@ -34,21 +34,10 @@ export function Footer() {
     <Container>
 
       <Layout.Footer>
-
-        {!isMobile && 
-        <Profile onClick={handleProfile}>
-          <img src={avatar} alt={user.avatar} />
-          <div className="user">
-            <h1>{user.name}</h1>
-            <span>Editar Perfil</span>
-          </div>
-        </Profile>
-        }
-
-         {isMobile && 
+        
          <Brand>
           {Logo}
-        </Brand>}
+        </Brand>
 
         <Copyright>
           © 2023 - Todos os direitos reservados.
