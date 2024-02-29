@@ -57,9 +57,7 @@ export function DishDetails({ isAdmin = true }) {
   }, [])
 
   if (!data) {
-    return (
-      <Error404 />
-    )
+    return <div>Aguardando</div>
   }
 
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
