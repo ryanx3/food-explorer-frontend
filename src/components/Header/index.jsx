@@ -24,7 +24,7 @@ import { Container, Menu, Logo, Profile } from './styles'
 import { api } from "../../services/api";
 import { useState } from "react";
 
-export function Header({ isAdmin = true, onOpenMenu, onChangeSearch, onClick, ...rest }) {
+export function Header({ isAdmin = false, onOpenMenu, onChangeSearch, onClick, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 })
 
   const { signOut, user } = useAuth()
@@ -40,7 +40,7 @@ export function Header({ isAdmin = true, onOpenMenu, onChangeSearch, onClick, ..
   }
 
   function handleOpenDetails() {
-    isAdmin ? navigate("/new") : navigate("");
+  navigate("/new");
   }
 
   function handleOpenList() {
@@ -85,7 +85,7 @@ export function Header({ isAdmin = true, onOpenMenu, onChangeSearch, onClick, ..
 
         {!isMobile && <Button
           onClick={handleOpenDetails}
-          title={isAdmin ? "Novo Prato" : `Pedidos (0)`}
+          title="Novo Prato"
           icon={isAdmin ? "" : PiReceipt}
         />}
 
