@@ -122,7 +122,7 @@ export const Presentation = styled.section`
 export const Content = styled.div`
   margin-bottom: 4.5rem;
 
-  ${({ isEmpty }) => !isEmpty && css`
+  ${({ isempty }) => !isempty && css`
     swiper-container::before,
     swiper-container::after {
       content: '';

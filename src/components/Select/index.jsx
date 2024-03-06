@@ -1,20 +1,37 @@
-import React, { forwardRef } from "react";
-import { Container, SelectContainer } from './styles';
+import React, { useEffect, useRef, forwardRef } from "react";
+import { Container, Content } from './styles';
 
-export const Select = forwardRef(({ value, title, ...rest }, ref) => {
+export const Select = forwardRef(({ defaultValue, title, ...rest }, ref) => {
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    if (defaultValue) {
+      selectRef.current.value = defaultValue;
+    }
+  }, [defaultValue]);
+
   return (
     <Container {...rest}>
-      {title && <p>{title}</p>}
-      <SelectContainer {...rest}>
+      <p>{title}</p>
+      <Content {...rest}>
         <label htmlFor="category">
-          <select ref={ref} {...rest}>
+          <select name="Selecionar" ref={(element) => {
+            selectRef.current = element;
+            if (ref) {
+              if (typeof ref === "function") {
+                ref(element);
+              } else {
+                ref.current = element;
+              }
+            }
+          }} {...rest}>
             <option value="">Selecionar</option>
             <option value="meals">Refeição</option>
             <option value="desserts">Sobremesa</option>
             <option value="beverages">Bebida</option>
           </select>
         </label>
-      </SelectContainer>
+      </Content>
     </Container>
   );
 });

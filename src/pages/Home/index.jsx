@@ -95,7 +95,7 @@ export function Home({ isAdmin = false }) {
 
       <Layout.Page>
         <main>
-          <Content isEmpty={search}>
+          <Content isempty={search}>
             {!search &&
               <Presentation>
                 <img src={Banner} alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas." />

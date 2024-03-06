@@ -17,7 +17,7 @@ export const Container = styled.div`
   }
 `;
 
-export const SelectContainer = styled.div`
+export const Content = styled.div`
   > label {
     display: flex;
     flex-direction: column;

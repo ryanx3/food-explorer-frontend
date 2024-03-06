@@ -30,11 +30,16 @@ export function Edit({ isAdmin = true }) {
   const [description, setDescription] = useState("");
 
   const [ingredients, setIngredients] = useState([]);
+  const [ingredientsExists, setIngredientsExists] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
 
   const [data, setData] = useState(null)
   const [image, setImage] = useState(null);
   const [filename, setFilename] = useState("");
+
+  function handleBack() {
+    navigate(-1);
+  }
 
   function handleImage(e) {
     const file = e.target.files[0];
@@ -53,24 +58,8 @@ export function Edit({ isAdmin = true }) {
     );
   }
 
-  function handleBack() {
-    navigate(-1);
-  }
-  useEffect(() => {
-    async function fetchDishes() {
-      try {
-        const response = await api.get(`/dishes/${params.id}`);
-        setData(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar pratos:", error);
-      }
-    }
-    fetchDishes();
-  }, []);
+  async function handleUpdatedDish() {
 
-
-  if (!data) {
-    return
   }
 
   useEffect(() => {
@@ -78,6 +67,25 @@ export function Edit({ isAdmin = true }) {
       setIsMenuOpen(false);
     }
   }, [isMobile]);
+
+  useEffect(() => {
+    async function fetchDishes() {
+      try {
+        const response = await api.get(`/dishes/${params.id}`);
+        setCategory(response.data.category) 
+        setIngredientsExists(response.data.ingredients)
+        setData(response.data);
+      } catch (error) {
+        toast.error("Erro ao buscar pratos.");
+        console.error(error)
+      }
+    }
+    fetchDishes();
+  }, []);
+
+  if (!data) {
+    return
+  }
 
   return (
     <Container>
@@ -108,13 +116,13 @@ export function Edit({ isAdmin = true }) {
               <Input.Default
                 title="Nome"
                 placeholder="Exemplo: Salada Caesar"
-                value={name}
+                value={data.name}
                 onChange={(e) => setName(e.target.value)}
               />
 
               <Select
                 title="Categorias"
-                value={category}
+                defaultValue={category}
                 onChange={(e) => setCategory(e.target.value)}
               />
             </Section>
@@ -125,6 +133,13 @@ export function Edit({ isAdmin = true }) {
                   <Tag.Remover
                     key={String(index)}
                     title={ingredient}
+                    onClick={() => handleRemoveIngredients(ingredient)}
+                  />
+                ))}
+                {ingredientsExists.map((ingredient) => (
+                  <Tag.Remover
+                    key={String(ingredient.id)}
+                    title={ingredient.ingredient}
                     onClick={() => handleRemoveIngredients(ingredient)}
                   />
                 ))}
@@ -141,7 +156,7 @@ export function Edit({ isAdmin = true }) {
                 title="Preço"
                 autoComplete="off"
                 placeholder="R$ 00,00"
-                value={price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                defaultValue={data.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Section>
@@ -150,7 +165,7 @@ export function Edit({ isAdmin = true }) {
               <Textarea
                 placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
                 title="Descrição"
-                value={description}
+                defaultValue={data.description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Section>

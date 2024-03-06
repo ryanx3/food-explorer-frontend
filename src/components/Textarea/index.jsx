@@ -1,11 +1,11 @@
 import React, { forwardRef } from "react";
 import { Container, TextareaContainer } from './styles';
 
-export const Textarea = forwardRef(({ value, title, ...rest }, ref) => {
+export const Textarea = forwardRef(({ defaultValue, title, ...rest }, ref) => {
   return (
     <Container {...rest}>
       {title && <p>{title}</p>}
-      <TextareaContainer ref={ref} {...rest}/>
+      <TextareaContainer defaultValue={defaultValue} ref={ref} {...rest}/>
     </Container>
   );
 });
