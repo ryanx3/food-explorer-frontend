@@ -16,8 +16,9 @@ import { Section } from "../../components/Section";
 import { useAuth } from "../../hooks/Auth";
 import { api } from "../../services/api";
 import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
-
+import axios from "axios";
 import { Container, Avatar, Form } from "./styles";
+import { toast } from "react-toastify";
 
 export function Profile() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -45,22 +46,28 @@ export function Profile() {
   const {
     register,
     handleSubmit,
+    setValue,
+    setFocus,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
-    const { name, email, old_password, password } = data;
+      const { name, email, old_password, password, cep, street, neighborhood, number_home } = data;
+        
     const updated = {
       name,
       email,
       old_password,
       password,
+      cep,
+      street,
+      neighborhood, 
+      number_home
     };
-
     const updatedUser = Object.assign(user, updated);
-    await updateProfile({ user: updatedUser, avatarFile });
-  };
-
+    await updateProfile({ user: updatedUser, avatarFile })}
+  
   const handleBack = () => {
     navigate("/");
   };
@@ -71,6 +78,41 @@ export function Profile() {
     }
   }, [isMobile]);
 
+  async function resetInputAdress() {
+      reset({
+            cep: "",
+            street: "",
+            neighborhood: "",
+            number_home: ""
+            });
+  }
+  
+const checkCEP = async (e) => {
+    const cep = e.target.value.replace(/\D/g, '');
+
+    if(cep.length !== 8) {
+        resetInputAdress()
+        return toast.error("O CEP deve conter no mínimo 8 dígitos")
+      }
+
+        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+
+        if (response.data.erro) {
+          resetInputAdress()
+          return toast.error("CEP inexistente. Por favor, insira um CEP válido.")
+        }
+
+        const data = response.data;
+
+        toast.promise(checkCEP, {
+          loading: 'Loading',
+          success: 'Got the data',
+        });
+        setFocus("number_home");
+        setValue("street", data.logradouro);
+        setValue("neighborhood", data.bairro);
+        setValue("cep", cep);
+};
 
   return (
     <Container>
@@ -142,20 +184,31 @@ export function Profile() {
                 <div className="input-adress">
                   <Input.Default
                     title="CEP"
+                    type="number"
                     placeholder="Digite o seu CEP"
+                    {...register("cep")}
+                    defaultValue={user.cep ? user.cep : ""}
+                    onBlur={checkCEP}
                   />
                   <Input.Default
                     title="Endereço"
                     placeholder="Digite o seu endereço"
+                    defaultValue={user.street ? user.street : ""}
+                     {...register("street")}
                   />
                   <Input.Default
                     title="Número"
+                    type="number"
                     placeholder="Digite o seu número"
+                    defaultValue={user.number_home ? user.number_home : ""}
+                     {...register("number_home")}
 
                   />
                   <Input.Default
                     title="Bairro"
                     placeholder="Seu bairro"
+                    defaultValue={user.neighborhood ? user.neighborhood : ""}
+                     {...register("neighborhood")}
                   />
                 </div>
               </Section>
