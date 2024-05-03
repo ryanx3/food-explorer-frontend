@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
+import { api } from "../../services/api";
 
 import * as Tag from "../../components/Tag";
 import * as Input from "../../components/Input";
@@ -15,11 +16,10 @@ import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
 import { Textarea } from "../../components/Textarea";
 
-import { Container, Form, Buttons } from "./styles";
-import { api } from "../../services/api";
 
+import { NewContainer, Form, Buttons } from "./styles";
 
-export function New({ isAdmin = true }) {
+export function New() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
 
@@ -99,15 +99,13 @@ export function New({ isAdmin = true }) {
   }, [isMobile]);
 
   return (
-    <Container>
+    <NewContainer>
       <SideMenu
         isMenuOpen={isMenuOpen}
         isMenuClose={() => setIsMenuOpen(false)}
       />
 
-      <Header
-        onOpenMenu={() => setIsMenuOpen(true)}
-      />
+      <Header onOpenMenu={() => setIsMenuOpen(true)} />
 
       <Layout.Page>
         <main>
@@ -160,7 +158,9 @@ export function New({ isAdmin = true }) {
                 title="Preço"
                 autoComplete="off"
                 placeholder="R$ 00,00"
-                value={price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                value={price.toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Section>
@@ -175,13 +175,17 @@ export function New({ isAdmin = true }) {
             </Section>
 
             <Buttons>
-              <Button type="button" onClick={handleCreateDish} title="Salvar alterações" />
+              <Button
+                type="button"
+                onClick={handleCreateDish}
+                title="Salvar alterações"
+              />
             </Buttons>
           </Form>
         </main>
       </Layout.Page>
 
       <Footer />
-    </Container>
+    </NewContainer>
   );
 }

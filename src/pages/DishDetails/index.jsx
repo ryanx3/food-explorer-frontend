@@ -13,12 +13,10 @@ import { Counter } from '../../components/Counter'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { Button } from '../../components/Button'
-import { Error404 } from '../../components/Errors/404'
 
-import { Container, Content, Details, CounterSection } from './styles'
+import { DetailsContainer, Content, Details, CounterSection } from './styles'
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
-
 
 export function DishDetails({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -26,14 +24,13 @@ export function DishDetails({ isAdmin = true }) {
   const navigate = useNavigate()
   const params = useParams()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
 
-  function handleBack() {
+  function handleBackHome() {
     navigate(-1)
   }
 
-  function handleEditDish(dish_id) {
+  function handleRedirectToEditDish(dish_id) {
     navigate(`/edit/${dish_id}`)
   }
 
@@ -57,13 +54,13 @@ export function DishDetails({ isAdmin = true }) {
   }, [])
 
   if (!data) {
-    return <div>Aguardando</div>
+    return
   }
 
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
 
   return (
-    <Container>
+    <DetailsContainer>
       <SideMenu
         isMenuOpen={isMenuOpen}
         isMenuClose={() => setIsMenuOpen(false)}
@@ -78,7 +75,7 @@ export function DishDetails({ isAdmin = true }) {
         <main>
           <Content>
             <div>
-              <a onClick={handleBack}><PiCaretLeft size={32} />
+              <a onClick={handleBackHome}><PiCaretLeft size={32} />
                 Voltar
               </a>
             </div>
@@ -112,7 +109,7 @@ export function DishDetails({ isAdmin = true }) {
 
                   <Button
                     title={`Editar prato`}
-                    onClick={() => handleEditDish(data.id)} />
+                    onClick={() => handleRedirectToEditDish(data.id)} />
 
                   {!isAdmin && <Button
                     title={`incluir - R$ ${data.price}`}
@@ -126,7 +123,7 @@ export function DishDetails({ isAdmin = true }) {
       </Layout.Page>
 
       <Footer />
-    </Container>
+    </DetailsContainer>
 
   );
 }

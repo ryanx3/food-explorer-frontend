@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.div`
+export const HomeContainer = styled.div`
   height: 100vh;
 
   display: grid;

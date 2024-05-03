@@ -15,7 +15,7 @@ import * as Layout from '../../components/Layouts';
 import bannerDesktop from '../../assets/home-banner.png';
 import bannerMobile from '../../assets/banner-mobile.png';
 
-import { Container, Content, Presentation } from './styles';
+import { HomeContainer, Content, Presentation } from "./styles";
 
 export function Home({ isAdmin = false }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -79,7 +79,7 @@ export function Home({ isAdmin = false }) {
   }, [isMobile]);
 
   return (
-    <Container>
+    <HomeContainer>
 
       <Header
         onChangeSearch={(value) => setSearch(value)}
@@ -168,6 +168,6 @@ export function Home({ isAdmin = false }) {
       </Layout.Page>
 
       <Footer />
-    </Container >
+    </HomeContainer >
   );
 }

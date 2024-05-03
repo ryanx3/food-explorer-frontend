@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const DetailsContainer = styled.div`
   width: 100%;
   height: 100vh;
 
@@ -10,14 +10,6 @@ export const Container = styled.div`
     "header"
     "content"
     "footer";
-
-    .error {
-      h1 {
-        color:${({ theme }) => theme.COLORS.LIGHT_300} ;
-      }
-
-    }
-
 `;
 
 export const Content = styled.div`
@@ -89,7 +81,7 @@ export const Details = styled.div`
   p {
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     font-family: inherit;
-    font-size: 2.4rem;
+    font-size: 2rem;
     font-weight: 400;
     line-height: 140%;
   }

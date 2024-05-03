@@ -6,7 +6,7 @@ import { Brand } from "../../assets/brand";
 
 import { useAuth } from "../../hooks/Auth";
 
-import { Container, Form, Logo } from "./styles";
+import { SignInContainer, Form, Logo } from "./styles";
 import { useForm } from "react-hook-form";
 
 export function SignIn() {
@@ -29,7 +29,7 @@ export function SignIn() {
   };
 
   return (
-    <Container>
+    <SignInContainer>
       <Logo>
         <Brand />
       </Logo>
@@ -58,6 +58,6 @@ export function SignIn() {
 
         <a onClick={handleRegister}>Criar uma conta</a>
       </Form>
-    </Container>
+    </SignInContainer>
   );
 }

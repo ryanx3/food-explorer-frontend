@@ -1,10 +1,12 @@
 import { useMediaQuery } from "react-responsive";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { PiCaretLeft, PiCameraBold, PiFileArrowUpDuotone } from "react-icons/pi";
+import {
+  PiCaretLeft,
+  PiFileArrowUpDuotone,
+} from "react-icons/pi";
 import { useForm } from "react-hook-form";
 
-// Components
 import * as Layouts from "../../components/Layouts";
 import * as Input from "../../components/Input";
 import { Button } from "../../components/Button";
@@ -15,10 +17,10 @@ import { Section } from "../../components/Section";
 
 import { useAuth } from "../../hooks/Auth";
 import { api } from "../../services/api";
+import { ProfileContainer, Avatar, Form } from "./styles";
+import { toast } from "react-toastify";
 import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
 import axios from "axios";
-import { Container, Avatar, Form } from "./styles";
-import { toast } from "react-toastify";
 
 export function Profile() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -52,9 +54,22 @@ export function Profile() {
     formState: { errors },
   } = useForm();
 
+  const handleBack = () => {
+    navigate("/");
+  };
+
   const onSubmit = async (data) => {
-      const { name, email, old_password, password, cep, street, neighborhood, number_home } = data;
-        
+    const {
+      name,
+      email,
+      old_password,
+      password,
+      cep,
+      street,
+      neighborhood,
+      number_home,
+    } = data;
+
     const updated = {
       name,
       email,
@@ -62,14 +77,47 @@ export function Profile() {
       password,
       cep,
       street,
-      neighborhood, 
-      number_home
+      neighborhood,
+      number_home,
     };
     const updatedUser = Object.assign(user, updated);
-    await updateProfile({ user: updatedUser, avatarFile })}
-  
-  const handleBack = () => {
-    navigate("/");
+    await updateProfile({ user: updatedUser, avatarFile });
+  };
+
+  function resetInputAdress() {
+    reset({
+      cep: "",
+      street: "",
+      neighborhood: "",
+      number_home: "",
+    });
+  }
+
+  const checkCEP = async (e) => {
+    const cep = e.target.value.replace(/\D/g, "");
+
+    if (cep.length !== 8) {
+      resetInputAdress();
+      return toast.error("O CEP deve conter no mínimo 8 dígitos");
+    }
+
+    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+
+    if (response.data.erro) {
+      resetInputAdress();
+      return toast.error("CEP inexistente. Por favor, insira um CEP válido.");
+    }
+
+    const data = response.data;
+
+    toast.promise(checkCEP, {
+      loading: "Loading",
+      success: "Got the data",
+    });
+    setFocus("number_home");
+    setValue("street", data.logradouro);
+    setValue("neighborhood", data.bairro);
+    setValue("cep", cep);
   };
 
   useEffect(() => {
@@ -78,48 +126,9 @@ export function Profile() {
     }
   }, [isMobile]);
 
-  async function resetInputAdress() {
-      reset({
-            cep: "",
-            street: "",
-            neighborhood: "",
-            number_home: ""
-            });
-  }
-  
-const checkCEP = async (e) => {
-    const cep = e.target.value.replace(/\D/g, '');
-
-    if(cep.length !== 8) {
-        resetInputAdress()
-        return toast.error("O CEP deve conter no mínimo 8 dígitos")
-      }
-
-        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-
-        if (response.data.erro) {
-          resetInputAdress()
-          return toast.error("CEP inexistente. Por favor, insira um CEP válido.")
-        }
-
-        const data = response.data;
-
-        toast.promise(checkCEP, {
-          loading: 'Loading',
-          success: 'Got the data',
-        });
-        setFocus("number_home");
-        setValue("street", data.logradouro);
-        setValue("neighborhood", data.bairro);
-        setValue("cep", cep);
-};
-
   return (
-    <Container>
-
-      <Header
-        onOpenMenu={() => setIsMenuOpen(true)}
-      />
+    <ProfileContainer>
+      <Header onOpenMenu={() => setIsMenuOpen(true)} />
       <SideMenu
         isMenuOpen={isMenuOpen}
         isMenuClose={() => setIsMenuOpen(false)}
@@ -128,7 +137,6 @@ const checkCEP = async (e) => {
       <Layouts.Page>
         <main>
           <Form onSubmit={handleSubmit(onSubmit)}>
-
             <Avatar>
               <a onClick={handleBack}>
                 <PiCaretLeft /> Voltar
@@ -141,13 +149,10 @@ const checkCEP = async (e) => {
                 Selecione um avatar
                 <input id="avatar" type="file" onChange={handleChangeAvatar} />
               </label>
-
             </Avatar>
 
             <div className="input-wrapper">
-
               <Section className="input-section">
-
                 <div className="input-register">
                   <Input.Default
                     title="Seu nome"
@@ -194,21 +199,20 @@ const checkCEP = async (e) => {
                     title="Endereço"
                     placeholder="Digite o seu endereço"
                     defaultValue={user.street ? user.street : ""}
-                     {...register("street")}
+                    {...register("street")}
                   />
                   <Input.Default
                     title="Número"
                     type="number"
                     placeholder="Digite o seu número"
                     defaultValue={user.number_home ? user.number_home : ""}
-                     {...register("number_home")}
-
+                    {...register("number_home")}
                   />
                   <Input.Default
                     title="Bairro"
                     placeholder="Seu bairro"
                     defaultValue={user.neighborhood ? user.neighborhood : ""}
-                     {...register("neighborhood")}
+                    {...register("neighborhood")}
                   />
                 </div>
               </Section>
@@ -217,10 +221,9 @@ const checkCEP = async (e) => {
             </div>
           </Form>
         </main>
-
       </Layouts.Page>
 
       <Footer />
-    </Container>
+    </ProfileContainer>
   );
 }

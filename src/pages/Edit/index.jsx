@@ -15,7 +15,7 @@ import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
 import { Textarea } from "../../components/Textarea";
 
-import { Container, Form, Buttons } from "./styles";
+import { EditContainer, Form, Buttons } from "./styles";
 import { api } from "../../services/api";
 
 export function Edit({ isAdmin = true }) {
@@ -29,15 +29,15 @@ export function Edit({ isAdmin = true }) {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
 
-  const [ingredients, setIngredients] = useState([]);
+  const [newIngredients, setNewIngredients] = useState([]);
   const [ingredientsExists, setIngredientsExists] = useState([]);
-  const [newIngredient, setNewIngredient] = useState("");
+  const [addIngredients, setAddIngredients] = useState("");
 
   const [data, setData] = useState(null)
   const [image, setImage] = useState(null);
   const [filename, setFilename] = useState("");
 
-  function handleBack() {
+  function handleBackHome() {
     navigate(-1);
   }
 
@@ -48,18 +48,18 @@ export function Edit({ isAdmin = true }) {
   }
 
   function handleAddIngredients() {
-    setIngredients((prevState) => [...prevState, newIngredient.trim()]);
-    setNewIngredient("");
+    setNewIngredients((prevState) => [...prevState, addIngredients.trim()]);
+    setAddIngredients("");
   }
 
   function handleRemoveIngredients(deleted) {
-    setIngredients((prevState) =>
+    setNewIngredients((prevState) =>
       prevState.filter((ingredient) => ingredient !== deleted)
     );
   }
 
-  async function handleUpdatedDish() {
-
+  function handleRemoveIngredientsExists(deleted) {
+    setIngredientsExists(prevState => prevState.filter((ingredientExist) => ingredientExist !== deleted))
   }
 
   useEffect(() => {
@@ -67,6 +67,7 @@ export function Edit({ isAdmin = true }) {
       setIsMenuOpen(false);
     }
   }, [isMobile]);
+
 
   useEffect(() => {
     async function fetchDishes() {
@@ -83,12 +84,33 @@ export function Edit({ isAdmin = true }) {
     fetchDishes();
   }, []);
 
+  
+   async function handleUpdatedDish() {
+     try {
+      const updatedDish = {
+      name: name === "" ? data.name : name,
+      category: category === "" ? data.category : category,
+      description: description === "" ? data.description : description,
+      price: price === "" ? data.price : price,
+      newIngredients,
+      ingredientsExists
+      };
+      await api.put(`/dishes/${params.id}`, updatedDish);
+      toast.success("Prato atualizado com sucesso!");
+      handleBackHome()
+  } catch (error) {
+    if(error.response) {
+      toast.error(error.response.data.message)
+    }
+  }
+  }
+
   if (!data) {
     return
   }
 
   return (
-    <Container>
+    <EditContainer>
       <SideMenu
         isMenuOpen={isMenuOpen}
         isMenuClose={() => setIsMenuOpen(false)}
@@ -100,7 +122,7 @@ export function Edit({ isAdmin = true }) {
 
       <Layout.Page>
         <main>
-          <a onClick={handleBack}>
+          <a onClick={handleBackHome}>
             <PiCaretLeft /> voltar
           </a>
           <h1>Editar prato</h1>
@@ -116,7 +138,7 @@ export function Edit({ isAdmin = true }) {
               <Input.Default
                 title="Nome"
                 placeholder="Exemplo: Salada Caesar"
-                value={data.name}
+                defaultValue={data.name}
                 onChange={(e) => setName(e.target.value)}
               />
 
@@ -129,24 +151,26 @@ export function Edit({ isAdmin = true }) {
 
             <Section className="second-section">
               <Input.Background title="Ingredientes">
-                {ingredients.map((ingredient, index) => (
+
+                {newIngredients.map((newIngredient, index) => (
                   <Tag.Remover
                     key={String(index)}
-                    title={ingredient}
-                    onClick={() => handleRemoveIngredients(ingredient)}
+                    title={newIngredient}
+                    onClick={() => handleRemoveIngredients(newIngredient)}
                   />
                 ))}
+
                 {ingredientsExists.map((ingredient) => (
                   <Tag.Remover
                     key={String(ingredient.id)}
                     title={ingredient.ingredient}
-                    onClick={() => handleRemoveIngredients(ingredient)}
+                    onClick={() => handleRemoveIngredientsExists(ingredient)}
                   />
                 ))}
 
                 <Tag.Creator
-                  value={newIngredient}
-                  onChange={(e) => setNewIngredient(e.target.value)}
+                  value={addIngredients}
+                  onChange={(e) => setAddIngredients(e.target.value)}
                   onClick={handleAddIngredients}
                 />
               </Input.Background>
@@ -171,13 +195,13 @@ export function Edit({ isAdmin = true }) {
             </Section>
 
             <Buttons>
-              <Button type="button" title="Salvar alterações" />
+              <Button type="button" title="Salvar alterações" onClick={handleUpdatedDish} />
             </Buttons>
           </Form>
         </main>
       </Layout.Page>
 
       <Footer />
-    </Container>
+    </EditContainer>
   );
 }

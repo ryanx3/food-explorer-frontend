@@ -4,7 +4,7 @@ const commonTransition = css`
   transition: 300ms linear;
 `;
 
-export const Container = styled.main`
+export const SignInContainer = styled.main`
   margin: 0 auto;
   max-width: 100vw;
   height: 100vh;
