@@ -6,9 +6,9 @@ import { toast } from "react-toastify";
 import { api } from "../../services/api";
 
 import * as Tag from "../../components/Tag";
-import * as Input from "../../components/Input";
 import * as Layout from "../../components/Layouts";
 import { SideMenu } from "../../components/SideMenu";
+import { Input } from "../../components/Input";
 import { Select } from "../../components/Select";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
@@ -122,7 +122,7 @@ export function New() {
                 onChange={handleImage}
               />
 
-              <Input.Default
+              <Input
                 title="Nome"
                 placeholder="Exemplo: Salada Caesar"
                 value={name}
@@ -153,7 +153,7 @@ export function New() {
                 />
               </Input.Background>
 
-              <Input.Default
+              <Input
                 type="text"
                 title="Preço"
                 autoComplete="off"

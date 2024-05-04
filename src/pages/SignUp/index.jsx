@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import * as Input from "../../components/Input";
+import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Brand } from "../../assets/brand";
 import { api } from "../../services/api";
@@ -44,14 +44,14 @@ export function SignUp() {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h1>Crie sua conta</h1>
 
-        <Input.Default
+        <Input
           title="Seu nome"
           type="text"
           {...register("name", { required: "Por favor, insira seu nome." })}
           placeholder="Exemplo: Maria da Silva"
         />
 
-        <Input.Default
+        <Input
           title="Email"
           type="email"
           {...register("email", {
@@ -65,7 +65,7 @@ export function SignUp() {
         />
         {errors.email && <span>{errors.email.message}</span>}
 
-        <Input.Default
+        <Input
           title="Senha"
           type="password"
           {...register("password", {

@@ -8,7 +8,7 @@ import {
 import { useForm } from "react-hook-form";
 
 import * as Layouts from "../../components/Layouts";
-import * as Input from "../../components/Input";
+import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { SideMenu } from "../../components/SideMenu";
@@ -154,13 +154,13 @@ export function Profile() {
             <div className="input-wrapper">
               <Section className="input-section">
                 <div className="input-register">
-                  <Input.Default
+                  <Input
                     title="Seu nome"
                     {...register("name")}
                     defaultValue={user.name}
                   />
 
-                  <Input.Default
+                  <Input
                     title="Seu email"
                     type="email"
                     {...register("email", { required: true })}
@@ -168,14 +168,14 @@ export function Profile() {
                   />
                   {errors.email && <span>Email é obrigatório</span>}
 
-                  <Input.Default
+                  <Input
                     type="password"
                     title="Senha atual"
                     placeholder="Digite a sua senha atual"
                     {...register("old_password")}
                   />
 
-                  <Input.Default
+                  <Input
                     type="password"
                     title="Nova senha"
                     placeholder="No mínimo 6 caracteres"
@@ -187,7 +187,7 @@ export function Profile() {
                 </div>
 
                 <div className="input-adress">
-                  <Input.Default
+                  <Input
                     title="CEP"
                     type="number"
                     placeholder="Digite o seu CEP"
@@ -195,20 +195,20 @@ export function Profile() {
                     defaultValue={user.cep ? user.cep : ""}
                     onBlur={checkCEP}
                   />
-                  <Input.Default
+                  <Input
                     title="Endereço"
                     placeholder="Digite o seu endereço"
                     defaultValue={user.street ? user.street : ""}
                     {...register("street")}
                   />
-                  <Input.Default
+                  <Input
                     title="Número"
                     type="number"
                     placeholder="Digite o seu número"
                     defaultValue={user.number_home ? user.number_home : ""}
                     {...register("number_home")}
                   />
-                  <Input.Default
+                  <Input
                     title="Bairro"
                     placeholder="Seu bairro"
                     defaultValue={user.neighborhood ? user.neighborhood : ""}

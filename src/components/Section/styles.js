@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.section`
+export const SectionContainer = styled.section`
   > h2 {
     width: fit-content;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};

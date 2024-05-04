@@ -1,7 +1,8 @@
 import { PiMagnifyingGlass } from "react-icons/pi";
-import { Container } from './styles'
 import { useState } from "react";
-import * as Input from "../Input";
+import { Input } from "../Input";
+
+import { SearchContainer } from './styles'
 
 export function Search({ onChange, onClickButton, icon, ...rest }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,13 +16,13 @@ export function Search({ onChange, onClickButton, icon, ...rest }) {
   };
 
   return (
-    <Container {...rest}>
-      <Input.Default
-      icon={PiMagnifyingGlass}
+    <SearchContainer {...rest}>
+      <Input
+        Icon={PiMagnifyingGlass}
         placeholder='Busque por pratos ou ingredientes'
         value={searchTerm}
         onChange={handleChange}
       />
-    </Container>
+    </SearchContainer>
   );
 }

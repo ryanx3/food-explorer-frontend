@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import * as Input from "../../components/Input";
+import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Brand } from "../../assets/brand";
 
@@ -16,6 +16,7 @@ export function SignIn() {
     register,
     handleSubmit,
     formState: { errors },
+    control
   } = useForm();
 
   const { signIn } = useAuth();
@@ -37,24 +38,24 @@ export function SignIn() {
       <Form onSubmit={handleSubmit(handleLogin)}>
         <h1>Faça login</h1>
 
-        <Input.Default
+        <Input
           title="Email"
           type="email"
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Exemplo: exemplo@exemplo.com.br"
-          {...register("email", { required: "Por favor, insira seu nome." })}
+          {...register("email")}
+          control={control}
         />
-        <Input.Default
+        <Input
           type="password"
           title="Senha"
           onChange={(e) => setPassword(e.target.value)}
           placeholder="No mínimo 6 caracteres"
-          {...register("password", {
-            required: "Por favor, insira a sua senha.",
-          })}
+          {...register("password")}
+          control={control}
         />
 
-        <Button type="submit" title="Entrar"/>
+        <Button type="submit" title="Entrar" />
 
         <a onClick={handleRegister}>Criar uma conta</a>
       </Form>

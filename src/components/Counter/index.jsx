@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PiPlus, PiMinus } from 'react-icons/pi'
 
-import { Container } from "./styles";
+import { CounterContainer } from "./styles";
 
 export function Counter({ title, isAdmin = false, ...rest }) {
   const [quantity, setQuantity] = useState(1)
@@ -20,10 +20,10 @@ export function Counter({ title, isAdmin = false, ...rest }) {
 
   return (
     !isAdmin && 
-    (<Container {...rest}>
+    (<CounterContainer {...rest}>
     <button onClick={handleDecrement}><PiMinus/></button>
       <span> {quantity} </span>
     <button onClick={handleIncrement}><PiPlus/></button>
-    </Container>)
+    </CounterContainer>)
   )
 }

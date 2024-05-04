@@ -1,10 +1,10 @@
-import { Container } from './styles'
+import { SectionContainer } from './styles'
 
 export function Section({ children, title, ...rest }) {
   return( 
-    <Container {...rest}>
+    <SectionContainer {...rest}>
       {title && <h2>{title}</h2>}
       {children}
-    </Container>
+    </SectionContainer>
   )
 }

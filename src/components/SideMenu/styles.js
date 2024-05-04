@@ -1,6 +1,6 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-export const Container = styled.aside`
+export const SideMenuContainer = styled.aside`
   background-color: ${({ theme }) => theme.COLORS.DARK_500};
   position: fixed;
   max-width: 275px;

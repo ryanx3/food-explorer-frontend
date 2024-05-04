@@ -4,10 +4,12 @@ import { useMediaQuery } from "react-responsive";
 import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 
+import { PiUploadSimpleBold } from "react-icons/pi";
+
 import * as Tag from "../../components/Tag";
-import * as Input from "../../components/Input";
 import * as Layout from "../../components/Layouts";
 import { SideMenu } from "../../components/SideMenu";
+import { Input } from "../../components/Input";
 import { Select } from "../../components/Select";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
@@ -15,13 +17,13 @@ import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
 import { Textarea } from "../../components/Textarea";
 
-import { EditContainer, Form, Buttons } from "./styles";
 import { api } from "../../services/api";
 
+import { EditContainer, Main, Form, Buttons, LabelTitle, Files} from "./styles";
 export function Edit({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
-  const params = useParams()
+  const params = useParams();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [name, setName] = useState("");
@@ -33,7 +35,7 @@ export function Edit({ isAdmin = true }) {
   const [ingredientsExists, setIngredientsExists] = useState([]);
   const [addIngredients, setAddIngredients] = useState("");
 
-  const [data, setData] = useState(null)
+  const [data, setData] = useState(null);
   const [image, setImage] = useState(null);
   const [filename, setFilename] = useState("");
 
@@ -59,7 +61,9 @@ export function Edit({ isAdmin = true }) {
   }
 
   function handleRemoveIngredientsExists(deleted) {
-    setIngredientsExists(prevState => prevState.filter((ingredientExist) => ingredientExist !== deleted))
+    setIngredientsExists((prevState) =>
+      prevState.filter((ingredientExist) => ingredientExist !== deleted)
+    );
   }
 
   useEffect(() => {
@@ -68,45 +72,43 @@ export function Edit({ isAdmin = true }) {
     }
   }, [isMobile]);
 
-
   useEffect(() => {
     async function fetchDishes() {
       try {
         const response = await api.get(`/dishes/${params.id}`);
-        setCategory(response.data.category) 
-        setIngredientsExists(response.data.ingredients)
+        setCategory(response.data.category);
+        setIngredientsExists(response.data.ingredients);
         setData(response.data);
       } catch (error) {
         toast.error("Erro ao buscar pratos.");
-        console.error(error)
+        console.error(error);
       }
     }
     fetchDishes();
   }, []);
 
-  
-   async function handleUpdatedDish() {
-     try {
+  async function handleUpdatedDish() {
+    try {
       const updatedDish = {
-      name: name === "" ? data.name : name,
-      category: category === "" ? data.category : category,
-      description: description === "" ? data.description : description,
-      price: price === "" ? data.price : price,
-      newIngredients,
-      ingredientsExists
+        name: name === "" ? data.name : name,
+        category: category === "" ? data.category : category,
+        description: description === "" ? data.description : description,
+        price: price === "" ? data.price : price,
+        newIngredients,
+        ingredientsExists,
       };
       await api.put(`/dishes/${params.id}`, updatedDish);
       toast.success("Prato atualizado com sucesso!");
-      handleBackHome()
-  } catch (error) {
-    if(error.response) {
-      toast.error(error.response.data.message)
+      handleBackHome();
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
     }
-  }
   }
 
   if (!data) {
-    return
+    return;
   }
 
   return (
@@ -116,12 +118,10 @@ export function Edit({ isAdmin = true }) {
         isMenuClose={() => setIsMenuOpen(false)}
       />
 
-      <Header
-        onOpenMenu={() => setIsMenuOpen(true)}
-      />
+      <Header onOpenMenu={() => setIsMenuOpen(true)} />
 
       <Layout.Page>
-        <main>
+        <Main>
           <a onClick={handleBackHome}>
             <PiCaretLeft /> voltar
           </a>
@@ -129,13 +129,21 @@ export function Edit({ isAdmin = true }) {
 
           <Form>
             <Section className="first-section">
-              <Input.File
-                title="Imagem do prato"
-                value={data.image}
-                onChange={handleImage}
-              />
+              <LabelTitle>
+                Imagem do prato
+                <Files>
+                  <label htmlFor="image">
+                    <PiUploadSimpleBold />
+                    <span> {data.image}</span>
+                    <input
+                      id="image"
+                      type="file"
+                    />
+                  </label>
+                </Files>
+              </LabelTitle>
 
-              <Input.Default
+              <Input
                 title="Nome"
                 placeholder="Exemplo: Salada Caesar"
                 defaultValue={data.name}
@@ -150,37 +158,41 @@ export function Edit({ isAdmin = true }) {
             </Section>
 
             <Section className="second-section">
-              <Input.Background title="Ingredientes">
+              <LabelTitle>
+                Ingredientes
+                <div>
+                  {newIngredients.map((newIngredient, index) => (
+                    <Tag.Remover
+                      key={String(index)}
+                      title={newIngredient}
+                      onClick={() => handleRemoveIngredients(newIngredient)}
+                    />
+                  ))}
 
-                {newIngredients.map((newIngredient, index) => (
-                  <Tag.Remover
-                    key={String(index)}
-                    title={newIngredient}
-                    onClick={() => handleRemoveIngredients(newIngredient)}
+                  {ingredientsExists.map((ingredient) => (
+                    <Tag.Remover
+                      key={String(ingredient.id)}
+                      title={ingredient.ingredient}
+                      onClick={() => handleRemoveIngredientsExists(ingredient)}
+                    />
+                  ))}
+
+                  <Tag.Creator
+                    value={addIngredients}
+                    onChange={(e) => setAddIngredients(e.target.value)}
+                    onClick={handleAddIngredients}
                   />
-                ))}
+                </div>
+              </LabelTitle>
 
-                {ingredientsExists.map((ingredient) => (
-                  <Tag.Remover
-                    key={String(ingredient.id)}
-                    title={ingredient.ingredient}
-                    onClick={() => handleRemoveIngredientsExists(ingredient)}
-                  />
-                ))}
-
-                <Tag.Creator
-                  value={addIngredients}
-                  onChange={(e) => setAddIngredients(e.target.value)}
-                  onClick={handleAddIngredients}
-                />
-              </Input.Background>
-
-              <Input.Default
+              <Input
                 type="text"
                 title="Preço"
                 autoComplete="off"
                 placeholder="R$ 00,00"
-                defaultValue={data.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                defaultValue={data.price.toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Section>
@@ -195,10 +207,14 @@ export function Edit({ isAdmin = true }) {
             </Section>
 
             <Buttons>
-              <Button type="button" title="Salvar alterações" onClick={handleUpdatedDish} />
+              <Button
+                type="button"
+                title="Salvar alterações"
+                onClick={handleUpdatedDish}
+              />
             </Buttons>
           </Form>
-        </main>
+        </Main>
       </Layout.Page>
 
       <Footer />

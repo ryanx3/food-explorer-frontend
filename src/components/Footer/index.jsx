@@ -7,31 +7,15 @@ import { BrandMobileFooter } from '../../assets/brand-mobile-footer'
 
 //Components
 import * as Layout from "../Layouts";
-import { api } from "../../services/api";
 
-import { Container, Brand, Copyright, Profile } from './styles'
-import { useState } from 'react';
-import { useAuth } from '../../hooks/Auth';
-import AvatarPlaceholder from "../../assets/avatarPlaceholder.png"
+import { FooterContainer, Brand, Copyright } from './styles'
 
 export function Footer() {
   const isMobile = useMediaQuery({ maxWidth: 768 })
-  const navigate = useNavigate()
-
-  const { user } = useAuth()
-
-  const AvatarURL = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : AvatarPlaceholder
-
-  const [ avatar, setAvatar ] = useState(AvatarURL)
-
-  function handleProfile() {
-    navigate("/profile")
-  }
-
   const Logo = isMobile ? <BrandMobileFooter /> : <BrandFooter />
 
   return (
-    <Container>
+    <FooterContainer>
 
       <Layout.Footer>
         
@@ -45,6 +29,6 @@ export function Footer() {
 
       </Layout.Footer>
 
-    </Container>
+    </FooterContainer>
   )
 }

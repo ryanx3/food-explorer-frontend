@@ -10,7 +10,7 @@ export const Container = styled.div`
     color: red;
   }
 
-  label, p {
+  label {
     display: flex;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_400};
@@ -22,7 +22,7 @@ export const Container = styled.div`
   }
 `;
 
-export const InputDefault = styled.div`
+export const InputContainer = styled.input`
   width: 100%;
   display: flex;
   align-items: center;
@@ -30,57 +30,26 @@ export const InputDefault = styled.div`
   height: 4.8rem;
 
   background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+  color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
-  padding: 1.2rem 1.4rem;
+  padding-left: 1.2rem;
   border-radius: 0.5rem;
+  border: none;
 
-  > div {
-    display: flex;
-    align-self: flex-start;
-  }
-
-  > input {
-    width: 100%;
-    color: ${({ theme }) => theme.COLORS.LIGHT_100};
-
-    outline: none;
-    margin-left: 1rem;
+  font-size: 1.6rem;
+  outline: none;
+  
+  &::placeholder {
+    color: ${({ theme }) => theme.COLORS.LIGHT_500};
+    font-family: Roboto;
     font-size: 1.6rem;
-    gap: 1.4rem;
-
-    border: none;
-    background: transparent;
-
-    &::placeholder {
-      color: ${({ theme }) => theme.COLORS.LIGHT_500};
-      font-family: Roboto;
-      font-size: 1.6rem;
-      font-weight: 400;
-    }
+    font-weight: 400;
   }
-
   &:focus-within {
     border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_100};
   }
-
-  > svg {
-    fill: ${({ theme }) => theme.COLORS.LIGHT_100};
-    text-align: center;
-  }
 `;
 
-export const InputBackground = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  min-height: 48px;
-
-  background-color: ${({ theme }) => theme.COLORS.DARK_1000};
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.5rem;
-  gap: 1.6rem;
-`;
 
 export const InputFile = styled.div`
   display: flex;

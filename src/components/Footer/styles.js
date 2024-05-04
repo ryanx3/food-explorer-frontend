@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.footer` 
+export const FooterContainer = styled.footer` 
   height: 77px;
   display: flex;
   align-items: center;
@@ -30,30 +30,3 @@ export const Copyright = styled.div`
   export const Brand = styled.div` 
     display: flex;
   `
-
-export const Profile = styled.div` 
-  display: flex;
-  gap: .8rem;
-  cursor: pointer;
-  
-  img {
-    width: 4.8rem;
-    height: auto;
-    border-radius: 999px;
-  }
-
-  .user {
-    color: ${({ theme }) => theme.COLORS.LIGHT_100};
-
-    > h1 {
-      font-size: 1.6rem;
-      font-weight: 500;
-    }
-    span {
-      font-size: 1.2rem;
-      font-weight: 400;
-      cursor: pointer;
-    }
-  }
-
-`

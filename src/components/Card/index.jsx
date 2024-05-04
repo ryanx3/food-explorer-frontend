@@ -4,20 +4,19 @@ import {
   PiHeartStraightBold,
   PiHeartStraightFill,
   PiCaretRightBold,
-  PiPencilSimple
+  PiPencilSimple,
 } from "react-icons/pi";
 
 //Components
-import { Counter } from '../Counter';
+import { Counter } from "../Counter";
 import { Button } from "../Button";
 import { api } from "../../services/api";
 
-import { Container, Picture, Title, Description, Order } from "./styles";
+import { CardContainer, Picture, Title, Description, Order } from "./styles";
 
 export function Card({ data, onClick, isAdmin = false, ...rest }) {
   const navigate = useNavigate();
   const [favorite, setFavorites] = useState(false);
-
 
   function handleIsFavorite() {
     setFavorites(true);
@@ -33,23 +32,25 @@ export function Card({ data, onClick, isAdmin = false, ...rest }) {
 
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
 
+ const renderIconIf = () => {
+   if (!isAdmin) {
+     return favorite ? (
+       <PiHeartStraightFill onClick={handleRemoveFavorite} />
+     ) : (
+       <PiHeartStraightBold onClick={handleIsFavorite} />
+     );
+   } else {
+     return <PiPencilSimple onClick={handleAdminEdit} />;
+   }
+ };
+
   return (
-    <Container isAdmin={isAdmin} data={data} {...rest}>
-      {!isAdmin ? (
-        favorite ? (
-          <PiHeartStraightFill onClick={handleRemoveFavorite} />
-        ) : (
-          <PiHeartStraightBold onClick={handleIsFavorite} />
-        )
-      ) : (
-        <PiPencilSimple onClick={handleAdminEdit} />
-      )}
+    <CardContainer isAdmin={isAdmin} data={data} >
+      
+      {renderIconIf}
 
       <Picture onClick={onClick}>
-        <img
-          src={imageURL}
-          alt={`Image of dish ${data.name}`}
-        />
+        <img src={imageURL} alt={`Image of dish ${data.name}`} />
       </Picture>
 
       <Title onClick={onClick}>
@@ -62,12 +63,12 @@ export function Card({ data, onClick, isAdmin = false, ...rest }) {
         <h3>R$ {data.price}</h3>
       </Description>
 
-      {!isAdmin &&
+      {!isAdmin && (
         <Order>
           <Counter />
           <Button title="incluir" />
         </Order>
-      }
-    </Container>
+      )}
+    </CardContainer>
   );
 }

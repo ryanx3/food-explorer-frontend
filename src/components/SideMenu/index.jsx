@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/Auth";
 import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
 import { api } from "../../services/api";
 import { PiXBold, PiSignOut } from "react-icons/pi";
-import { Container, Main, Header, Footer } from "./styles";
+import { SideMenuContainer, Main, Header, Footer } from "./styles";
 import { Search } from "../Search";
 
 export function SideMenu({
@@ -50,7 +50,7 @@ export function SideMenu({
   }, [isMenuClose]);
 
   return (
-    <Container data-is-menu-open={isMenuOpen} {...rest}>
+    <SideMenuContainer data-is-menu-open={isMenuOpen} {...rest}>
       <Header>
         <h1>
           <PiXBold onClick={isMenuClose} />
@@ -80,6 +80,6 @@ export function SideMenu({
         )}
         <PiSignOut onClick={handleLogout} />
       </Footer>
-    </Container>
+    </SideMenuContainer>
   );
 }
