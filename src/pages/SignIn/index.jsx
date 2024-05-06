@@ -16,7 +16,6 @@ export function SignIn() {
     register,
     handleSubmit,
     formState: { errors },
-    control
   } = useForm();
 
   const { signIn } = useAuth();
@@ -26,6 +25,7 @@ export function SignIn() {
   }
 
   const handleLogin = (data) => {
+  
     signIn(data);
   };
 
@@ -41,18 +41,14 @@ export function SignIn() {
         <Input
           title="Email"
           type="email"
-          onChange={(e) => setEmail(e.target.value)}
           placeholder="Exemplo: exemplo@exemplo.com.br"
           {...register("email")}
-          control={control}
         />
         <Input
           type="password"
           title="Senha"
-          onChange={(e) => setPassword(e.target.value)}
           placeholder="No mínimo 6 caracteres"
           {...register("password")}
-          control={control}
         />
 
         <Button type="submit" title="Entrar" />

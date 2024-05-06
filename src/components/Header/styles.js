@@ -45,9 +45,10 @@ export const Profile = styled.div`
 
   img {
     width: 5.6rem;
-    height: auto;
-    border-radius: 999px;
+    height: 5.6rem;
+    border-radius: 100%;
     cursor: pointer;
+    object-fit: cover;
   }
 
   nav {
@@ -59,7 +60,7 @@ export const Profile = styled.div`
     padding: 1rem;
     margin-top: 1rem;
     list-style: none;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
 
     @keyframes effectShowNav {
       from {
@@ -71,12 +72,11 @@ export const Profile = styled.div`
       }
     }
   }
-  
+
   nav ul {
     list-style: none;
   }
 
-  
   nav ul li {
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     font-size: 14px;

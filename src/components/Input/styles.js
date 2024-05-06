@@ -20,36 +20,35 @@ export const Container = styled.div`
     font-weight: 400;
     line-height: 100%;
   }
-`;
 
-export const InputContainer = styled.input`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 4.8rem;
+  input {
+    min-width: 100% ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.8rem;
 
-  background-color: ${({ theme }) => theme.COLORS.DARK_1000};
-  color: ${({ theme }) => theme.COLORS.LIGHT_100};
+    background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
-  padding-left: 1.2rem;
-  border-radius: 0.5rem;
-  border: none;
+    padding-left: 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
 
-  font-size: 1.6rem;
-  outline: none;
-  
-  &::placeholder {
-    color: ${({ theme }) => theme.COLORS.LIGHT_500};
-    font-family: Roboto;
     font-size: 1.6rem;
-    font-weight: 400;
-  }
-  &:focus-within {
-    border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_100};
+    outline: none;
+
+    &::placeholder {
+      color: ${({ theme }) => theme.COLORS.LIGHT_500};
+      font-family: Roboto;
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+    &:focus-within {
+      border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_100};
+    }
   }
 `;
-
 
 export const InputFile = styled.div`
   display: flex;
