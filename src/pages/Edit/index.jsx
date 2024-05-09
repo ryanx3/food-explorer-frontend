@@ -9,7 +9,8 @@ import { PiUploadSimpleBold } from "react-icons/pi";
 import * as Tag from "../../components/Tag";
 import * as Layout from "../../components/Layouts";
 import { SideMenu } from "../../components/SideMenu";
-import { Input } from "../../components/Input";
+import { Input } from "../../components/Inputs/Input";
+import { InputFile } from "../../components/Inputs/InputFile";
 import { Select } from "../../components/Select";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
@@ -19,7 +20,7 @@ import { Textarea } from "../../components/Textarea";
 
 import { api } from "../../services/api";
 
-import { EditContainer, Main, Form, Buttons, LabelTitle, Files} from "./styles";
+import { EditContainer, Main, Form, Buttons, LabelTitle} from "./styles";
 export function Edit({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
@@ -123,25 +124,13 @@ export function Edit({ isAdmin = true }) {
       <Layout.Page>
         <Main>
           <a onClick={handleBackHome}>
-            <PiCaretLeft /> voltar
+            <PiCaretLeft /> Voltar
           </a>
           <h1>Editar prato</h1>
 
           <Form>
             <Section className="first-section">
-              <LabelTitle>
-                Imagem do prato
-                <Files>
-                  <label htmlFor="image">
-                    <PiUploadSimpleBold />
-                    <span> {data.image}</span>
-                    <input
-                      id="image"
-                      type="file"
-                    />
-                  </label>
-                </Files>
-              </LabelTitle>
+              <InputFile title="Imagem" filename={data.image}/>
 
               <Input
                 title="Nome"

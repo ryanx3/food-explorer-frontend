@@ -5,12 +5,10 @@ import { useAuth } from "../../hooks/Auth";
 
 import { PiMagnifyingGlassLight, PiReceipt, PiList } from "react-icons/pi";
 
-//Components
 import * as Layout from "../Layouts";
 import { Search } from "../Search";
 import { Button } from "../Button";
 
-//Images
 import avatarPlaceholder from "../../assets/avatarPlaceholder.png";
 import { BrandMobileAdmin } from "../../assets/brand-mobile-admin";
 import { BrandMobile } from "../../assets/brand-mobile";

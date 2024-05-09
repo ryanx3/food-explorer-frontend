@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { Input } from "../../components/Input";
+import { Input } from "../../components/Inputs/Input";
 import { Button } from "../../components/Button";
 import { Brand } from "../../assets/brand";
 

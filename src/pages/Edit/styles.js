@@ -12,7 +12,6 @@ export const EditContainer = styled.div`
 `;
 
 export const Main = styled.main`
-  main {
     > a {
       display: flex;
       color: ${({ theme }) => theme.COLORS.LIGHT_300};
@@ -33,7 +32,6 @@ export const Main = styled.main`
     }
 
     > h1 {
-      font-family: inherit;
       font-size: 3.2rem;
       font-style: normal;
       font-weight: 500;
@@ -41,7 +39,6 @@ export const Main = styled.main`
       color: ${({ theme }) => theme.COLORS.LIGHT_300};
       margin: 2.4rem 0 3.2rem;
     }
-  }
 `;
 
 export const Form = styled.form`
@@ -123,37 +120,4 @@ export const LabelTitle = styled.label`
   }
 `;
 
-export const Files = styled.div`
-  max-height: 48px;
-  > label {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 0.8rem;
-    justify-content: center;
 
-    border-radius: 0.8rem;
-    cursor: pointer;
-
-    svg {
-      color: ${({ theme }) => theme.COLORS.LIGHT_100};
-      font-size: 2.4rem;
-    }
-
-    span {
-      white-space: nowrap;
-      font-family: inherit;
-      font-size: 1.4rem;
-      font-weight: 500;
-      color: ${({ theme }) => theme.COLORS.LIGHT_100};
-      cursor: pointer;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-
-  input {
-    display: none;
-  }
-`;

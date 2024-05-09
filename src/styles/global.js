@@ -60,4 +60,10 @@ p
   button:hover, a:hover {
     filter: brightness(1.2);
   }
+
+  body, input, textarea, button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+}
 `;

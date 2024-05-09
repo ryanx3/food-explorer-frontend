@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
-import { Container } from "./styles";
+import { InputContainer } from "./styles";
 
 export const Input = forwardRef(({ icon: Icon, title, ...rest }, ref) => {
   return (
-    <Container>
-      {title && <label>{title}</label>}
+    <InputContainer>
+      {title && title}
       <input ref={ref} {...rest} />
-    </Container>
+    </InputContainer>
   );
-})
+});

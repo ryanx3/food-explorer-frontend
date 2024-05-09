@@ -8,7 +8,7 @@ import { api } from "../../services/api";
 import * as Tag from "../../components/Tag";
 import * as Layout from "../../components/Layouts";
 import { SideMenu } from "../../components/SideMenu";
-import { Input } from "../../components/Input";
+import { Input } from "../../components/Inputs/Input";
 import { Select } from "../../components/Select";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";

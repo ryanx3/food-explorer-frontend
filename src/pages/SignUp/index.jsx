@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Input } from "../../components/Input";
+import { Input } from "../../components/Inputs/Input";
 import { Button } from "../../components/Button";
 import { Brand } from "../../assets/brand";
 import { api } from "../../services/api";

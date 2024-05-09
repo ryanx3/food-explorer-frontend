@@ -8,7 +8,7 @@ import {
 import { useForm } from "react-hook-form";
 
 import * as Layouts from "../../components/Layouts";
-import { Input } from "../../components/Input";
+import { Input } from "../../components/Inputs/Input";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { SideMenu } from "../../components/SideMenu";

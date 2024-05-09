@@ -1,8 +1,8 @@
 import { ButtonContainer } from './styles'
 
-export function Button({ icon: Icon, title, type, ...rest }) {
+export function Button({ icon: Icon, title,  ...rest }) {
   return(
-    <ButtonContainer {...rest} type={type}>
+    <ButtonContainer {...rest}>
       {Icon && <Icon size={32}/>}
       {title}
     </ButtonContainer>
