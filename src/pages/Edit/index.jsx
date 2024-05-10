@@ -6,8 +6,9 @@ import { toast } from "react-toastify";
 
 import { PiUploadSimpleBold } from "react-icons/pi";
 
-import * as Tag from "../../components/Tag";
 import * as Layout from "../../components/Layouts";
+import { Tag } from "../../components/Tag";
+import { IngredientTag } from "../../components/IngredientTag";
 import { SideMenu } from "../../components/SideMenu";
 import { Input } from "../../components/Inputs/Input";
 import { InputFile } from "../../components/Inputs/InputFile";
@@ -130,7 +131,7 @@ export function Edit({ isAdmin = true }) {
 
           <Form>
             <Section className="first-section">
-              <InputFile title="Imagem" filename={data.image}/>
+              <InputFile title="Imagem" filename={data.image} />
 
               <Input
                 title="Nome"
@@ -151,7 +152,7 @@ export function Edit({ isAdmin = true }) {
                 Ingredientes
                 <div>
                   {newIngredients.map((newIngredient, index) => (
-                    <Tag.Remover
+                    <IngredientTag
                       key={String(index)}
                       title={newIngredient}
                       onClick={() => handleRemoveIngredients(newIngredient)}
@@ -159,14 +160,14 @@ export function Edit({ isAdmin = true }) {
                   ))}
 
                   {ingredientsExists.map((ingredient) => (
-                    <Tag.Remover
+                    <IngredientTag
                       key={String(ingredient.id)}
                       title={ingredient.ingredient}
                       onClick={() => handleRemoveIngredientsExists(ingredient)}
                     />
                   ))}
 
-                  <Tag.Creator
+                  <IngredientTag
                     value={addIngredients}
                     onChange={(e) => setAddIngredients(e.target.value)}
                     onClick={handleAddIngredients}

@@ -63,7 +63,7 @@ export const Content = styled.div`
   }
 `;
 
-export const Details = styled.div`
+export const DetailsX = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
