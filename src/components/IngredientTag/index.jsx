@@ -3,27 +3,22 @@ import { IngredientContainer } from "./styles";
 
 export function IngredientTag({
   icon: Icon,
+  onClick,
   title,
-  readOnly = false,
+  value,
+  isNew,
   ...rest
 }) {
-  return (
-    <IngredientContainer>
-      <input type="text" readOnly {...rest} />
 
-      <button type="button">{readOnly ? <PiPlusBold /> : <PiXBold />}</button>
+  return (
+    <IngredientContainer readOnly={!isNew}>
+      {title}
+
+      {isNew && <input type="text" readOnly={!isNew} value={value} {...rest} />}
+
+      <button onClick={onClick} type="button">
+        {isNew ? <PiPlusBold /> : <PiXBold />}
+      </button>
     </IngredientContainer>
   );
 }
-
-// export function Remover({ title, onClick, readOnly = true, ...rest }) {
-//   return (
-//     <TagRemover readOnly {...rest}>
-//       {title}
-
-//       <button type="button" onClick={onClick}>
-//         <PiXBold />
-//       </button>
-//     </TagRemover>
-//   );
-// }

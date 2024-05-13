@@ -5,7 +5,7 @@ import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 
-import * as Tag from "../../components/Tag";
+import { IngredientTag } from "../../components/IngredientTag";
 import * as Layout from "../../components/Layouts";
 import { SideMenu } from "../../components/SideMenu";
 import { Input } from "../../components/Inputs/Input";
@@ -18,6 +18,8 @@ import { Textarea } from "../../components/Textarea";
 
 
 import { NewContainer, Form, Buttons } from "./styles";
+import { InputFile } from "../../components/Inputs/InputFile";
+import { NumericFormat } from "react-number-format";
 
 export function New() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -116,7 +118,7 @@ export function New() {
 
           <Form>
             <Section className="first-section">
-              <Input.File
+              <InputFile
                 title="Imagem do prato"
                 value={filename}
                 onChange={handleImage}
@@ -137,31 +139,33 @@ export function New() {
             </Section>
 
             <Section className="second-section">
-              <Input.Background title="Ingredientes">
+              <div>
                 {ingredients.map((ingredient, index) => (
-                  <Tag.Remover
+                  <IngredientTag
                     key={String(index)}
+                    readOnly
                     title={ingredient}
                     onClick={() => handleRemoveIngredients(ingredient)}
                   />
                 ))}
 
-                <Tag.Creator
+                <IngredientTag
                   value={newIngredient}
                   onChange={(e) => setNewIngredient(e.target.value)}
                   onClick={handleAddIngredients}
                 />
-              </Input.Background>
+              </div>
 
-              <Input
-                type="text"
-                title="Preço"
-                autoComplete="off"
-                placeholder="R$ 00,00"
-                value={price.toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2,
-                })}
-                onChange={(e) => setPrice(e.target.value)}
+              <NumericFormat
+                placeholder="€00,00"
+                allowLeadingZeros={false}
+                allowNegative={false}
+                decimalScale={2}
+                fixedDecimalScale={true}
+                allowedDecimalSeparators={["."]}
+                prefix="€"
+                customInput={Input}
+                onValueChange={(values) => setPrice(values.value)}
               />
             </Section>
 

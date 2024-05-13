@@ -5,6 +5,7 @@ import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 
 import { PiUploadSimpleBold } from "react-icons/pi";
+import { NumericFormat } from "react-number-format";
 
 import * as Layout from "../../components/Layouts";
 import { Tag } from "../../components/Tag";
@@ -21,7 +22,7 @@ import { Textarea } from "../../components/Textarea";
 
 import { api } from "../../services/api";
 
-import { EditContainer, Main, Form, Buttons, LabelTitle} from "./styles";
+import { EditContainer, Main, Form, Buttons, LabelTitle } from "./styles";
 export function Edit({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
@@ -154,7 +155,7 @@ export function Edit({ isAdmin = true }) {
                   {newIngredients.map((newIngredient, index) => (
                     <IngredientTag
                       key={String(index)}
-                      title={newIngredient}
+                      value={newIngredient}
                       onClick={() => handleRemoveIngredients(newIngredient)}
                     />
                   ))}
@@ -169,21 +170,24 @@ export function Edit({ isAdmin = true }) {
 
                   <IngredientTag
                     value={addIngredients}
+                    isNew
                     onChange={(e) => setAddIngredients(e.target.value)}
                     onClick={handleAddIngredients}
                   />
                 </div>
               </LabelTitle>
 
-              <Input
-                type="text"
-                title="Preço"
-                autoComplete="off"
-                placeholder="R$ 00,00"
-                defaultValue={data.price.toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2,
-                })}
-                onChange={(e) => setPrice(e.target.value)}
+              <NumericFormat
+                value={data.price}
+                allowLeadingZeros={false}
+                allowNegative={false}
+                decimalScale={2}
+                fixedDecimalScale={true}
+                allowedDecimalSeparators={["."]}
+                prefix="€"
+                customInput={Input}
+                onValueChange={(values) => setPrice(values.value)}
+                placeholder="€00,00"
               />
             </Section>
 
