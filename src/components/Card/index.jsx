@@ -7,7 +7,6 @@ import {
   PiPencilSimple,
 } from "react-icons/pi";
 
-//Components
 import { Counter } from "../Counter";
 import { Button } from "../Button";
 import { api } from "../../services/api";
@@ -32,7 +31,7 @@ export function Card({ data, onClick, isAdmin = false, ...rest }) {
 
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
 
- const renderIconIf = () => {
+ const iconRender = () => {
    if (!isAdmin) {
      return favorite ? (
        <PiHeartStraightFill onClick={handleRemoveFavorite} />
@@ -45,12 +44,11 @@ export function Card({ data, onClick, isAdmin = false, ...rest }) {
  };
 
   return (
-    <CardContainer isAdmin={isAdmin} data={data} >
-      
-      {renderIconIf}
+    <CardContainer isAdmin={isAdmin} data={data}>
+      {iconRender}
 
       <Picture onClick={onClick}>
-        <img src={imageURL} alt={`Image of dish ${data.name}`} />
+        <img src={imageURL} alt={`Imagem do prato ${data.name}`} />
       </Picture>
 
       <Title onClick={onClick}>
@@ -60,7 +58,7 @@ export function Card({ data, onClick, isAdmin = false, ...rest }) {
 
       <Description>
         <p>{data.description}</p>
-        <h3>R$ {data.price}</h3>
+        <h3>R$ {parseFloat(data.price).toFixed(2)}</h3>
       </Description>
 
       {!isAdmin && (
