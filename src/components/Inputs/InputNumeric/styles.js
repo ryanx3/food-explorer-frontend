@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputContainer = styled.div`
+export const NumericContainer = styled.div`
   width: 100% !important;
   color: ${({ theme }) => theme.COLORS.LIGHT_400};
   line-height: 100%;

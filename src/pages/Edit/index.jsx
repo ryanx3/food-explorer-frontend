@@ -4,21 +4,18 @@ import { useMediaQuery } from "react-responsive";
 import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 
-import { PiUploadSimpleBold } from "react-icons/pi";
-import { NumericFormat } from "react-number-format";
-
 import * as Layout from "../../components/Layouts";
-import { Tag } from "../../components/Tag";
+import { Header } from "../../components/Header";
 import { IngredientTag } from "../../components/IngredientTag";
 import { SideMenu } from "../../components/SideMenu";
 import { Input } from "../../components/Inputs/Input";
 import { InputFile } from "../../components/Inputs/InputFile";
+import { InputNumeric } from "../../components/Inputs/InputNumeric";
 import { Select } from "../../components/Select";
-import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
-import { Textarea } from "../../components/Textarea";
+import { Textarea } from "../../components/Inputs/Textarea";
 
 import { api } from "../../services/api";
 
@@ -177,17 +174,10 @@ export function Edit({ isAdmin = true }) {
                 </div>
               </LabelTitle>
 
-              <NumericFormat
+              <InputNumeric
                 value={data.price}
-                allowLeadingZeros={false}
-                allowNegative={false}
-                decimalScale={2}
-                fixedDecimalScale={true}
-                allowedDecimalSeparators={["."]}
-                prefix="€"
-                customInput={Input}
-                onValueChange={(values) => setPrice(values.value)}
-                placeholder="€00,00"
+                title="preço"
+                setPrice={setPrice}
               />
             </Section>
 

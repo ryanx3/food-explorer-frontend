@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
 import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 
-import { IngredientTag } from "../../components/IngredientTag";
 import * as Layout from "../../components/Layouts";
+import { IngredientTag } from "../../components/IngredientTag";
+import { InputNumeric } from "../../components/Inputs/InputNumeric";
+import { InputFile } from "../../components/Inputs/InputFile";
+import { Textarea } from "../../components/Inputs/Textarea";
 import { SideMenu } from "../../components/SideMenu";
-import { Input } from "../../components/Inputs/Input";
+import { Section } from "../../components/Section";
 import { Select } from "../../components/Select";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
-import { Textarea } from "../../components/Textarea";
-
+import { Input } from "../../components/Inputs/Input";
 
 import { NewContainer, Form, Buttons } from "./styles";
-import { InputFile } from "../../components/Inputs/InputFile";
-import { NumericFormat } from "react-number-format";
 
 export function New() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -60,7 +59,6 @@ export function New() {
   }
 
   async function handleCreateDish() {
-
     const priceValue = parseFloat(price.replace(",", "."));
 
     if (!image) {
@@ -84,7 +82,7 @@ export function New() {
     try {
       await api.post("/dishes", formData);
       toast.success("Prato criado com sucesso!");
-      handleBack()
+      handleBack();
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
@@ -156,16 +154,10 @@ export function New() {
                 />
               </div>
 
-              <NumericFormat
-                placeholder="€00,00"
-                allowLeadingZeros={false}
-                allowNegative={false}
-                decimalScale={2}
-                fixedDecimalScale={true}
-                allowedDecimalSeparators={["."]}
-                prefix="€"
-                customInput={Input}
-                onValueChange={(values) => setPrice(values.value)}
+              <InputNumeric
+                value={data.price}
+                title="preço"
+                setPrice={setPrice}
               />
             </Section>
 
