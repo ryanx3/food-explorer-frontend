@@ -88,11 +88,10 @@ export function Home({ isAdmin = false }) {
   return (
     <HomeContainer>
       <Header
-        onChangeSearch={(value) => setSearch(value)}
+        onChangeSearch={(e) => setSearch(e.target.value)}
         onOpenMenu={() => setIsMenuOpen(true)}
         isAdmin={isAdmin}
       />
-
       <SideMenu
         isMenuOpen={isMenuOpen}
         isMenuClose={() => setIsMenuOpen(false)}

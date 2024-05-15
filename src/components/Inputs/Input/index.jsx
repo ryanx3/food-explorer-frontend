@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { InputContainer } from "./styles";
 
-export const Input = forwardRef(({ icon: Icon, title, ...rest }, ref) => {
+export const Input = forwardRef(({ title, ...rest }, ref) => {
   return (
     <InputContainer>
       {title && title}
