@@ -66,4 +66,12 @@ p
   font-weight: 400;
   font-size: 1.6rem;
 }
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px ${({ theme }) => theme.COLORS.DARK_1000} inset;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: ${({ theme }) => theme.COLORS.LIGHT_100} !important;
+}
 `;
