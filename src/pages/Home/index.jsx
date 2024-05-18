@@ -12,6 +12,8 @@ import { api } from "../../services/api";
 
 import * as Layout from "../../components/Layouts";
 
+import { useSearch } from "../../hooks/Search";
+
 import bannerDesktop from "../../assets/home-banner.png";
 import bannerMobile from "../../assets/banner-mobile.png";
 
@@ -23,7 +25,7 @@ export function Home({ isAdmin = false }) {
 
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const { search, setSearch } = useSearch()
   const [cards, setCards] = useState({
     meals: [],
     beverages: [],
