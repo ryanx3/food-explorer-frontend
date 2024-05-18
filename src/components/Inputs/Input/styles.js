@@ -10,30 +10,35 @@ export const InputContainer = styled.div`
   text-align: start;
   gap: 8px;
 
-  > input {
+  > div {
     display: flex;
     align-items: center;
     justify-content: center;
+
     height: 4.8rem;
+    padding: 1.2rem;
+
+    border-radius: 5px;
+    gap: 8px;
 
     background-color: ${({ theme }) => theme.COLORS.DARK_1000};
-    color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
-    padding-left: 1.2rem;
-    border-radius: 0.5rem;
-    border: none;
-
-    font-size: 1.6rem;
-    outline: none;
-
-    &::placeholder {
-      color: ${({ theme }) => theme.COLORS.LIGHT_500};
-      font-family: Roboto;
-      font-size: 1.6rem;
-      font-weight: 400;
-    }
     &:focus-within {
-      border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_100};
+      border: 2px solid ${({ theme }) => theme.COLORS.LIGHT_100};
+    }
+
+    input {
+      width: 100%;
+      background: transparent;
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      
+      border: none;
+      font-size: 1.6rem;
+      outline: none;
+
+      &::placeholder {
+        color: ${({ theme }) => theme.COLORS.LIGHT_500};
+      }
     }
   }
 `;
