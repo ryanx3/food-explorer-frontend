@@ -9,32 +9,24 @@ export const InputFileContainer = styled.div`
   flex-direction: column;
   text-align: start;
   gap: 8px;
-
-  > div {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    min-height: 48px;
-
-    background-color: ${({ theme }) => theme.COLORS.DARK_1000};
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.5rem;
-    gap: 1.6rem;
-  }
 `;
 
 export const Files = styled.div`
-  max-height: 48px;
+  width: 100%;
+  height: 48px;
+  
+  flex-wrap: wrap;
+
+  background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+  padding: 1.2rem 1.4rem;
+  border-radius: 0.5rem;
+ 
   > label {
-    width: 100%;
     display: flex;
     align-items: center;
-    flex-direction: row;
-    gap: 0.8rem;
     justify-content: center;
-
-    border-radius: 0.8rem;
+    gap: 8px;
+    border-radius: 5px;
     cursor: pointer;
 
     svg {

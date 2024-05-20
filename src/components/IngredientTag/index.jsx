@@ -3,12 +3,17 @@ import { IngredientContainer } from "./styles";
 
 export function IngredientTag({
   icon: Icon,
-  onClick,
+  onClickButton,
   title,
   value,
   isNew,
   ...rest
 }) {
+
+   const handleClick = (event) => {
+     event.stopPropagation();
+     onClickButton();
+   };
 
   return (
     <IngredientContainer readOnly={!isNew}>
@@ -16,7 +21,7 @@ export function IngredientTag({
 
       {isNew && <input type="text" readOnly={!isNew} value={value} {...rest} />}
 
-      <button onClick={onClick} type="button">
+      <button onClick={handleClick} type="button">
         {isNew ? <PiPlusBold /> : <PiXBold />}
       </button>
     </IngredientContainer>

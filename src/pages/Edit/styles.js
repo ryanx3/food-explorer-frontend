@@ -14,17 +14,17 @@ export const EditContainer = styled.div`
 export const Main = styled.main`
     > a {
       display: flex;
-      color: ${({ theme }) => theme.COLORS.LIGHT_300};
+      align-items: center;
+
       width: fit-content;
+      
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
       font-family: inherit;
       font-size: 2.4rem;
       font-weight: 700;
       line-height: 140%;
-      margin-top: 4rem;
-      > svg {
-        font-size: 3.2rem;
-      }
+      margin-top: 2rem;
 
       @media (max-width: 1024px) {
         font-weight: 500;
@@ -37,7 +37,7 @@ export const Main = styled.main`
       font-weight: 500;
       line-height: 140%;
       color: ${({ theme }) => theme.COLORS.LIGHT_300};
-      margin: 2.4rem 0 3.2rem;
+      margin: 2.4rem 0 2.4rem;
     }
 `;
 
@@ -46,18 +46,18 @@ export const Form = styled.form`
 
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
+  gap: 2.4rem;
 
   .first-section {
     display: grid;
-    gap: 3.2rem;
+    gap: 2.4rem;
     grid-template-columns: 1.5fr 2.5fr 1.5fr;
   }
 
   .second-section {
     display: grid;
     grid-template-columns: 3.5fr 1fr;
-    gap: 3.2rem;
+    gap: 2.4rem;
   }
 
   @media (max-width: 1024px) {
@@ -80,14 +80,19 @@ export const Buttons = styled.div`
   gap: 3.2rem;
   margin-bottom: 4rem;
 
-  button {
-    transition: 500ms ease-out;
+  button:nth-child(2) {
     background-color: ${({ theme }) => theme.COLORS.TOMATO_400};
+    transition: 300ms ease-out;
 
     &:hover {
-      transition: 500ms ease-out;
+      transition: 300ms ease-out;
       background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
     }
+  }
+
+  button:nth-child(1) {
+    background-color: ${({ theme }) => theme.COLORS.DARK_900};
+    transition: 300ms ease-out;
   }
 
   @media (max-width: 768px) {
@@ -105,19 +110,20 @@ export const LabelTitle = styled.label`
   font-weight: 400;
   line-height: 100%;
 
-  > div {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    min-height: 48px;
-    margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 
-    background-color: ${({ theme }) => theme.COLORS.DARK_1000};
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.5rem;
-    gap: 1.6rem;
-  }
-`;
+  `;
+
+export const Background = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+  border-radius: 5px;
+  gap: 1.6rem;
+  padding: 8px;
+`
 
 

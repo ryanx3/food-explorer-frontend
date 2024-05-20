@@ -61,7 +61,7 @@ p
     filter: brightness(1.2);
   }
 
-  body, input, textarea, button {
+  body, input, textarea, select, button {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 1.6rem;

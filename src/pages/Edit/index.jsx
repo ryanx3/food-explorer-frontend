@@ -19,7 +19,14 @@ import { Textarea } from "../../components/Inputs/Textarea";
 
 import { api } from "../../services/api";
 
-import { EditContainer, Main, Form, Buttons, LabelTitle } from "./styles";
+import {
+  EditContainer,
+  Main,
+  Form,
+  Buttons,
+  LabelTitle,
+  Background,
+} from "./styles";
 export function Edit({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
@@ -54,17 +61,17 @@ export function Edit({ isAdmin = true }) {
     setAddIngredients("");
   }
 
-  function handleRemoveIngredients(deleted) {
-    setNewIngredients((prevState) =>
-      prevState.filter((ingredient) => ingredient !== deleted)
-    );
-  }
-
-  function handleRemoveIngredientsExists(deleted) {
-    setIngredientsExists((prevState) =>
-      prevState.filter((ingredientExist) => ingredientExist !== deleted)
-    );
-  }
+ function handleRemoveIngredient(type, deleted) {
+   if (type === "new") {
+     setNewIngredients((prevState) =>
+       prevState.filter((ingredient) => ingredient !== deleted)
+     );
+   } else if (type === "exists") {
+     setIngredientsExists((prevState) =>
+       prevState.filter((ingredientExist) => ingredientExist !== deleted)
+     );
+   }
+ }
 
   useEffect(() => {
     if (!isMobile && isMenuOpen === true) {
@@ -148,35 +155,38 @@ export function Edit({ isAdmin = true }) {
             <Section className="second-section">
               <LabelTitle>
                 Ingredientes
-                <div>
-                  {newIngredients.map((newIngredient, index) => (
-                    <IngredientTag
-                      key={String(index)}
-                      value={newIngredient}
-                      onClick={() => handleRemoveIngredients(newIngredient)}
-                    />
-                  ))}
-
+                <Background>
                   {ingredientsExists.map((ingredient) => (
                     <IngredientTag
                       key={String(ingredient.id)}
                       title={ingredient.ingredient}
-                      onClick={() => handleRemoveIngredientsExists(ingredient)}
+                      onClickButton={() => handleRemoveIngredient("exists", ingredient)}
+                    />
+                  ))}
+
+                  {newIngredients.map((newIngredient, index) => (
+                    <IngredientTag
+                      key={String(index)}
+                      title={newIngredient}
+                      onClickButton={() =>
+                        handleRemoveIngredient("new", newIngredient)
+                      }
                     />
                   ))}
 
                   <IngredientTag
                     value={addIngredients}
+                    placeholder="Adicionar"
                     isNew
                     onChange={(e) => setAddIngredients(e.target.value)}
-                    onClick={handleAddIngredients}
+                    onClickButton={handleAddIngredients}
                   />
-                </div>
+                </Background>
               </LabelTitle>
 
               <InputNumeric
                 value={data.price}
-                title="preço"
+                title="Preço"
                 setPrice={setPrice}
               />
             </Section>
@@ -191,6 +201,7 @@ export function Edit({ isAdmin = true }) {
             </Section>
 
             <Buttons>
+              <Button type="button" title="Excluir prato" />
               <Button
                 type="button"
                 title="Salvar alterações"

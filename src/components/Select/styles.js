@@ -24,17 +24,14 @@ export const Content = styled.div`
     gap: 0.8rem;
 
     select {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 4.8rem;
-      color: ${({ theme }) => theme.COLORS.LIGHT_400};
       background-color: ${({ theme }) => theme.COLORS.DARK_1000};
-      border-radius: .5rem;
+      color: ${({ theme }) => theme.COLORS.LIGHT_400};
+
+      border-radius: 5px;
       border: none;
+
+      height: 4.8rem;
       padding: 1.2rem 1.4rem;
-      font-size: 1.4rem;
     }
   }
 `;

@@ -15,13 +15,14 @@ export function SideMenu({
   onChangeSearch,
   ...rest
 }) {
-  const navigate = useNavigate();
+
+  const RedirectTo = useNavigate();
   const { user, signOut } = useAuth();
+  
   const AvatarURL = user.avatar
-    ? `${api.defaults.baseURL}/files/${user.avatar}`
-    : AvatarPlaceholder;
+  ? `${api.defaults.baseURL}/files/${user.avatar}`
+  : AvatarPlaceholder;
   const [avatar, setAvatar] = useState(AvatarURL);
-  const menuRef = useRef();
 
   function handleLogout() {
     const userConfirm = window.confirm("Deseja realmente encerrar a sessão?");
@@ -33,21 +34,9 @@ export function SideMenu({
 
   function handleProfile() {
     isMenuClose();
-    navigate("/profile");
+    RedirectTo("/profile");
   }
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        isMenuClose();
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuClose]);
 
   return (
     <SideMenuContainer data-is-menu-open={isMenuOpen} {...rest}>

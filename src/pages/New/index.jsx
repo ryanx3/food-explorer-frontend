@@ -156,7 +156,7 @@ export function New() {
 
               <InputNumeric
                 value={data.price}
-                title="preço"
+                title="Preço"
                 setPrice={setPrice}
               />
             </Section>

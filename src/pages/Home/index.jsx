@@ -92,7 +92,6 @@ export function Home({ isAdmin = false }) {
       <Header
         onChangeSearch={(e) => setSearch(e.target.value)}
         onOpenMenu={() => setIsMenuOpen(true)}
-        isAdmin={isAdmin}
       />
       <SideMenu
         isMenuOpen={isMenuOpen}
