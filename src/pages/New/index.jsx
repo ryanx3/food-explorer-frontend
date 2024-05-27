@@ -100,12 +100,6 @@ export function New() {
 
   return (
     <NewContainer>
-      <SideMenu
-        isMenuOpen={isMenuOpen}
-        isMenuClose={() => setIsMenuOpen(false)}
-      />
-
-      <Header onOpenMenu={() => setIsMenuOpen(true)} />
 
       <Layout.Page>
         <main>
@@ -181,7 +175,6 @@ export function New() {
         </main>
       </Layout.Page>
 
-      <Footer />
     </NewContainer>
   );
 }

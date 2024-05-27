@@ -120,12 +120,6 @@ export function Edit({ isAdmin = true }) {
 
   return (
     <EditContainer>
-      <SideMenu
-        isMenuOpen={isMenuOpen}
-        isMenuClose={() => setIsMenuOpen(false)}
-      />
-
-      <Header onOpenMenu={() => setIsMenuOpen(true)} />
 
       <Layout.Page>
         <Main>
@@ -212,7 +206,6 @@ export function Edit({ isAdmin = true }) {
         </Main>
       </Layout.Page>
 
-      <Footer />
     </EditContainer>
   );
 }

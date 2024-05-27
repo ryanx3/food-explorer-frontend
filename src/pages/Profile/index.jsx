@@ -128,11 +128,6 @@ export function Profile() {
 
   return (
     <ProfileContainer>
-      <Header onOpenMenu={() => setIsMenuOpen(true)} />
-      <SideMenu
-        isMenuOpen={isMenuOpen}
-        isMenuClose={() => setIsMenuOpen(false)}
-      />
 
       <Layouts.Page>
         <main>
@@ -223,7 +218,6 @@ export function Profile() {
         </main>
       </Layouts.Page>
 
-      <Footer />
     </ProfileContainer>
   );
 }

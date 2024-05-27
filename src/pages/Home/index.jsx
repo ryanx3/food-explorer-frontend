@@ -18,20 +18,33 @@ import bannerDesktop from "../../assets/home-banner.png";
 import bannerMobile from "../../assets/banner-mobile.png";
 
 import { HomeContainer, Content, Presentation } from "./styles";
+import { FidgetSpinner } from "react-loader-spinner";
+
+ register();
 
 export function Home({ isAdmin = false }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  const Banner = isMobile ? bannerMobile : bannerDesktop;
-
   const navigate = useNavigate();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { search, setSearch } = useSearch()
+  const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState({
     meals: [],
     beverages: [],
     desserts: [],
   });
-  const [category, setCategory] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const { search, setSearch } = useSearch();
+
+
 
   function handleRedirectToPageDetails(dish_id) {
     navigate(`/details/${dish_id}`);
@@ -42,9 +55,8 @@ export function Home({ isAdmin = false }) {
   const swiperRef3 = useRef(null);
 
   useEffect(() => {
-    register();
     const configs = {
-      loop: cards > 3 ? true : false,
+      loop: Object.keys(cards).some(category => cards[category].length > 3),
       slidesPerView: "auto",
       spaceBetween: isMobile ? 16 : 27,
       grabCursor: true,
@@ -64,7 +76,7 @@ export function Home({ isAdmin = false }) {
     swiperRef1.current.initialize();
     swiperRef2.current.initialize();
     swiperRef3.current.initialize();
-  }, []);
+  }, [cards]);
 
   useEffect(() => {
     async function FetchCardsOnApi() {
@@ -87,96 +99,88 @@ export function Home({ isAdmin = false }) {
     }
   }, [isMobile]);
 
+  const Banner = isMobile ? bannerMobile : bannerDesktop;
+
   return (
     <HomeContainer>
-      <Header
-        onChangeSearch={(e) => setSearch(e.target.value)}
-        onOpenMenu={() => setIsMenuOpen(true)}
-      />
-      <SideMenu
-        isMenuOpen={isMenuOpen}
-        isMenuClose={() => setIsMenuOpen(false)}
-        onChangeSearch={(value) => setSearch(value)}
-      />
 
       <Layout.Page>
-        <main>
-          <Content isempty={search}>
-            {!search && (
-              <Presentation>
-                <img
-                  src={Banner}
-                  alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas."
-                />
-                <div>
-                  <h1>Sabores inigualáveis</h1>
-                  <span>
-                    Sinta o cuidado do preparo com ingredientes selecionados
-                  </span>
-                </div>
-              </Presentation>
-            )}
+          <main>
+            <Content isempty={search}>
+              {!search && (
+                <Presentation>
+                  <img
+                    src={Banner}
+                    alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas."
+                  />
+                  <div>
+                    <h1>Sabores inigualáveis</h1>
+                    <span>
+                      Sinta o cuidado do preparo com ingredientes selecionados
+                    </span>
+                  </div>
+                </Presentation>
+              )}
 
-            <Section title={cards.meals.length > 0 ? "Refeições" : ""}>
-              <swiper-container
-                init="false"
-                navigation={isMobile ? "false" : "true"}
-                ref={swiperRef1}
-              >
-                {cards.meals.map((card) => (
-                  <swiper-slide key={String(card.id)}>
-                    <Card
-                      isAdmin={isAdmin}
-                      data={card}
-                      onClick={() => handleRedirectToPageDetails(card.id)}
-                    />
-                  </swiper-slide>
-                ))}
-              </swiper-container>
-            </Section>
+              <Section title={cards.meals.length > 0 ? "Refeições" : ""}>
+                <swiper-container
+                  init="false"
+                  navigation={isMobile ? "false" : "true"}
+                  ref={swiperRef1}
+                >
+                  {cards.meals.map((card) => (
+                    <swiper-slide key={String(card.id)}>
+                      <Card
+                        isAdmin={isAdmin}
+                        data={card}
+                        onClick={() => handleRedirectToPageDetails(card.id)}
+                      />
+                    </swiper-slide>
+                  ))}
+                </swiper-container>
+              </Section>
 
-            <Section title={cards.beverages.length > 0 ? "Bebidas" : ""}>
-              <swiper-container
-                init="false"
-                navigation={isMobile ? "false" : "true"}
-                ref={swiperRef2}
-              >
-                {cards.beverages.map((card) => (
-                  <swiper-slide key={String(card.id)}>
-                    <Card
-                      isAdmin={isAdmin}
-                      key={String(card.id)}
-                      onClick={() => handleRedirectToPageDetails(card.id)}
-                      data={card}
-                    />
-                  </swiper-slide>
-                ))}
-              </swiper-container>
-            </Section>
+              <Section title={cards.beverages.length > 0 ? "Bebidas" : ""}>
+                <swiper-container
+                  init="false"
+                  navigation={isMobile ? "false" : "true"}
+                  ref={swiperRef2}
+                >
+                  {cards.beverages.map((card) => (
+                    <swiper-slide key={String(card.id)}>
+                      <Card
+                        isAdmin={isAdmin}
+                        key={String(card.id)}
+                        onClick={() => handleRedirectToPageDetails(card.id)}
+                        data={card}
+                      />
+                    </swiper-slide>
+                  ))}
+                </swiper-container>
+              </Section>
 
-            <Section title={cards.desserts.length > 0 ? "Sobremesas" : ""}>
-              <swiper-container
-                init="false"
-                navigation={isMobile ? "false" : "true"}
-                ref={swiperRef3}
-              >
-                {cards.desserts.map((card) => (
-                  <swiper-slide key={String(card.id)}>
-                    <Card
-                      isAdmin={isAdmin}
-                      key={String(card.id)}
-                      onClick={() => handleRedirectToPageDetails(card.id)}
-                      data={card}
-                    />
-                  </swiper-slide>
-                ))}
-              </swiper-container>
-            </Section>
-          </Content>
-        </main>
+              <Section title={cards.desserts.length > 0 ? "Sobremesas" : ""}>
+                <swiper-container
+                  init="false"
+                  navigation={isMobile ? "false" : "true"}
+                  ref={swiperRef3}
+                >
+                  {cards.desserts.map((card) => (
+                    <swiper-slide key={String(card.id)}>
+                      <Card
+                        isAdmin={isAdmin}
+                        key={String(card.id)}
+                        onClick={() => handleRedirectToPageDetails(card.id)}
+                        data={card}
+                      />
+                    </swiper-slide>
+                  ))}
+                </swiper-container>
+              </Section>
+            </Content>
+          </main>
       </Layout.Page>
 
-      <Footer />
     </HomeContainer>
   );
 }

@@ -1,3 +1,4 @@
+import { FadeLoader } from "react-spinners";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -13,7 +14,12 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Button } from "../../components/Button";
 
-import { DetailsContainer, Content, DetailsX, CounterSection } from "./styles";
+import {
+  DetailsContainer,
+  Content,
+  DetailsContent,
+  CounterSection,
+} from "./styles";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 
@@ -22,6 +28,7 @@ export function Details({ isAdmin = true }) {
 
   const navigate = useNavigate();
   const params = useParams();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [data, setData] = useState(null);
 
@@ -53,19 +60,24 @@ export function Details({ isAdmin = true }) {
   }, []);
 
   if (!data) {
-    return;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <FadeLoader color="white" />
+      </div>
+    );
   }
 
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
 
   return (
     <DetailsContainer>
-      <SideMenu
-        isMenuOpen={isMenuOpen}
-        isMenuClose={() => setIsMenuOpen(false)}
-      />
-
-      <Header onOpenMenu={() => setIsMenuOpen(true)} />
 
       <Layout.Page>
         <main>
@@ -77,10 +89,10 @@ export function Details({ isAdmin = true }) {
               </a>
             </div>
 
-            <div className="Details">
+            <div className="DishInformations">
               <img src={imageURL} alt={`Imagem do prato ${data.name}`} />
 
-              <DetailsX>
+              <DetailsContent>
                 <Section>
                   <h1>{data.name}</h1>
                   <p>{data.description}</p>
@@ -106,13 +118,12 @@ export function Details({ isAdmin = true }) {
 
                   {!isAdmin && <Button title={`incluir - R$ ${data.price}`} />}
                 </CounterSection>
-              </DetailsX>
+              </DetailsContent>
             </div>
           </Content>
         </main>
       </Layout.Page>
 
-      <Footer />
     </DetailsContainer>
   );
 }
