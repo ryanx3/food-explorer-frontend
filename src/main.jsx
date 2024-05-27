@@ -6,6 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { AuthProvider } from "./hooks/Auth";
 import { ToastContainer } from "react-toastify";
 import { Routes } from "./routes";
+import { MenuProvider } from "./hooks/SideMenu";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -25,9 +26,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     />
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-        <AuthProvider>
+      <AuthProvider>
+        <MenuProvider>
           <Routes />
-        </AuthProvider>
+        </MenuProvider>
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

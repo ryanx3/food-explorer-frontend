@@ -20,14 +20,15 @@ export function Card({ data, onClick, isAdmin = false, ...rest }) {
   function handleIsFavorite() {
     setFavorites(true);
   }
-
+  
+  function handleRemoveFavorite() {
+    setFavorites(false);
+  }
+  
   function handleAdminEdit() {
     navigate("/edit");
   }
 
-  function handleRemoveFavorite() {
-    setFavorites(false);
-  }
 
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
 
@@ -58,7 +59,7 @@ export function Card({ data, onClick, isAdmin = false, ...rest }) {
 
       <Description>
         <p>{data.description}</p>
-        <h3>R$ {parseFloat(data.price).toFixed(2)}</h3>
+        <h3>€ {parseFloat(data.price).toFixed(2)}</h3>
       </Description>
 
       {!isAdmin && (
