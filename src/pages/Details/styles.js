@@ -17,7 +17,7 @@ export const Content = styled.div`
   flex-direction: column;
   grid-area: content;
   gap: 4rem;
-  
+
   div a {
     margin-top: 2rem;
     display: flex;
@@ -30,13 +30,12 @@ export const Content = styled.div`
     font-weight: 700;
     line-height: 140%;
 
-
     @media (max-width: 1024px) {
       font-weight: 500;
     }
   }
 
-  .Details {
+  .DishInformations {
     display: flex;
     place-items: center;
     place-self: center;
@@ -63,7 +62,7 @@ export const Content = styled.div`
   }
 `;
 
-export const DetailsX = styled.div`
+export const DetailsContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;

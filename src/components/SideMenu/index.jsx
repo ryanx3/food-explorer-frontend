@@ -6,10 +6,9 @@ import { api } from "../../services/api";
 import { PiXBold, PiSignOut } from "react-icons/pi";
 import { SideMenuContainer, Main, Header, Footer } from "./styles";
 import { Search } from "../Search";
+import { useSideMenu } from "../../hooks/SideMenu";
 
 export function SideMenu({
-  isMenuOpen = false,
-  isMenuClose,
   isAdmin = false,
   active,
   onChangeSearch,
@@ -18,6 +17,7 @@ export function SideMenu({
 
   const RedirectTo = useNavigate();
   const { user, signOut } = useAuth();
+  const { isMenuOpen, setIsMenuOpen } = useSideMenu()
   
   const AvatarURL = user.avatar
   ? `${api.defaults.baseURL}/files/${user.avatar}`
@@ -29,11 +29,11 @@ export function SideMenu({
     if (userConfirm) {
       signOut();
     }
-    isMenuClose();
+    setIsMenuOpen(false);
   }
 
   function handleProfile() {
-    isMenuClose();
+    setIsMenuOpen(false);
     RedirectTo("/profile");
   }
 
@@ -42,7 +42,7 @@ export function SideMenu({
     <SideMenuContainer data-is-menu-open={isMenuOpen} {...rest}>
       <Header>
         <h1>
-          <PiXBold onClick={isMenuClose} />
+          <PiXBold onClick={() => setIsMenuOpen(false)} />
         </h1>
       </Header>
 

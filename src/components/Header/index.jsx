@@ -17,17 +17,13 @@ import { Brand } from "../../assets/brand";
 import { api } from "../../services/api";
 
 import { HeaderContainer, Menu, Logo, Profile } from "./styles";
+import { useSideMenu } from "../../hooks/SideMenu";
 
-export function Header({
-  isAdmin = false,
-  onOpenMenu,
-  onChangeSearch,
-  onClick,
-  ...rest
-}) {
+export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  const [isOpenList, setIsOpenList] = useState(false);
+  const [openListAvatar, setOpenListAvatar] = useState(false);
 
+  const { isMenuOpen, setIsMenuOpen } = useSideMenu();
   const { signOut, user } = useAuth();
   const navigate = useNavigate();
 
@@ -44,11 +40,8 @@ export function Header({
     navigate("/new");
   }
 
-  function handleOpenListOfOptions() {
-    setIsOpenList((prev) => !prev);
-    if (isMobile && isOpenList === true) {
-      setIsOpenList((prev) => !prev);
-    }
+  function toggleOpenListAvatar() {
+    setOpenListAvatar((prevState) => !prevState);
   }
 
   function handleSignOut() {
@@ -63,13 +56,20 @@ export function Header({
   const LogoMobile = !isAdmin ? <BrandMobile /> : <BrandMobileAdmin />;
 
   const profileContent = isMobile ? (
-    isAdmin ? <div /> : (<PiReceipt />)) : (<img src={avatar} onClick={handleOpenListOfOptions} />);
+    isAdmin ? (
+      <div />
+    ) : (
+      <PiReceipt />
+    )
+  ) : (
+    <img src={avatar} onClick={toggleOpenListAvatar} />
+  );
 
   return (
     <HeaderContainer {...rest}>
       <Layout.Header>
         {isMobile && (
-          <Menu onClick={onOpenMenu}>
+          <Menu onClick={() => setIsMenuOpen(true)}>
             <PiList />
           </Menu>
         )}
@@ -98,7 +98,7 @@ export function Header({
         <Profile>
           {profileContent}
 
-          {isOpenList && (
+          {openListAvatar && (
             <nav>
               <ul>
                 <li>
