@@ -4,15 +4,12 @@ import { useMediaQuery } from "react-responsive";
 import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 
-import * as Layout from "../../components/Layouts";
-import { Header } from "../../components/Header";
+import { PageLayout } from "../../components/Layouts/PagesLayout";
 import { IngredientTag } from "../../components/IngredientTag";
-import { SideMenu } from "../../components/SideMenu";
 import { Input } from "../../components/Inputs/Input";
 import { InputFile } from "../../components/Inputs/InputFile";
 import { InputNumeric } from "../../components/Inputs/InputNumeric";
 import { Select } from "../../components/Select";
-import { Footer } from "../../components/Footer";
 import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
 import { Textarea } from "../../components/Inputs/Textarea";
@@ -61,17 +58,17 @@ export function Edit({ isAdmin = true }) {
     setAddIngredients("");
   }
 
- function handleRemoveIngredient(type, deleted) {
-   if (type === "new") {
-     setNewIngredients((prevState) =>
-       prevState.filter((ingredient) => ingredient !== deleted)
-     );
-   } else if (type === "exists") {
-     setIngredientsExists((prevState) =>
-       prevState.filter((ingredientExist) => ingredientExist !== deleted)
-     );
-   }
- }
+  function handleRemoveIngredient(type, deleted) {
+    if (type === "new") {
+      setNewIngredients((prevState) =>
+        prevState.filter((ingredient) => ingredient !== deleted)
+      );
+    } else if (type === "exists") {
+      setIngredientsExists((prevState) =>
+        prevState.filter((ingredientExist) => ingredientExist !== deleted)
+      );
+    }
+  }
 
   useEffect(() => {
     if (!isMobile && isMenuOpen === true) {
@@ -120,8 +117,7 @@ export function Edit({ isAdmin = true }) {
 
   return (
     <EditContainer>
-
-      <Layout.Page>
+      <PageLayout>
         <Main>
           <a onClick={handleBackHome}>
             <PiCaretLeft /> Voltar
@@ -154,7 +150,9 @@ export function Edit({ isAdmin = true }) {
                     <IngredientTag
                       key={String(ingredient.id)}
                       title={ingredient.ingredient}
-                      onClickButton={() => handleRemoveIngredient("exists", ingredient)}
+                      onClickButton={() =>
+                        handleRemoveIngredient("exists", ingredient)
+                      }
                     />
                   ))}
 
@@ -204,8 +202,7 @@ export function Edit({ isAdmin = true }) {
             </Buttons>
           </Form>
         </Main>
-      </Layout.Page>
-
+      </PageLayout>
     </EditContainer>
   );
 }

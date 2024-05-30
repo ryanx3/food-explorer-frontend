@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/Auth";
 
 import { PiMagnifyingGlassLight, PiReceipt, PiList } from "react-icons/pi";
 
-import * as Layout from "../Layouts";
+import { HeaderLayout } from "../Layouts/PagesLayout";
 import { Search } from "../Search";
 import { Button } from "../Button";
 
@@ -21,7 +21,6 @@ import { useSideMenu } from "../../hooks/SideMenu";
 
 export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  const [openListAvatar, setOpenListAvatar] = useState(false);
 
   const { isMenuOpen, setIsMenuOpen } = useSideMenu();
   const { signOut, user } = useAuth();
@@ -38,10 +37,6 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
 
   function handleRedirectToDetails() {
     navigate("/new");
-  }
-
-  function toggleOpenListAvatar() {
-    setOpenListAvatar((prevState) => !prevState);
   }
 
   function handleSignOut() {
@@ -62,12 +57,12 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
       <PiReceipt />
     )
   ) : (
-    <img src={avatar} onClick={toggleOpenListAvatar} />
+    <img src={avatar}/>
   );
 
   return (
     <HeaderContainer {...rest}>
-      <Layout.Header>
+      <HeaderLayout>
         {isMobile && (
           <Menu onClick={() => setIsMenuOpen(true)}>
             <PiList />
@@ -98,7 +93,6 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
         <Profile>
           {profileContent}
 
-          {openListAvatar && (
             <nav>
               <ul>
                 <li>
@@ -110,9 +104,9 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
                 <li onClick={handleSignOut}>Sair</li>
               </ul>
             </nav>
-          )}
+          
         </Profile>
-      </Layout.Header>
+      </HeaderLayout>
     </HeaderContainer>
   );
 }

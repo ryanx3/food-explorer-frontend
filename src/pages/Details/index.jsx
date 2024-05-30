@@ -5,13 +5,10 @@ import { useState, useEffect } from "react";
 
 import { PiCaretLeft } from "react-icons/pi";
 
-import * as Layout from "../../components/Layouts";
+import { PageLayout } from "../../components/Layouts/PagesLayout";
 import { Tag } from "../../components/Tag";
-import { SideMenu } from "../../components/SideMenu";
 import { Section } from "../../components/Section";
 import { Counter } from "../../components/Counter";
-import { Header } from "../../components/Header";
-import { Footer } from "../../components/Footer";
 import { Button } from "../../components/Button";
 
 import {
@@ -78,8 +75,7 @@ export function Details({ isAdmin = true }) {
 
   return (
     <DetailsContainer>
-
-      <Layout.Page>
+      <PageLayout>
         <main>
           <Content>
             <div>
@@ -122,8 +118,7 @@ export function Details({ isAdmin = true }) {
             </div>
           </Content>
         </main>
-      </Layout.Page>
-
+      </PageLayout>
     </DetailsContainer>
   );
 }

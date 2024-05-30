@@ -1,31 +1,23 @@
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from "react-responsive";
 
-import { BrandFooter } from '../../assets/brand-footer'
-import { BrandMobileFooter } from '../../assets/brand-mobile-footer'
+import { BrandFooter } from "../../assets/brand-footer";
+import { BrandMobileFooter } from "../../assets/brand-mobile-footer";
 
-import * as Layout from "../Layouts";
+import { FooterLayout } from "../Layouts/PagesLayout";
 
-import { FooterContainer, Brand, Copyright } from './styles'
+import { FooterContainer, Brand, Copyright } from "./styles";
 
 export function Footer() {
-  const isMobile = useMediaQuery({ maxWidth: 768 })
-  const Logo = isMobile ? <BrandMobileFooter /> : <BrandFooter />
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const Logo = isMobile ? <BrandMobileFooter /> : <BrandFooter />;
 
   return (
     <FooterContainer>
+      <FooterLayout>
+        <Brand>{Logo}</Brand>
 
-      <Layout.Footer>
-        
-         <Brand>
-          {Logo}
-        </Brand>
-
-        <Copyright>
-          © 2023 - Todos os direitos reservados.
-        </Copyright>
-
-      </Layout.Footer>
-
+        <Copyright>© 2023 - Todos os direitos reservados.</Copyright>
+      </FooterLayout>
     </FooterContainer>
-  )
+  );
 }

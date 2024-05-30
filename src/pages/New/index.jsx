@@ -5,16 +5,13 @@ import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 
-import * as Layout from "../../components/Layouts";
+import { PageLayout } from "../../components/Layouts/PagesLayout";
 import { IngredientTag } from "../../components/IngredientTag";
 import { InputNumeric } from "../../components/Inputs/InputNumeric";
 import { InputFile } from "../../components/Inputs/InputFile";
 import { Textarea } from "../../components/Inputs/Textarea";
-import { SideMenu } from "../../components/SideMenu";
 import { Section } from "../../components/Section";
 import { Select } from "../../components/Select";
-import { Header } from "../../components/Header";
-import { Footer } from "../../components/Footer";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Inputs/Input";
 
@@ -101,7 +98,7 @@ export function New() {
   return (
     <NewContainer>
 
-      <Layout.Page>
+      <PageLayout>
         <main>
           <a onClick={handleBack}>
             <PiCaretLeft /> voltar
@@ -173,7 +170,7 @@ export function New() {
             </Buttons>
           </Form>
         </main>
-      </Layout.Page>
+      </PageLayout>
 
     </NewContainer>
   );

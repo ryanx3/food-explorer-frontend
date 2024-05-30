@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
 export const FooterContainer = styled.footer` 
-  height: 77px;
+  height: 7.7rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background: ${({ theme }) => theme.COLORS.DARK_700};
   grid-area: footer;
+`
+
+export const Brand = styled.div` 
+  display: flex;
 `
 
 export const Copyright = styled.div` 
@@ -26,7 +30,4 @@ export const Copyright = styled.div`
     font-weight: 400;
     line-height: normal;
   }
-  `
-  export const Brand = styled.div` 
-    display: flex;
   `

@@ -1,18 +1,12 @@
 import { useMediaQuery } from "react-responsive";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  PiCaretLeft,
-  PiFileArrowUpDuotone,
-} from "react-icons/pi";
+import { PiCaretLeft, PiFileArrowUpDuotone } from "react-icons/pi";
 import { useForm } from "react-hook-form";
 
-import * as Layouts from "../../components/Layouts";
+import { PageLayout } from "../../components/Layouts/PagesLayout";
 import { Input } from "../../components/Inputs/Input";
 import { Button } from "../../components/Button";
-import { Header } from "../../components/Header";
-import { SideMenu } from "../../components/SideMenu";
-import { Footer } from "../../components/Footer";
 import { Section } from "../../components/Section";
 
 import { useAuth } from "../../hooks/Auth";
@@ -128,8 +122,7 @@ export function Profile() {
 
   return (
     <ProfileContainer>
-
-      <Layouts.Page>
+      <PageLayout>
         <main>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Avatar>
@@ -216,8 +209,7 @@ export function Profile() {
             </div>
           </Form>
         </main>
-      </Layouts.Page>
-
+      </PageLayout>
     </ProfileContainer>
   );
 }

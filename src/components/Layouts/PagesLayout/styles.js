@@ -3,26 +3,26 @@ import styled, { css } from "styled-components";
 const StyledLayout = css`
   margin: 0 auto;
   max-width: 100vw;
-  width: 1280px;
+  width: 1368px;
   padding: 0 2.4rem;
 `;
 
-export const PageLayout = styled.main`
+export const PageLayoutContainer = styled.main`
   ${StyledLayout}
   grid-area: content;
 `;
 
-export const LayoutFooter = styled.div`
+export const FooterLayoutContainer = styled.div`
   ${StyledLayout}
-  
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-export const LayoutHeader = styled.div`
+export const HeaderLayoutContainer = styled.div`
   ${StyledLayout}
-  
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,5 +47,4 @@ export const LayoutHeader = styled.div`
       }
     }
   }
-
 `;

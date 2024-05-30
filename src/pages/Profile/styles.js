@@ -1,13 +1,6 @@
 import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-
-  display: grid;
-  grid-template-rows: 114px auto 77px;
-  grid-template-areas: "header" "content" "footer";
-
   > main {
     display: flex;
     flex-direction: column;
@@ -19,7 +12,7 @@ export const Form = styled.form`
   width: 100%;
   display: flex;
   gap: 4rem;
-
+  margin: 4rem auto;
   .input-wrapper {
     display: flex;
     flex-direction: column;
@@ -75,8 +68,8 @@ export const Avatar = styled.div`
   }
 
   img {
-    width: 186px;
-    height: 186px;
+    width: 18.6rem;
+    height: 18.6rem;
     border-radius: 999px;
     object-fit: cover;
     align-self: center;

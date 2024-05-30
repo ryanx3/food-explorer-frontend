@@ -1,16 +1,14 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
 import { register } from "swiper/element/bundle";
+register();
 
-import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
-import { Footer } from "../../components/Footer";
-import { SideMenu } from "../../components/SideMenu";
 import { Card } from "../../components/Card";
 import { api } from "../../services/api";
 
-import * as Layout from "../../components/Layouts";
+import { PageLayout } from "../../components/Layouts/PagesLayout";
 
 import { useSearch } from "../../hooks/Search";
 
@@ -18,33 +16,19 @@ import bannerDesktop from "../../assets/home-banner.png";
 import bannerMobile from "../../assets/banner-mobile.png";
 
 import { HomeContainer, Content, Presentation } from "./styles";
-import { FidgetSpinner } from "react-loader-spinner";
-
- register();
 
 export function Home({ isAdmin = false }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState({
     meals: [],
     beverages: [],
     desserts: [],
   });
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const { search, setSearch } = useSearch();
-
-
+  const { search } = useSearch();
 
   function handleRedirectToPageDetails(dish_id) {
     navigate(`/details/${dish_id}`);
@@ -104,7 +88,7 @@ export function Home({ isAdmin = false }) {
   return (
     <HomeContainer>
 
-      <Layout.Page>
+      <PageLayout>
           <main>
             <Content isempty={search}>
               {!search && (
@@ -179,7 +163,7 @@ export function Home({ isAdmin = false }) {
               </Section>
             </Content>
           </main>
-      </Layout.Page>
+      </PageLayout>
 
     </HomeContainer>
   );
