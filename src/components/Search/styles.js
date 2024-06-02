@@ -7,7 +7,5 @@ export const SearchContainer = styled.div`
   border-radius: 0.5rem;
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_500};
 
-  &:focus-within svg {
-    display: none;
-  }  
+
 `;

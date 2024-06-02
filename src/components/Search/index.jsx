@@ -1,5 +1,5 @@
 import { Input } from "../Inputs/Input";
-import { BsSearchHeart } from "react-icons/bs";
+import { BsSearchHeart, BsArrowLeftShort } from "react-icons/bs";
 import { useSearch } from "../../hooks/Search";
 
 import { SearchContainer } from "./styles";
@@ -10,22 +10,28 @@ export function Search({ searchValue, ...rest }) {
   const { search, setSearch } = useSearch();
 
   function executeSearchOnEnter(e) {
-    const valueEnteredInSearch = e.target.value.trim();
+    const valueInSearch = e.target.value.trim();
     if (e.key === "Enter") {
-      setSearch(valueEnteredInSearch);
+      setSearch(valueInSearch);
       RedirectTo("/");
-    } else if (valueEnteredInSearch === "") {
+    } else if (valueInSearch === "") {
       return;
     }
   }
+
+  const searchIcon = search ? (
+    <BsArrowLeftShort onClick={() => setSearch("")} />
+  ) : (
+    <BsSearchHeart size={24} />
+  );
 
   return (
     <SearchContainer {...rest}>
       <Input
         placeholder="Busque por pratos ou ingredientes"
         onKeyPress={executeSearchOnEnter}
-        icon={BsSearchHeart}
-        defaultValue={search}
+        icon={searchIcon}
+        value={search}
       />
     </SearchContainer>
   );
