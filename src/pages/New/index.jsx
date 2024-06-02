@@ -15,13 +15,18 @@ import { Select } from "../../components/Select";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Inputs/Input";
 
-import { NewContainer, Form, Buttons } from "./styles";
+import {
+  NewContainer,
+  Main,
+  Form,
+  LabelTitle,
+  Background,
+  Buttons,
+} from "./styles";
 
 export function New() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  const navigate = useNavigate();
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const redirectTo = useNavigate();
 
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -29,7 +34,7 @@ export function New() {
   const [description, setDescription] = useState("");
 
   const [ingredients, setIngredients] = useState([]);
-  const [newIngredient, setNewIngredient] = useState("");
+  const [newIngredients, setNewIngredients] = useState("");
 
   const [image, setImage] = useState(null);
   const [filename, setFilename] = useState("");
@@ -41,8 +46,8 @@ export function New() {
   }
 
   function handleAddIngredients() {
-    setIngredients((prevState) => [...prevState, newIngredient.trim()]);
-    setNewIngredient("");
+    setIngredients((prevState) => [...prevState, newIngredients.trim()]);
+    setNewIngredients("");
   }
 
   function handleRemoveIngredients(deleted) {
@@ -51,8 +56,8 @@ export function New() {
     );
   }
 
-  function handleBack() {
-    navigate(-1);
+  function handleBackPage() {
+    redirectTo(-1);
   }
 
   async function handleCreateDish() {
@@ -89,74 +94,65 @@ export function New() {
     }
   }
 
-  useEffect(() => {
-    if (!isMobile && isMenuOpen === true) {
-      setIsMenuOpen(false);
-    }
-  }, [isMobile]);
-
   return (
     <NewContainer>
-
       <PageLayout>
-        <main>
-          <a onClick={handleBack}>
-            <PiCaretLeft /> voltar
+        <Main>
+          <a onClick={handleBackPage}>
+            <PiCaretLeft /> Voltar
           </a>
-          <h1>Adicionar prato</h1>
+          <h1>Criar prato</h1>
 
           <Form>
             <Section className="first-section">
               <InputFile
-                title="Imagem do prato"
-                value={filename}
+                title="Imagem"
+                filename={filename}
                 onChange={handleImage}
               />
 
               <Input
                 title="Nome"
                 placeholder="Exemplo: Salada Caesar"
-                value={name}
                 onChange={(e) => setName(e.target.value)}
               />
 
               <Select
                 title="Categorias"
-                value={category}
+                defaultValue={category}
                 onChange={(e) => setCategory(e.target.value)}
               />
             </Section>
 
             <Section className="second-section">
-              <div>
-                {ingredients.map((ingredient, index) => (
+              <LabelTitle>
+                Ingredientes
+                <Background>
+                  {ingredients.map((ingredient, index) => (
+                    <IngredientTag
+                      key={String(index)}
+                      title={ingredient}
+                      onClickButton={() => handleRemoveIngredients(ingredient)}
+                    />
+                  ))}
+
                   <IngredientTag
-                    key={String(index)}
-                    readOnly
-                    title={ingredient}
-                    onClick={() => handleRemoveIngredients(ingredient)}
+                    value={newIngredients}
+                    placeholder="Adicionar"
+                    isNew
+                    onChange={(e) => setNewIngredients(e.target.value)}
+                    onClickButton={handleAddIngredients}
                   />
-                ))}
+                </Background>
+              </LabelTitle>
 
-                <IngredientTag
-                  value={newIngredient}
-                  onChange={(e) => setNewIngredient(e.target.value)}
-                  onClick={handleAddIngredients}
-                />
-              </div>
-
-              <InputNumeric
-                value={data.price}
-                title="Preço"
-                setPrice={setPrice}
-              />
+              <InputNumeric title="Preço" setPrice={setPrice} />
             </Section>
 
             <Section>
               <Textarea
                 placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
                 title="Descrição"
-                value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Section>
@@ -164,14 +160,13 @@ export function New() {
             <Buttons>
               <Button
                 type="button"
-                onClick={handleCreateDish}
                 title="Salvar alterações"
+                onClick={handleCreateDish}
               />
             </Buttons>
           </Form>
-        </main>
+        </Main>
       </PageLayout>
-
     </NewContainer>
   );
 }

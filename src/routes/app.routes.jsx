@@ -12,7 +12,7 @@ export function AppRoutes() {
   return (
     <SearchProvider>
       <Routes>
-        <Route path="/" element={<DefaultLayout/>}>
+        <Route path="/" element={<DefaultLayout />}>
           <Route element={<Home />} path="/" />
           <Route element={<Details />} path="/details/:id" />
           <Route element={<Profile />} path="/profile" />

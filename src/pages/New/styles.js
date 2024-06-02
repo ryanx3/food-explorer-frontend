@@ -1,36 +1,34 @@
 import styled from "styled-components";
 
-export const NewContainer = styled.div`
+export const NewContainer = styled.div``;
 
-  main {
-    > a {
-      display: flex;
-      color: ${({ theme }) => theme.COLORS.LIGHT_300};
-      width: fit-content;
+export const Main = styled.main`
+  > a {
+    display: flex;
+    align-items: center;
 
-      font-family: inherit;
-      font-size: 2.4rem;
-      font-weight: 700;
-      line-height: 140%;
-      margin-top: 4rem;
-      > svg {
-        font-size: 3.2rem;
-      }
+    width: fit-content;
 
-      @media (max-width: 1024px) {
-        font-weight: 500;
-      }
-    }
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
-    > h1 {
-      font-family: inherit;
-      font-size: 3.2rem;
-      font-style: normal;
+    font-family: inherit;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 140%;
+    margin-top: 2rem;
+
+    @media (max-width: 1024px) {
       font-weight: 500;
-      line-height: 140%;
-      color: ${({ theme }) => theme.COLORS.LIGHT_300};
-      margin: 2.4rem 0 3.2rem;
     }
+  }
+
+  > h1 {
+    font-size: 3.2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+    margin: 2.4rem 0 2.4rem;
   }
 `;
 
@@ -39,18 +37,18 @@ export const Form = styled.form`
 
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
+  gap: 2.4rem;
 
   .first-section {
     display: grid;
-    gap: 3.2rem;
+    gap: 2.4rem;
     grid-template-columns: 1.5fr 2.5fr 1.5fr;
   }
 
   .second-section {
     display: grid;
     grid-template-columns: 3.5fr 1fr;
-    gap: 3.2rem;
+    gap: 2.4rem;
   }
 
   @media (max-width: 1024px) {
@@ -73,19 +71,34 @@ export const Buttons = styled.div`
   gap: 3.2rem;
   margin-bottom: 4rem;
 
-  button {
-    transition: 500ms ease-out;
-    background-color: ${({ theme }) => theme.COLORS.TOMATO_400};
 
-    &:hover {
-      transition: 500ms ease-out;
-      background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
-    }
-  }
 
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     width: 100%;
   }
+`;
+
+export const LabelTitle = styled.label`
+  color: ${({ theme }) => theme.COLORS.LIGHT_400};
+  font-family: Roboto;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const Background = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+  border-radius: 5px;
+  gap: 1.6rem;
+  padding: 8px;
 `;

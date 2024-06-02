@@ -1,6 +1,6 @@
 import { PiUploadSimpleBold } from "react-icons/pi";
 import { InputFileContainer, Files } from "./styles";
-export function InputFile({title, filename}) {
+export function InputFile({title, filename, ...rest}) {
   return (
     <InputFileContainer>
       {title && title}
