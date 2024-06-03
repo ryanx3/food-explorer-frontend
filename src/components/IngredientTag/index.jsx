@@ -9,11 +9,10 @@ export function IngredientTag({
   isNew,
   ...rest
 }) {
-
-   const handleClick = (event) => {
-     event.stopPropagation();
-     onClickButton();
-   };
+  const handleClick = (event) => {
+    event.stopPropagation();
+    onClickButton();
+  };
 
   return (
     <IngredientContainer readOnly={!isNew}>

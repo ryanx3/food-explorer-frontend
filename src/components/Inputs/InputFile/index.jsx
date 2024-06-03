@@ -8,7 +8,7 @@ export function InputFile({title, filename, ...rest}) {
         <label htmlFor="image">
           <PiUploadSimpleBold />
           <span>{filename || "Selecionar imagem"}</span>
-          <input id="image" type="file" />
+          <input id="image" type="file" {...rest} />
         </label>
       </Files>
     </InputFileContainer>

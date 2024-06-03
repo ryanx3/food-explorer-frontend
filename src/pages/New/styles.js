@@ -51,6 +51,7 @@ export const Form = styled.form`
     gap: 2.4rem;
   }
 
+
   @media (max-width: 1024px) {
     .first-section {
       display: flex;
@@ -80,7 +81,7 @@ export const Buttons = styled.div`
   }
 `;
 
-export const LabelTitle = styled.label`
+export const LabelTitle = styled.div`
   color: ${({ theme }) => theme.COLORS.LIGHT_400};
   font-family: Roboto;
   font-size: 1.6rem;
@@ -91,14 +92,15 @@ export const LabelTitle = styled.label`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  .background {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+    border-radius: 5px;
+    gap: 1.6rem;
+    padding: 8px;
+  }
 `;
 
-export const Background = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  background-color: ${({ theme }) => theme.COLORS.DARK_1000};
-  border-radius: 5px;
-  gap: 1.6rem;
-  padding: 8px;
-`;

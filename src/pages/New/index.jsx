@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 import { PiCaretLeft } from "react-icons/pi";
@@ -20,7 +20,6 @@ import {
   Main,
   Form,
   LabelTitle,
-  Background,
   Buttons,
 } from "./styles";
 
@@ -39,7 +38,7 @@ export function New() {
   const [image, setImage] = useState(null);
   const [filename, setFilename] = useState("");
 
-  function handleImage(e) {
+  function handleAddImageToDish(e) {
     const file = e.target.files[0];
     setImage(file);
     setFilename(file.name);
@@ -64,15 +63,16 @@ export function New() {
     const priceValue = parseFloat(price.replace(",", "."));
 
     if (!image) {
-      return toast.error("Por favor, selecione uma imagem para o seu prato.");
+      return toast.error("Por favor, insira uma imagem.");
     }
 
     if (priceValue <= 0) {
       return toast.error("Por favor, insira um preço válido.");
     }
     if (ingredients.length === 0) {
-      return toast.error("Digite ao menos um ingrediente do seu prato.");
+      return toast.error("Por favor, insira um ingrediente do seu prato.");
     }
+
     const formData = new FormData();
     formData.append("image", image);
     formData.append("name", name);
@@ -84,12 +84,12 @@ export function New() {
     try {
       await api.post("/dishes", formData);
       toast.success("Prato criado com sucesso!");
-      handleBack();
+      handleBackPage();
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
       } else {
-        toast.error("Erro ao criar prato!");
+        toast.error("Erro no servidor ao criar prato!");
       }
     }
   }
@@ -108,7 +108,7 @@ export function New() {
               <InputFile
                 title="Imagem"
                 filename={filename}
-                onChange={handleImage}
+                onChange={handleAddImageToDish}
               />
 
               <Input
@@ -127,7 +127,7 @@ export function New() {
             <Section className="second-section">
               <LabelTitle>
                 Ingredientes
-                <Background>
+                <div className="background">
                   {ingredients.map((ingredient, index) => (
                     <IngredientTag
                       key={String(index)}
@@ -143,7 +143,7 @@ export function New() {
                     onChange={(e) => setNewIngredients(e.target.value)}
                     onClickButton={handleAddIngredients}
                   />
-                </Background>
+                </div>
               </LabelTitle>
 
               <InputNumeric title="Preço" setPrice={setPrice} />

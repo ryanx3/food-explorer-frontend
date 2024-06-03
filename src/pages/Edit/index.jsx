@@ -22,7 +22,6 @@ import {
   Form,
   Buttons,
   LabelTitle,
-  Background,
 } from "./styles";
 export function Edit({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -47,7 +46,7 @@ export function Edit({ isAdmin = true }) {
     navigate(-1);
   }
 
-  function handleImage(e) {
+  function handleAddImageToDish(e) {
     const file = e.target.files[0];
     setImage(file);
     setFilename(file.name);
@@ -126,7 +125,7 @@ export function Edit({ isAdmin = true }) {
 
           <Form>
             <Section className="first-section">
-              <InputFile title="Imagem" filename={data.image} />
+              <InputFile onChange={handleAddImageToDish} title="Imagem" filename={data.image} />
 
               <Input
                 title="Nome"
@@ -145,7 +144,7 @@ export function Edit({ isAdmin = true }) {
             <Section className="second-section">
               <LabelTitle>
                 Ingredientes
-                <Background>
+                <div className="background">
                   {ingredientsExists.map((ingredient) => (
                     <IngredientTag
                       key={String(ingredient.id)}
@@ -173,7 +172,7 @@ export function Edit({ isAdmin = true }) {
                     onChange={(e) => setAddIngredients(e.target.value)}
                     onClickButton={handleAddIngredients}
                   />
-                </Background>
+                </div>
               </LabelTitle>
 
               <InputNumeric
