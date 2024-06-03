@@ -69,11 +69,7 @@ export function Edit({ isAdmin = true }) {
     }
   }
 
-  useEffect(() => {
-    if (!isMobile && isMenuOpen === true) {
-      setIsMenuOpen(false);
-    }
-  }, [isMobile]);
+
 
   useEffect(() => {
     async function fetchDishes() {

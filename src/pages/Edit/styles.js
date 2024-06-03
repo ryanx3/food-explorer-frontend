@@ -73,16 +73,6 @@ export const Buttons = styled.div`
   gap: 3.2rem;
   margin-bottom: 4rem;
 
-  button:nth-child(2) {
-    background-color: ${({ theme }) => theme.COLORS.TOMATO_400};
-    transition: 300ms ease-out;
-
-    &:hover {
-      transition: 300ms ease-out;
-      background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
-    }
-  }
-
   button:nth-child(1) {
     background-color: ${({ theme }) => theme.COLORS.DARK_900};
     transition: 300ms ease-out;

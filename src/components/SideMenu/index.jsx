@@ -1,27 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/Auth";
-import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
 import { api } from "../../services/api";
 import { PiXBold, PiSignOut } from "react-icons/pi";
 import { SideMenuContainer, Main, Header, Footer } from "./styles";
 import { Search } from "../Search";
 import { useSideMenu } from "../../hooks/SideMenu";
 
-export function SideMenu({
-  isAdmin = false,
-  active,
-  onChangeSearch,
-  ...rest
-}) {
-
+export function SideMenu({ isAdmin = false, active, onChangeSearch, ...rest }) {
   const RedirectTo = useNavigate();
   const { user, signOut } = useAuth();
-  const { isMenuOpen, setIsMenuOpen } = useSideMenu()
-  
+  const { isMenuOpen, setIsMenuOpen } = useSideMenu();
+
   const AvatarURL = user.avatar
-  ? `${api.defaults.baseURL}/files/${user.avatar}`
-  : AvatarPlaceholder;
+    ? `${api.defaults.baseURL}/files/${user.avatar}`
+    : AvatarPlaceholder;
   const [avatar, setAvatar] = useState(AvatarURL);
 
   function handleLogout() {
@@ -36,7 +30,6 @@ export function SideMenu({
     setIsMenuOpen(false);
     RedirectTo("/profile");
   }
-
 
   return (
     <SideMenuContainer data-is-menu-open={isMenuOpen} {...rest}>
