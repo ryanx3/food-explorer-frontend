@@ -58,7 +58,9 @@ p
   }
 
   button:hover, a:hover {
-    filter: brightness(1.2);
+    filter: brightness(1.3);
+    transition: transform 0.2s ease;
+    transform: scale(1.05)
   }
 
   body, input, textarea, select, button {

@@ -99,7 +99,7 @@ export const Avatar = styled.div`
     transition: filter 0.3s ease;
 
     &:hover {
-      filter: brightness(1.1);
+      filter: brightness(1.2);
     }
   }
 

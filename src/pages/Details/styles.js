@@ -70,6 +70,8 @@ export const DetailsContent = styled.div`
 
     span {
       color: ${({ theme }) => theme.COLORS.CAKE_200};
+      font-size: 2rem;
+
     }
   }
 

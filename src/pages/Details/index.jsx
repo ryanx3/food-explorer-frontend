@@ -71,7 +71,7 @@ export function Details({ isAdmin = true }) {
               <DetailsContent>
                 <Section>
                   <h1>
-                    {dish.name} -{" "}
+                    {dish.name} {""}
                     <span>R${parseFloat(dish.price).toFixed(2)}</span>
                   </h1>
                   <p>{dish.description}</p>

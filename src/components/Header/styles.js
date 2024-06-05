@@ -49,6 +49,11 @@ export const Profile = styled.div`
     border-radius: 100%;
     cursor: pointer;
     object-fit: cover;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   img:hover + nav,
@@ -61,7 +66,7 @@ export const Profile = styled.div`
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    top: 110%;
+    top: 115%;
     left: 50%;
     transform: translateX(-50%);
     transition:
