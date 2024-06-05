@@ -19,8 +19,7 @@ import {
   NewContainer,
   Main,
   Form,
-  LabelTitle,
-  Buttons,
+  LabelTitle
 } from "./styles";
 
 export function New() {
@@ -157,13 +156,11 @@ export function New() {
               />
             </Section>
 
-            <Buttons>
               <Button
                 type="button"
                 title="Salvar alterações"
                 onClick={handleCreateDish}
               />
-            </Buttons>
           </Form>
         </Main>
       </PageLayout>

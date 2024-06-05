@@ -1,37 +1,37 @@
 import styled from "styled-components";
 
-export const EditContainer = styled.div`
-
-`;
+export const EditContainer = styled.div``;
 
 export const Main = styled.main`
-    > a {
-      display: flex;
-      align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
 
-      width: fit-content;
-      
-      color: ${({ theme }) => theme.COLORS.LIGHT_300};
+  > a {
+    display: flex;
+    align-items: center;
+    width: fit-content;
 
-      font-family: inherit;
-      font-size: 2.4rem;
-      font-weight: 700;
-      line-height: 140%;
-      margin-top: 2rem;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
-      @media (max-width: 1024px) {
-        font-weight: 500;
-      }
-    }
+    font-family: inherit;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 140%;
 
-    > h1 {
-      font-size: 3.2rem;
-      font-style: normal;
+    @media (max-width: 1024px) {
       font-weight: 500;
-      line-height: 140%;
-      color: ${({ theme }) => theme.COLORS.LIGHT_300};
-      margin: 2.4rem 0 2.4rem;
+      margin-top: 2.4rem;
     }
+  }
+
+  > h1 {
+    font-size: 3.2rem;
+    font-weight: 500;
+    line-height: 140%;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+    text-align: center;
+  }
 `;
 
 export const Form = styled.form`
@@ -44,12 +44,12 @@ export const Form = styled.form`
   .first-section {
     display: grid;
     gap: 2.4rem;
-    grid-template-columns: 1.5fr 2.5fr 1.5fr;
+    grid-template-columns: 1fr 2fr 1fr;
   }
 
   .second-section {
     display: grid;
-    grid-template-columns: 3.5fr 1fr;
+    grid-template-columns: 3.1fr 1fr;
     gap: 2.4rem;
   }
 
@@ -65,26 +65,6 @@ export const Form = styled.form`
     }
   }
 `;
-
-export const Buttons = styled.div`
-  display: flex;
-  width: fit-content;
-  align-self: flex-end;
-  gap: 3.2rem;
-  margin-bottom: 4rem;
-
-  button:nth-child(1) {
-    background-color: ${({ theme }) => theme.COLORS.DARK_900};
-    transition: 300ms ease-out;
-  }
-
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-`;
-
 
 export const LabelTitle = styled.div`
   color: ${({ theme }) => theme.COLORS.LIGHT_400};
@@ -109,3 +89,19 @@ export const LabelTitle = styled.div`
   }
 `;
 
+export const Buttons = styled.div`
+  display: flex;
+  gap: 2.4rem;
+
+  button:nth-child(1) {
+    background-color: ${({ theme }) => theme.COLORS.DARK_900};
+    transition: 300ms ease-out;
+  }
+
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 2.4rem;
+  }
+`;

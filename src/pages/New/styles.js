@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const NewContainer = styled.div``;
 
 export const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+
   > a {
     display: flex;
     align-items: center;
@@ -15,20 +18,20 @@ export const Main = styled.main`
     font-size: 2.4rem;
     font-weight: 700;
     line-height: 140%;
-    margin-top: 2rem;
 
     @media (max-width: 1024px) {
-      font-weight: 500;
-    }
+        font-weight: 500;
+        margin-top: 2rem;
+      }
   }
 
   > h1 {
     font-size: 3.2rem;
-    font-style: normal;
     font-weight: 500;
     line-height: 140%;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
-    margin: 2.4rem 0 2.4rem;
+    margin: 2.4rem 0;
+    align-self: center;
   }
 `;
 
@@ -42,15 +45,14 @@ export const Form = styled.form`
   .first-section {
     display: grid;
     gap: 2.4rem;
-    grid-template-columns: 1.5fr 2.5fr 1.5fr;
+    grid-template-columns: 1fr 2fr 1fr;
   }
 
   .second-section {
     display: grid;
-    grid-template-columns: 3.5fr 1fr;
+    grid-template-columns: 3.1fr 1fr;
     gap: 2.4rem;
   }
-
 
   @media (max-width: 1024px) {
     .first-section {
@@ -65,21 +67,6 @@ export const Form = styled.form`
   }
 `;
 
-export const Buttons = styled.div`
-  display: flex;
-  width: fit-content;
-  align-self: flex-end;
-  gap: 3.2rem;
-  margin-bottom: 4rem;
-
-
-
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-`;
 
 export const LabelTitle = styled.div`
   color: ${({ theme }) => theme.COLORS.LIGHT_400};
@@ -103,4 +90,3 @@ export const LabelTitle = styled.div`
     padding: 8px;
   }
 `;
-

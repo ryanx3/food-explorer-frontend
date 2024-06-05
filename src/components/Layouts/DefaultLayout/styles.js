@@ -11,7 +11,9 @@ export const LayoutContainer = styled.div`
 `;
 
 export const MainContent = styled.main`
-grid-area: content;
-
-`
+  grid-area: content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
