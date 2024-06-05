@@ -51,9 +51,9 @@ export function New() {
       prevState.filter((ingredient) => ingredient !== deleted)
     );
   }
-
+  
   function handleBackPage() {
-    redirectTo(-1);
+    redirectTo(-1)
   }
 
   async function handleCreateDish() {
@@ -81,7 +81,8 @@ export function New() {
     try {
       await api.post("/dishes", formData);
       toast.success("Prato criado com sucesso!");
-      handleBackPage();
+      const newDish_id = response.data.id;
+      redirectTo(`/details/${newDish_id}`);
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
