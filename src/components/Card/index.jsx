@@ -25,8 +25,8 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
     setFavorites(false);
   }
   
-  function handleRedirectToPageEdit() {
-    navigate("/profile");
+  function handleRedirectToPageEdit(dish_id) {
+    navigate(`/edit/${dish_id}`);
   }
 
 
@@ -40,7 +40,9 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
        <PiHeartStraightBold onClick={handleIsFavorite} />
      );
    } else {
-     return <PiPencilSimple onClick={handleRedirectToPageEdit} />;
+     return (
+       <PiPencilSimple onClick={() => handleRedirectToPageEdit(data.id)} />
+     );
    }
  };
 

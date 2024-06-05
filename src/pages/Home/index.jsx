@@ -65,12 +65,8 @@ export function Home({ isAdmin = true }) {
     async function FetchCardsOnApi() {
       const response = await api.get(`/dishes?name=${search}`);
       const meals = response.data.filter((dish) => dish.category === "meals");
-      const beverages = response.data.filter(
-        (dish) => dish.category === "beverages"
-      );
-      const desserts = response.data.filter(
-        (dish) => dish.category === "desserts"
-      );
+      const beverages = response.data.filter((dish) => dish.category === "beverages");
+      const desserts = response.data.filter((dish) => dish.category === "desserts");
       setCards({ meals, beverages, desserts });
     }
     FetchCardsOnApi();

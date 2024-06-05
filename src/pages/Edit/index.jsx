@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDish } from "../../hooks/Dish";
+import { FadeLoader } from "react-spinners";
 import { PiCaretLeft } from "react-icons/pi";
+import { useDish } from "../../hooks/Dish";
 import { toast } from "react-toastify";
 
 import { PageLayout } from "../../components/Layouts/PagesLayout";

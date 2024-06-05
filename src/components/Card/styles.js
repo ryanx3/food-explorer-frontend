@@ -21,8 +21,13 @@ export const CardContainer = styled.div`
     top: 1.6rem;
     right: 1.6rem;
     font-size: 2.4rem;
-    fill: ${({ theme }) => theme.COLORS.LIGHT_100};;
+    fill: ${({ theme }) => theme.COLORS.LIGHT_100};
     cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 
   @media (max-width: 768px) {
@@ -41,17 +46,16 @@ export const Picture = styled.div`
     border-radius: 50%;
     object-fit: cover;
     @media (max-width: 768px) {
-        width: 8.8rem;
-        height: 8.8rem;
+      width: 8.8rem;
+      height: 8.8rem;
     }
   }
-
-`
+`;
 
 export const Title = styled.div`
   display: flex;
   align-items: center;
-  
+
   h2 {
     max-width: calc(16 * 1ch);
     white-space: nowrap;
