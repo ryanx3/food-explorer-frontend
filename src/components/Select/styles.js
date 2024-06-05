@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 8px;
 
-  p {
+  label {
     display: flex;
     color: ${({ theme }) => theme.COLORS.LIGHT_400};
     font-family: Roboto;
@@ -24,14 +24,19 @@ export const Content = styled.div`
     gap: 0.8rem;
 
     select {
+      width: 100%;
+      height: 4.8rem;
+      
       background-color: ${({ theme }) => theme.COLORS.DARK_1000};
       color: ${({ theme }) => theme.COLORS.LIGHT_400};
-
+      
       border-radius: 5px;
       border: none;
-
-      height: 4.8rem;
+      
       padding: 1.2rem 1.4rem;
+
+      appearance: none;
+      cursor: pointer;
     }
   }
 `;

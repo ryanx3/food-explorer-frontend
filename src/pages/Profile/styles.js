@@ -80,8 +80,12 @@ export const Avatar = styled.div`
     padding: 1.2rem 3.2rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     white-space: nowrap;
-    font-size: 14px;
     gap: 1rem;
+    
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
 
     background-color: ${({ theme }) => theme.COLORS.DARK_1000};
     border-radius: 5px;
@@ -91,6 +95,12 @@ export const Avatar = styled.div`
     justify-content: center;
 
     cursor: pointer;
+
+    transition: filter 0.3s ease;
+
+    &:hover {
+      filter: brightness(1.1);
+    }
   }
 
   svg {

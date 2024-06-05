@@ -12,7 +12,7 @@ export const Select = forwardRef(({ defaultValue, title, ...rest }, ref) => {
 
   return (
     <Container {...rest}>
-      <p>{title}</p>
+      {title && <label>{title}</label>}
       <Content {...rest}>
         <label htmlFor="category">
           <select
@@ -30,9 +30,9 @@ export const Select = forwardRef(({ defaultValue, title, ...rest }, ref) => {
             {...rest}
           >
             <option value="">Selecionar</option>
-            <option value="meals">Refeição</option>
-            <option value="desserts">Sobremesa</option>
-            <option value="beverages">Bebida</option>
+            <option value="meals">Refeições</option>
+            <option value="beverages">Bebidas</option>
+            <option value="desserts">Sobremesas</option>
           </select>
         </label>
       </Content>

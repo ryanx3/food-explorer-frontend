@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
@@ -23,7 +22,6 @@ import {
 } from "./styles";
 
 export function New() {
-  const isMobile = useMediaQuery({ maxWidth: 768 });
   const redirectTo = useNavigate();
 
   const [name, setName] = useState("");
