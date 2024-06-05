@@ -16,7 +16,7 @@ import { CardContainer, Picture, Title, Description, Order } from "./styles";
 export function Card({ data, onClick, isAdmin, ...rest }) {
   const navigate = useNavigate();
   const [favorite, setFavorites] = useState(false);
-
+  const [quantity, setQuantity] = useState(1);
 
   function toggleFavorite() {
     setFavorites((prevFavorites) => !prevFavorites);
@@ -27,6 +27,8 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
   }
 
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
+
+  const totalPrice = (parseFloat(data.price) * quantity).toFixed(2);
 
   const iconRender = () => {
     if (!isAdmin) {
@@ -61,12 +63,12 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
 
       <Description>
         <p>{data.description}</p>
-        <h3>R$ {parseFloat(data.price).toFixed(2)}</h3>
+        <h3>R$ {totalPrice}</h3>
       </Description>
 
       {!isAdmin && (
         <Order>
-          <Counter />
+          <Counter quantity={quantity} setQuantity={setQuantity} />
           <Button title="incluir" />
         </Order>
       )}
