@@ -19,7 +19,7 @@ function DishProvider({ children }) {
       if (error.response) {
         toast.error(error.response.data.message);
       } else {
-        toast.error("Erro ao encontrar detalhes do prato.")
+        toast.error("Erro ao encontrar detalhes do prato.");
       }
     }
   }
@@ -29,10 +29,10 @@ function DishProvider({ children }) {
       value={{
         dish,
         setDish,
-        ingredientsExists,
-        setIngredientsExists,
         category,
         setCategory,
+        ingredientsExists,
+        setIngredientsExists,
         fetchDishDetails,
       }}
     >

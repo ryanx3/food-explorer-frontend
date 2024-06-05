@@ -77,15 +77,6 @@ export function Profile() {
     await updateProfile({ user: updatedUser, avatarFile });
   };
 
-  function resetInputAdress() {
-    reset({
-      cep: "",
-      street: "",
-      neighborhood: "",
-      number_home: "",
-    });
-  }
-
   const checkCEP = async (e) => {
     const cep = e.target.value.replace(/\D/g, "");
     setLoadingAddress(true);

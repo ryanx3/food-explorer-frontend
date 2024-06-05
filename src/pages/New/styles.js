@@ -11,6 +11,7 @@ export const Main = styled.main`
     align-items: center;
 
     width: fit-content;
+    margin-top: 2.4rem;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
@@ -20,9 +21,9 @@ export const Main = styled.main`
     line-height: 140%;
 
     @media (max-width: 1024px) {
-        font-weight: 500;
-        margin-top: 2rem;
-      }
+      font-weight: 500;
+      margin-top: 2rem;
+    }
   }
 
   > h1 {

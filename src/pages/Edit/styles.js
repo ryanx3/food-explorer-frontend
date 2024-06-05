@@ -92,6 +92,7 @@ export const LabelTitle = styled.div`
 export const Buttons = styled.div`
   display: flex;
   gap: 2.4rem;
+  margin-bottom: 2.4rem;
 
   button:nth-child(1) {
     background-color: ${({ theme }) => theme.COLORS.DARK_900};
@@ -101,7 +102,5 @@ export const Buttons = styled.div`
   @media (max-width: 1024px) {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    margin-bottom: 2.4rem;
   }
 `;
