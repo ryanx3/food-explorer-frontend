@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
-import { PiCaretLeft } from "react-icons/pi";
 import { useDish } from "../../hooks/Dish";
+import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 
 import { PageLayout } from "../../components/Layouts/PagesLayout";
@@ -37,6 +37,8 @@ export function Edit({ isAdmin = true }) {
   const [description, setDescription] = useState("");
   const [newIngredients, setNewIngredients] = useState([]);
   const [addIngredients, setAddIngredients] = useState("");
+  const [imageFile, setImageFile] = useState("");
+  const [image, setImage] = useState(null);
 
   function handleBackHome() {
     navigate(-1);
@@ -44,7 +46,9 @@ export function Edit({ isAdmin = true }) {
 
   function handleAddImageToDish(e) {
     const file = e.target.files[0];
-    setDish({ ...dish, image: file });
+    setImageFile(file);
+    const imageURL = URL.createObjectURL(file);
+    setImage(imageURL);
   }
 
   function handleAddIngredients() {
@@ -84,6 +88,12 @@ export function Edit({ isAdmin = true }) {
   }
 
   async function handleUpdatedDish() {
+
+    if (ingredientsExists.length === 0 && newIngredients === 0) {
+      return toast.error(
+        "Por favor, insira pelo menos um ingrediente do seu prato."
+      );
+    }
     try {
       const updatedDish = {
         name: name === "" ? dish.name : name,
@@ -94,6 +104,13 @@ export function Edit({ isAdmin = true }) {
         ingredientsExists,
       };
       await api.put(`/dishes/${params.id}`, updatedDish);
+
+      if (imageFile && imageFile !== dish.image) {
+        const imageFormData = new FormData();
+        imageFormData.append("image", imageFile);
+
+        await api.patch(`/dishes/${params.id}/image`, imageFormData);
+      }
       toast.success("Prato atualizado com sucesso!");
       handleBackHome();
     } catch (error) {
@@ -103,20 +120,20 @@ export function Edit({ isAdmin = true }) {
     }
   }
 
-   if (!dish) {
-     return (
-       <div
-         style={{
-           display: "flex",
-           justifyContent: "center",
-           alignItems: "center",
-           height: "100vh",
-         }}
-       >
-         <FadeLoader color="white" />
-       </div>
-     );
-   }
+  if (!dish) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <FadeLoader color="white" />
+      </div>
+    );
+  }
 
   return (
     <EditContainer>
@@ -132,7 +149,7 @@ export function Edit({ isAdmin = true }) {
               <InputFile
                 onChange={handleAddImageToDish}
                 title="Imagem"
-                filename={dish.image}
+                filename={imageFile ? imageFile.name : dish.image}
               />
 
               <Input
