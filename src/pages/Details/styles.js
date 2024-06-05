@@ -67,6 +67,10 @@ export const DetailsContent = styled.div`
     font-weight: 500;
     line-height: 140%;
     white-space: nowrap;
+
+    span {
+      color: ${({ theme }) => theme.COLORS.CAKE_200};
+    }
   }
 
   p {
@@ -100,6 +104,7 @@ export const DetailsContent = styled.div`
 
 export const CounterSection = styled.section`
   display: flex;
+  align-items: center;
   gap: 2.4rem;
 
   button {
@@ -114,6 +119,13 @@ export const CounterSection = styled.section`
     button {
       width: fit-content;
       margin-bottom: 2.4rem;
+    }
+
+    span {
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
+      font-family: inherit;
+      font-size: 2rem;
+      font-weight: 400;
     }
   }
 `;

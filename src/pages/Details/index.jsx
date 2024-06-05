@@ -70,7 +70,10 @@ export function Details({ isAdmin = true }) {
 
               <DetailsContent>
                 <Section>
-                  <h1>{dish.name}</h1>
+                  <h1>
+                    {dish.name} -{" "}
+                    <span>R${parseFloat(dish.price).toFixed(2)}</span>
+                  </h1>
                   <p>{dish.description}</p>
                 </Section>
 
@@ -85,7 +88,7 @@ export function Details({ isAdmin = true }) {
                   </Section>
                 )}
                 <CounterSection>
-                  {isAdmin ? null : <Counter />}
+                  {!isAdmin && <Counter />}
 
                   {isAdmin && (
                     <Button

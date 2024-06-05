@@ -61,7 +61,7 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
 
       <Description>
         <p>{data.description}</p>
-        <h3>€ {parseFloat(data.price).toFixed(2)}</h3>
+        <h3>R$ {parseFloat(data.price).toFixed(2)}</h3>
       </Description>
 
       {!isAdmin && (
