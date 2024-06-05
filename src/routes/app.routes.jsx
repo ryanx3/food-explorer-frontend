@@ -19,6 +19,8 @@ export function AppRoutes() {
           <Route element={<New />} path="/new" />
           <Route element={<Edit />} path="/edit/:id" />
           <Route path="*" element={<Navigate to="/" />} />
+
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
     </SearchProvider>
