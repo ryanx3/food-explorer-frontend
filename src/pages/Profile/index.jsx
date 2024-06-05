@@ -1,5 +1,7 @@
-import { useMediaQuery } from "react-responsive";
-import { useState, useEffect } from "react";
+import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
+import axios from "axios";
+
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PiCaretLeft, PiFileArrowUpDuotone } from "react-icons/pi";
 import { useForm } from "react-hook-form";
@@ -13,14 +15,12 @@ import { useAuth } from "../../hooks/Auth";
 import { api } from "../../services/api";
 import { ProfileContainer, Avatar, Form } from "./styles";
 import { toast } from "react-toastify";
-import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
-import axios from "axios";
 
 export function Profile() {
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-  const navigate = useNavigate();
+  const redirectTo = useNavigate();
 
   const { user, updateProfile } = useAuth();
+  const [loadingAddress, setLoadingAddress] = useState(false);
 
   const AvatarURL = user.avatar
     ? `${api.defaults.baseURL}/files/${user.avatar}`
@@ -28,16 +28,10 @@ export function Profile() {
 
   const [avatar, setAvatar] = useState(AvatarURL);
   const [avatarFile, setAvatarFile] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  function handleChangeAvatar(event) {
-    const file = event.target.files[0];
-
-    setAvatarFile(file);
-
-    const imagePreview = URL.createObjectURL(file);
-    setAvatar(imagePreview);
-  }
+  const handleBackPage = () => {
+    redirectTo("/");
+  };
 
   const {
     register,
@@ -48,11 +42,16 @@ export function Profile() {
     formState: { errors },
   } = useForm();
 
-  const handleBack = () => {
-    navigate("/");
-  };
+  function handleUpdatedAvatar(event) {
+    const file = event.target.files[0];
 
-  const onSubmit = async (data) => {
+    setAvatarFile(file);
+
+    const imagePreview = URL.createObjectURL(file);
+    setAvatar(imagePreview);
+  }
+
+  const handleUpdatedUser = async (data) => {
     const {
       name,
       email,
@@ -89,44 +88,36 @@ export function Profile() {
 
   const checkCEP = async (e) => {
     const cep = e.target.value.replace(/\D/g, "");
-
-    if (cep.length !== 8) {
-      resetInputAdress();
-      return toast.error("O CEP deve conter no mínimo 8 dígitos");
+    setLoadingAddress(true);
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      if (response.data.error) {
+        toast.error(response.data.error.message);
+      } else {
+        const data = response.data;
+        setFocus("number_home");
+        setValue("street", data.logradouro);
+        setValue("neighborhood", data.bairro);
+        setValue("cep", cep);
+      }
+    } catch (error) {
+      setFocus("cep");
+      reset({
+        cep: "",
+      });
+      toast.error("CEP inexistente. Por favor, insira um CEP válido.");
+    } finally {
+      setLoadingAddress(false);
     }
-
-    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-
-    if (response.data.erro) {
-      resetInputAdress();
-      return toast.error("CEP inexistente. Por favor, insira um CEP válido.");
-    }
-
-    const data = response.data;
-
-    toast.promise(checkCEP, {
-      loading: "Loading",
-      success: "Got the data",
-    });
-    setFocus("number_home");
-    setValue("street", data.logradouro);
-    setValue("neighborhood", data.bairro);
-    setValue("cep", cep);
   };
-
-  useEffect(() => {
-    if (!isMobile && isMenuOpen === true) {
-      setIsMenuOpen(false);
-    }
-  }, [isMobile]);
 
   return (
     <ProfileContainer>
       <PageLayout>
         <main>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={handleSubmit(handleUpdatedUser)}>
             <Avatar>
-              <a onClick={handleBack}>
+              <a onClick={handleBackPage}>
                 <PiCaretLeft /> Voltar
               </a>
 
@@ -135,7 +126,7 @@ export function Profile() {
               <label htmlFor="avatar">
                 <PiFileArrowUpDuotone />
                 Selecione um avatar
-                <input id="avatar" type="file" onChange={handleChangeAvatar} />
+                <input id="avatar" type="file" onChange={handleUpdatedAvatar} />
               </label>
             </Avatar>
 
@@ -180,7 +171,7 @@ export function Profile() {
                     type="number"
                     placeholder="Digite o seu CEP"
                     {...register("cep")}
-                    defaultValue={user.cep ? user.cep : ""}
+                    defaultValue={user.cep}
                     onBlur={checkCEP}
                   />
                   <Input
