@@ -14,12 +14,7 @@ import { Select } from "../../components/Select";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Inputs/Input";
 
-import {
-  NewContainer,
-  Main,
-  Form,
-  LabelTitle
-} from "./styles";
+import { NewContainer, Main, Form, LabelTitle } from "./styles";
 
 export function New() {
   const redirectTo = useNavigate();
@@ -51,9 +46,9 @@ export function New() {
       prevState.filter((ingredient) => ingredient !== deleted)
     );
   }
-  
+
   function handleBackPage() {
-    redirectTo(-1)
+    redirectTo(-1);
   }
 
   async function handleCreateDish() {
@@ -63,9 +58,14 @@ export function New() {
       return toast.error("Por favor, insira uma imagem.");
     }
 
-    if (priceValue <= 0) {
+    if (!name.trim() || !description.trim()) {
+      return toast.error("Por favor, preencha todos os campos.");
+    }
+
+    if (priceValue <= 0 || !priceValue) {
       return toast.error("Por favor, insira um preço válido.");
     }
+
     if (ingredients.length === 0) {
       return toast.error("Por favor, insira um ingrediente do seu prato.");
     }
@@ -79,15 +79,12 @@ export function New() {
     formData.append("ingredients", JSON.stringify(ingredients));
 
     try {
-      await api.post("/dishes", formData);
-      toast.success("Prato criado com sucesso!");
-      const newDish_id = response.data.id;
-      redirectTo(`/details/${newDish_id}`);
+      const response = await api.post("/dishes", formData);
+      toast.success(response.data.message);
+      redirectTo(`/details/${response.data.id}`);
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
-      } else {
-        toast.error("Erro no servidor ao criar prato!");
       }
     }
   }
@@ -155,11 +152,11 @@ export function New() {
               />
             </Section>
 
-              <Button
-                type="button"
-                title="Salvar alterações"
-                onClick={handleCreateDish}
-              />
+            <Button
+              type="button"
+              title="Salvar alterações"
+              onClick={handleCreateDish}
+            />
           </Form>
         </Main>
       </PageLayout>

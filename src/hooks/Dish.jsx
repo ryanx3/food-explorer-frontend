@@ -16,7 +16,11 @@ function DishProvider({ children }) {
       setCategory(response.data.category);
       setIngredientsExists(response.data.ingredients);
     } catch (error) {
-      toast.error("Erro ao buscar detalhes do prato.");
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Erro ao encontrar detalhes do prato.")
+      }
     }
   }
 

@@ -39,7 +39,7 @@ export function Home({ isAdmin = true }) {
 
   useEffect(() => {
     const configs = {
-      loop: Object.keys(cards).some(category => cards[category].length > 3),
+      loop: Object.keys(cards).some((category) => cards[category].length > 3),
       slidesPerView: "auto",
       spaceBetween: isMobile ? 16 : 27,
       grabCursor: true,
@@ -48,7 +48,13 @@ export function Home({ isAdmin = true }) {
           .swiper-button-next,
           .swiper-button-prev {
             color: white;
+             transition: transform 0.2s ease;
           }
+
+          .swiper-button-next:hover,
+          .swiper-button-prev:hover {
+            transform: scale(1.2);
+            }
         `,
       ],
     };
@@ -65,8 +71,12 @@ export function Home({ isAdmin = true }) {
     async function FetchCardsOnApi() {
       const response = await api.get(`/dishes?name=${search}`);
       const meals = response.data.filter((dish) => dish.category === "meals");
-      const beverages = response.data.filter((dish) => dish.category === "beverages");
-      const desserts = response.data.filter((dish) => dish.category === "desserts");
+      const beverages = response.data.filter(
+        (dish) => dish.category === "beverages"
+      );
+      const desserts = response.data.filter(
+        (dish) => dish.category === "desserts"
+      );
       setCards({ meals, beverages, desserts });
     }
     FetchCardsOnApi();
