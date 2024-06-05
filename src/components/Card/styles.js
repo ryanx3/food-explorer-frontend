@@ -21,12 +21,30 @@ export const CardContainer = styled.div`
     top: 1.6rem;
     right: 1.6rem;
     font-size: 2.4rem;
-    fill: ${({ theme }) => theme.COLORS.LIGHT_100};
     cursor: pointer;
     transition: transform 0.2s ease;
 
     &:hover {
       transform: scale(1.2);
+    }
+  }
+
+  .favorite-red {
+    color: ${({ theme }) => theme.COLORS.TintsTomato300};
+
+    animation: zoomIn 1.5s infinite alternate;
+
+    @keyframes zoomIn {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.15);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
   }
 
@@ -45,6 +63,12 @@ export const Picture = styled.div`
     cursor: pointer;
     border-radius: 50%;
     object-fit: cover;
+
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
     @media (max-width: 768px) {
       width: 8.8rem;
       height: 8.8rem;

@@ -17,34 +17,34 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
   const navigate = useNavigate();
   const [favorite, setFavorites] = useState(false);
 
-  function handleIsFavorite() {
-    setFavorites(true);
+
+  function toggleFavorite() {
+    setFavorites((prevFavorites) => !prevFavorites);
   }
-  
-  function handleRemoveFavorite() {
-    setFavorites(false);
-  }
-  
+
   function handleRedirectToPageEdit(dish_id) {
     navigate(`/edit/${dish_id}`);
   }
 
-
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
 
- const iconRender = () => {
-   if (!isAdmin) {
-     return favorite ? (
-       <PiHeartStraightFill onClick={handleRemoveFavorite} />
-     ) : (
-       <PiHeartStraightBold onClick={handleIsFavorite} />
-     );
-   } else {
-     return (
-       <PiPencilSimple onClick={() => handleRedirectToPageEdit(data.id)} />
-     );
-   }
- };
+  const iconRender = () => {
+    if (!isAdmin) {
+      return favorite ? (
+        <PiHeartStraightFill
+          fill="red"
+          className="favorite-red"
+          onClick={toggleFavorite}
+        />
+      ) : (
+        <PiHeartStraightBold fill="white" onClick={toggleFavorite} />
+      );
+    } else {
+      return (
+        <PiPencilSimple onClick={() => handleRedirectToPageEdit(data.id)} />
+      );
+    }
+  };
 
   return (
     <CardContainer isAdmin={isAdmin} data={data}>
