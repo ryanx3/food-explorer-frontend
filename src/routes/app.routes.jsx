@@ -7,6 +7,7 @@ import { Edit } from "../pages/Edit";
 import { Profile } from "../pages/Profile";
 import { SearchProvider } from "../hooks/Search";
 import { DefaultLayout } from "../components/Layouts/DefaultLayout";
+import { DishProvider } from "../hooks/Dish";
 
 export function AppRoutes() {
   return (
@@ -14,12 +15,24 @@ export function AppRoutes() {
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route element={<Home />} path="/" />
-          <Route element={<Details />} path="/details/:id" />
           <Route element={<Profile />} path="/profile" />
           <Route element={<New />} path="/new" />
-          <Route element={<Edit />} path="/edit/:id" />
-          <Route path="*" element={<Navigate to="/" />} />
-
+          <Route
+            path="/edit/:id"
+            element={
+              <DishProvider>
+                <Edit />
+              </DishProvider>
+            }
+          />
+          <Route
+            path="/details/:id"
+            element={
+              <DishProvider>
+                <Details />
+              </DishProvider>
+            }
+          />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>

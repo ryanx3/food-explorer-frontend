@@ -1,15 +1,14 @@
-import { FadeLoader } from "react-spinners";
-import { useMediaQuery } from "react-responsive";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { api } from "../../services/api";
 
 import { PiCaretLeft } from "react-icons/pi";
 
 import { PageLayout } from "../../components/Layouts/PagesLayout";
-import { Tag } from "../../components/Tag";
 import { Section } from "../../components/Section";
 import { Counter } from "../../components/Counter";
 import { Button } from "../../components/Button";
+import { Tag } from "../../components/Tag";
 
 import {
   DetailsContainer,
@@ -17,46 +16,27 @@ import {
   DetailsContent,
   CounterSection,
 } from "./styles";
-import { api } from "../../services/api";
-import { toast } from "react-toastify";
+import { useDish } from "../../hooks/Dish";
+import { FadeLoader } from "react-spinners";
 
 export function Details({ isAdmin = true }) {
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-
-  const navigate = useNavigate();
+  const redirectTo = useNavigate();
   const params = useParams();
+  const { dish, fetchDishDetails } = useDish();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [data, setData] = useState(null);
-
-  function handleBackHome() {
-    navigate(-1);
+  function handleBackPage() {
+    redirectTo(-1);
   }
 
   function handleRedirectToEditDish(dish_id) {
-    navigate(`/edit/${dish_id}`);
+    redirectTo(`/edit/${dish_id}`);
   }
 
   useEffect(() => {
-    if (!isMobile && isMenuOpen === true) {
-      setIsMenuOpen(false);
-    }
-  }, [isMobile]);
-
-  useEffect(() => {
-    async function fetchDishDetails() {
-      try {
-        const response = await api.get(`/dishes/${params.id}`);
-        setData(response.data);
-      } catch (error) {
-        toast.error("Erro ao encontrar este prato.");
-        navigate("/");
-      }
-    }
-    fetchDishDetails();
+    fetchDishDetails(params.id);
   }, []);
 
-  if (!data) {
+  if (!dish) {
     return (
       <div
         style={{
@@ -71,7 +51,7 @@ export function Details({ isAdmin = true }) {
     );
   }
 
-  const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
+  const imageURL = `${api.defaults.baseURL}/files/${dish.image}`;
 
   return (
     <DetailsContainer>
@@ -79,24 +59,24 @@ export function Details({ isAdmin = true }) {
         <main>
           <Content>
             <div>
-              <a onClick={handleBackHome}>
+              <a onClick={handleBackPage}>
                 <PiCaretLeft size={32} />
                 Voltar
               </a>
             </div>
 
             <div className="DishInformations">
-              <img src={imageURL} alt={`Imagem do prato ${data.name}`} />
+              <img src={imageURL} alt={`Imagem do prato ${dish.name}`} />
 
               <DetailsContent>
                 <Section>
-                  <h1>{data.name}</h1>
-                  <p>{data.description}</p>
+                  <h1>{dish.name}</h1>
+                  <p>{dish.description}</p>
                 </Section>
 
-                {data.ingredients && (
+                {dish.ingredients && (
                   <Section className="tags-section">
-                    {data.ingredients.map((ingredient) => (
+                    {dish.ingredients.map((ingredient) => (
                       <Tag
                         key={String(ingredient.id)}
                         title={ingredient.ingredient}
@@ -107,12 +87,14 @@ export function Details({ isAdmin = true }) {
                 <CounterSection>
                   {isAdmin ? null : <Counter />}
 
-                  <Button
-                    title={`Editar prato`}
-                    onClick={() => handleRedirectToEditDish(data.id)}
-                  />
+                  {isAdmin && (
+                    <Button
+                      title={`Editar prato`}
+                      onClick={() => handleRedirectToEditDish(dish.id)}
+                    />
+                  )}
 
-                  {!isAdmin && <Button title={`incluir - R$ ${data.price}`} />}
+                  {!isAdmin && <Button title={`incluir - R$ ${dish.price}`} />}
                 </CounterSection>
               </DetailsContent>
             </div>

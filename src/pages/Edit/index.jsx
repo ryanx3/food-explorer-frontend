@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
+import { useDish } from "../../hooks/Dish";
 import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 
@@ -16,31 +16,26 @@ import { Textarea } from "../../components/Inputs/Textarea";
 
 import { api } from "../../services/api";
 
-import {
-  EditContainer,
-  Main,
-  Form,
-  Buttons,
-  LabelTitle,
-} from "./styles";
+import { EditContainer, Main, Form, Buttons, LabelTitle } from "./styles";
+
 export function Edit({ isAdmin = true }) {
-  const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
   const params = useParams();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {
+    dish,
+    setDish,
+    category,
+    setCategory,
+    ingredientsExists,
+    setIngredientsExists,
+    fetchDishDetails,
+  } = useDish();
 
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-
   const [newIngredients, setNewIngredients] = useState([]);
-  const [ingredientsExists, setIngredientsExists] = useState([]);
   const [addIngredients, setAddIngredients] = useState("");
-
-  const [data, setData] = useState(null);
-  const [image, setImage] = useState(null);
-  const [filename, setFilename] = useState("");
 
   function handleBackHome() {
     navigate(-1);
@@ -48,8 +43,7 @@ export function Edit({ isAdmin = true }) {
 
   function handleAddImageToDish(e) {
     const file = e.target.files[0];
-    setImage(file);
-    setFilename(file.name);
+    setDish({ ...dish, image: file });
   }
 
   function handleAddIngredients() {
@@ -69,30 +63,32 @@ export function Edit({ isAdmin = true }) {
     }
   }
 
-
-
   useEffect(() => {
-    async function fetchDishes() {
-      try {
-        const response = await api.get(`/dishes/${params.id}`);
-        setCategory(response.data.category);
-        setIngredientsExists(response.data.ingredients);
-        setData(response.data);
-      } catch (error) {
-        toast.error("Erro ao buscar pratos.");
-        console.error(error);
-      }
-    }
-    fetchDishes();
+    fetchDishDetails(params.id);
   }, []);
+
+  if (!dish) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <FadeLoader color="white" />
+      </div>
+    );
+  }
 
   async function handleUpdatedDish() {
     try {
       const updatedDish = {
-        name: name === "" ? data.name : name,
-        category: category === "" ? data.category : category,
-        description: description === "" ? data.description : description,
-        price: price === "" ? data.price : price,
+        name: name === "" ? dish.name : name,
+        category: category === "" ? dish.category : category,
+        description: description === "" ? dish.description : description,
+        price: price === "" ? dish.price : price,
         newIngredients,
         ingredientsExists,
       };
@@ -106,9 +102,20 @@ export function Edit({ isAdmin = true }) {
     }
   }
 
-  if (!data) {
-    return;
-  }
+   if (!dish) {
+     return (
+       <div
+         style={{
+           display: "flex",
+           justifyContent: "center",
+           alignItems: "center",
+           height: "100vh",
+         }}
+       >
+         <FadeLoader color="white" />
+       </div>
+     );
+   }
 
   return (
     <EditContainer>
@@ -121,12 +128,16 @@ export function Edit({ isAdmin = true }) {
 
           <Form>
             <Section className="first-section">
-              <InputFile onChange={handleAddImageToDish} title="Imagem" filename={data.image} />
+              <InputFile
+                onChange={handleAddImageToDish}
+                title="Imagem"
+                filename={dish.image}
+              />
 
               <Input
                 title="Nome"
                 placeholder="Exemplo: Salada Caesar"
-                defaultValue={data.name}
+                defaultValue={dish.name}
                 onChange={(e) => setName(e.target.value)}
               />
 
@@ -172,7 +183,7 @@ export function Edit({ isAdmin = true }) {
               </LabelTitle>
 
               <InputNumeric
-                value={data.price}
+                value={dish.price}
                 title="Preço"
                 setPrice={setPrice}
               />
@@ -182,7 +193,7 @@ export function Edit({ isAdmin = true }) {
               <Textarea
                 placeholder="Fale brevemente sobre o prato, seus ingredientes e composição."
                 title="Descrição"
-                defaultValue={data.description}
+                defaultValue={dish.description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Section>
