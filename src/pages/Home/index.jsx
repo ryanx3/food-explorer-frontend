@@ -17,7 +17,7 @@ import bannerMobile from "../../assets/banner-mobile.png";
 
 import { HomeContainer, Content, Presentation } from "./styles";
 
-export function Home({ isAdmin = true }) {
+export function Home({ isAdmin = false }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
 

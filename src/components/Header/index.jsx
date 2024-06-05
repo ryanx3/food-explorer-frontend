@@ -76,9 +76,6 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
         {!isMobile && (
           <Search
             onChange={onChangeSearch}
-            onClickButton={onClick}
-            placeholder="Busque por pratos ou ingredientes"
-            icon={PiMagnifyingGlassLight}
           />
         )}
 

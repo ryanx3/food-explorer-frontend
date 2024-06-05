@@ -42,6 +42,7 @@ export function SideMenu({ isAdmin = false, active, onChangeSearch, ...rest }) {
       <Main>
         <nav>
           <Search onChange={onChangeSearch} />
+          
           {isAdmin ? (
             <a href="/new">Adicionar novo prato</a>
           ) : (

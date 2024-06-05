@@ -5,7 +5,7 @@ import { useSearch } from "../../hooks/Search";
 import { SearchContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
 
-export function Search({ searchValue, ...rest }) {
+export function Search({ ...rest }) {
   const RedirectTo = useNavigate();
   const { search, setSearch } = useSearch();
 
@@ -20,7 +20,7 @@ export function Search({ searchValue, ...rest }) {
   }
 
   const searchIcon = search ? (
-    <BsArrowLeftShort onClick={() => setSearch("")} />
+    <BsArrowLeftShort size={32} onClick={() => setSearch("")} />
   ) : (
     <BsSearchHeart size={24} />
   );
@@ -32,6 +32,7 @@ export function Search({ searchValue, ...rest }) {
         onKeyPress={executeSearchOnEnter}
         icon={searchIcon}
         value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
     </SearchContainer>
   );

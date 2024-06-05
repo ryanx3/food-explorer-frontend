@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SideMenuContainer = styled.aside`
   background-color: ${({ theme }) => theme.COLORS.DARK_500};
   position: fixed;
-  max-width: 275px;
+  width: 27.5rem;
   height: 100vh;
   z-index: 2;
   left: 0;
@@ -13,7 +13,6 @@ export const SideMenuContainer = styled.aside`
   box-shadow: 0 0 10px 3px ;
   display: grid;
   grid-template-rows: 90px auto 90px;
-
   
   @media (max-width: 768px) {
     &[data-is-menu-open="true"] {
@@ -39,7 +38,7 @@ export const Header = styled.header`
   align-items: center;
 
   padding: 2.4rem;
-  height: 114px;
+  height: 11.4rem;
   border-radius: 0px 10px 0px 0px;
 
   h1 {
@@ -111,12 +110,18 @@ export const Footer = styled.footer`
     height: 4.8rem;
     border-radius: 999px;
     cursor: pointer;
+    object-fit: cover;
   }
 
   > svg {
     font-size: 3.2rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   .user {
@@ -125,6 +130,11 @@ export const Footer = styled.footer`
     gap: 1.6rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
 
     .name-user {
       > h1 {

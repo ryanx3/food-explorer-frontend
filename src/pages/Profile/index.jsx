@@ -162,7 +162,7 @@ export function Profile() {
                     type="number"
                     placeholder="Digite o seu CEP"
                     {...register("cep")}
-                    defaultValue={user.cep}
+                    defaultValue={user.CEP}
                     onBlur={checkCEP}
                   />
                   <Input
