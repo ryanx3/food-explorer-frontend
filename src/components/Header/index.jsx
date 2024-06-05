@@ -22,7 +22,7 @@ import { useSideMenu } from "../../hooks/SideMenu";
 export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
-  const { isMenuOpen, setIsMenuOpen } = useSideMenu();
+  const { setIsMenuOpen } = useSideMenu();
   const { signOut, user } = useAuth();
   const navigate = useNavigate();
 
@@ -85,7 +85,7 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
         {!isMobile && (
           <Button
             onClick={handleRedirectToDetails}
-            title="Novo Prato"
+            title={isAdmin ? "Novo Prato" : "Pedidos (0)"}
             icon={isAdmin ? "" : PiReceipt}
           />
         )}

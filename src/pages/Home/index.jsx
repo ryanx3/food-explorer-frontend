@@ -17,11 +17,10 @@ import bannerMobile from "../../assets/banner-mobile.png";
 
 import { HomeContainer, Content, Presentation } from "./styles";
 
-export function Home({ isAdmin = false }) {
+export function Home({ isAdmin = true }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cards, setCards] = useState({
     meals: [],
     beverages: [],
@@ -77,94 +76,86 @@ export function Home({ isAdmin = false }) {
     FetchCardsOnApi();
   }, [search]);
 
-  useEffect(() => {
-    if (!isMobile && isMenuOpen === true) {
-      setIsMenuOpen(false);
-    }
-  }, [isMobile]);
-
   const Banner = isMobile ? bannerMobile : bannerDesktop;
 
   return (
     <HomeContainer>
-
       <PageLayout>
-          <main>
-            <Content isempty={search}>
-              {!search && (
-                <Presentation>
-                  <img
-                    src={Banner}
-                    alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas."
-                  />
-                  <div>
-                    <h1>Sabores inigualáveis</h1>
-                    <span>
-                      Sinta o cuidado do preparo com ingredientes selecionados
-                    </span>
-                  </div>
-                </Presentation>
-              )}
+        <main>
+          <Content isempty={search}>
+            {!search && (
+              <Presentation>
+                <img
+                  src={Banner}
+                  alt="Macarons coloridos despencando juntamente com folhas verdes e frutas frescas."
+                />
+                <div>
+                  <h1>Sabores inigualáveis</h1>
+                  <span>
+                    Sinta o cuidado do preparo com ingredientes selecionados
+                  </span>
+                </div>
+              </Presentation>
+            )}
 
-              <Section title={cards.meals.length > 0 ? "Refeições" : ""}>
-                <swiper-container
-                  init="false"
-                  navigation={isMobile ? "false" : "true"}
-                  ref={swiperRef1}
-                >
-                  {cards.meals.map((card) => (
-                    <swiper-slide key={String(card.id)}>
-                      <Card
-                        isAdmin={isAdmin}
-                        data={card}
-                        onClick={() => handleRedirectToPageDetails(card.id)}
-                      />
-                    </swiper-slide>
-                  ))}
-                </swiper-container>
-              </Section>
+            <Section title={cards.meals.length > 0 ? "Refeições" : null}>
+              <swiper-container
+                init="false"
+                navigation={isMobile ? "false" : "true"}
+                ref={swiperRef1}
+              >
+                {cards.meals.map((card) => (
+                  <swiper-slide key={String(card.id)}>
+                    <Card
+                      isAdmin={isAdmin}
+                      data={card}
+                      onClick={() => handleRedirectToPageDetails(card.id)}
+                    />
+                  </swiper-slide>
+                ))}
+              </swiper-container>
+            </Section>
 
-              <Section title={cards.beverages.length > 0 ? "Bebidas" : ""}>
-                <swiper-container
-                  init="false"
-                  navigation={isMobile ? "false" : "true"}
-                  ref={swiperRef2}
-                >
-                  {cards.beverages.map((card) => (
-                    <swiper-slide key={String(card.id)}>
-                      <Card
-                        isAdmin={isAdmin}
-                        key={String(card.id)}
-                        onClick={() => handleRedirectToPageDetails(card.id)}
-                        data={card}
-                      />
-                    </swiper-slide>
-                  ))}
-                </swiper-container>
-              </Section>
+            <Section title={cards.beverages.length > 0 ? "Bebidas" : null}>
+              <swiper-container
+                init="false"
+                navigation={isMobile ? "false" : "true"}
+                ref={swiperRef2}
+              >
+                {cards.beverages.map((card) => (
+                  <swiper-slide key={String(card.id)}>
+                    <Card
+                      isAdmin={isAdmin}
+                      key={String(card.id)}
+                      onClick={() => handleRedirectToPageDetails(card.id)}
+                      data={card}
+                    />
+                  </swiper-slide>
+                ))}
+              </swiper-container>
+            </Section>
 
-              <Section title={cards.desserts.length > 0 ? "Sobremesas" : ""}>
-                <swiper-container
-                  init="false"
-                  navigation={isMobile ? "false" : "true"}
-                  ref={swiperRef3}
-                >
-                  {cards.desserts.map((card) => (
-                    <swiper-slide key={String(card.id)}>
-                      <Card
-                        isAdmin={isAdmin}
-                        key={String(card.id)}
-                        onClick={() => handleRedirectToPageDetails(card.id)}
-                        data={card}
-                      />
-                    </swiper-slide>
-                  ))}
-                </swiper-container>
-              </Section>
-            </Content>
-          </main>
+            <Section title={cards.desserts.length > 0 ? "Sobremesas" : null}>
+              <swiper-container
+                init="false"
+                navigation={isMobile ? "false" : "true"}
+                ref={swiperRef3}
+              >
+                {cards.desserts.map((card) => (
+                  <swiper-slide key={String(card.id)}>
+                    <Card
+                      isAdmin={isAdmin}
+                      key={String(card.id)}
+                      onClick={() => handleRedirectToPageDetails(card.id)}
+                      data={card}
+                    />
+                  </swiper-slide>
+                ))}
+              </swiper-container>
+            </Section>
+          </Content>
+        </main>
       </PageLayout>
-
     </HomeContainer>
   );
 }

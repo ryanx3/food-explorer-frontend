@@ -13,7 +13,7 @@ import { api } from "../../services/api";
 
 import { CardContainer, Picture, Title, Description, Order } from "./styles";
 
-export function Card({ data, onClick, isAdmin = false, ...rest }) {
+export function Card({ data, onClick, isAdmin, ...rest }) {
   const navigate = useNavigate();
   const [favorite, setFavorites] = useState(false);
 
@@ -25,8 +25,8 @@ export function Card({ data, onClick, isAdmin = false, ...rest }) {
     setFavorites(false);
   }
   
-  function handleAdminEdit() {
-    navigate("/edit");
+  function handleRedirectToPageEdit() {
+    navigate("/profile");
   }
 
 
@@ -40,13 +40,13 @@ export function Card({ data, onClick, isAdmin = false, ...rest }) {
        <PiHeartStraightBold onClick={handleIsFavorite} />
      );
    } else {
-     return <PiPencilSimple onClick={handleAdminEdit} />;
+     return <PiPencilSimple onClick={handleRedirectToPageEdit} />;
    }
  };
 
   return (
     <CardContainer isAdmin={isAdmin} data={data}>
-      {iconRender}
+      {iconRender()}
 
       <Picture onClick={onClick}>
         <img src={imageURL} alt={`Imagem do prato ${data.name}`} />

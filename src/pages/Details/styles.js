@@ -7,10 +7,10 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   grid-area: content;
-  gap: 4rem;
+  gap: 2.4rem;
 
   div a {
-    margin-top: 2rem;
+    width: fit-content;
     display: flex;
     align-items: center;
     align-self: flex-start;
@@ -22,6 +22,7 @@ export const Content = styled.div`
     line-height: 140%;
 
     @media (max-width: 1024px) {
+      margin-top: 2rem;
       font-weight: 500;
     }
   }
@@ -30,7 +31,7 @@ export const Content = styled.div`
     display: flex;
     place-items: center;
     place-self: center;
-    gap: 5rem;
+    gap: 4.8rem;
 
     > img {
       width: 39rem;
@@ -99,17 +100,20 @@ export const DetailsContent = styled.div`
 
 export const CounterSection = styled.section`
   display: flex;
-  gap: 3.3rem;
+  gap: 2.4rem;
 
   button {
     width: fit-content;
-    margin-bottom: 2rem;
   }
 
   @media (max-width: 1024px) {
     justify-content: center;
     text-align: center;
     gap: 1.6rem;
-    margin-bottom: 54px;
+
+    button {
+      width: fit-content;
+      margin-bottom: 2.4rem;
+    }
   }
 `;
