@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const SideMenuContext = createContext();
 
-export function MenuProvider({ children }) {
+export function SideMenuProvider({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (

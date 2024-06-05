@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { redirect, useNavigate, useParams } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 import { useDish } from "../../hooks/Dish";
 import { PiCaretLeft } from "react-icons/pi";
@@ -24,7 +24,6 @@ export function Edit({ isAdmin = true }) {
   const params = useParams();
   const {
     dish,
-    setDish,
     category,
     setCategory,
     ingredientsExists,
@@ -40,7 +39,7 @@ export function Edit({ isAdmin = true }) {
   const [imageFile, setImageFile] = useState("");
   const [image, setImage] = useState(null);
 
-  function handleBackHome() {
+  function handleBackPage() {
     navigate(-1);
   }
 
@@ -68,10 +67,6 @@ export function Edit({ isAdmin = true }) {
     }
   }
 
-  useEffect(() => {
-    fetchDishDetails(params.id);
-  }, []);
-
   if (!dish) {
     return (
       <div
@@ -88,7 +83,6 @@ export function Edit({ isAdmin = true }) {
   }
 
   async function handleUpdatedDish() {
-
     if (ingredientsExists.length === 0 && newIngredients === 0) {
       return toast.error(
         "Por favor, insira pelo menos um ingrediente do seu prato."
@@ -112,12 +106,18 @@ export function Edit({ isAdmin = true }) {
         await api.patch(`/dishes/${params.id}/image`, imageFormData);
       }
       toast.success("Prato atualizado com sucesso!");
-      handleBackHome();
+      handleBackPage();
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
       }
     }
+  }
+
+  async function handleDeleteDish() {
+    await api.delete(`/dishes/${params.id}`);
+    navigate("/");
+    toast.success("Prato excluído com sucesso.");
   }
 
   if (!dish) {
@@ -135,11 +135,15 @@ export function Edit({ isAdmin = true }) {
     );
   }
 
+  useEffect(() => {
+    fetchDishDetails(params.id);
+  }, []);
+
   return (
     <EditContainer>
       <PageLayout>
         <Main>
-          <a onClick={handleBackHome}>
+          <a onClick={handleBackPage}>
             <PiCaretLeft /> Voltar
           </a>
           <h1>Editar prato</h1>
@@ -217,7 +221,11 @@ export function Edit({ isAdmin = true }) {
             </Section>
 
             <Buttons>
-              <Button type="button" title="Excluir prato" />
+              <Button
+                type="button"
+                title="Excluir prato"
+                onClick={handleDeleteDish}
+              />
               <Button
                 type="button"
                 title="Salvar alterações"
