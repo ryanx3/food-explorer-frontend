@@ -27,13 +27,14 @@ export function New() {
   const [ingredients, setIngredients] = useState([]);
   const [newIngredients, setNewIngredients] = useState("");
 
+  const [imageFile, setImageFile] = useState("");
   const [image, setImage] = useState(null);
-  const [filename, setFilename] = useState("");
 
   function handleAddImageToDish(e) {
     const file = e.target.files[0];
-    setImage(file);
-    setFilename(file.name);
+    setImageFile(file);
+    const imageURL = URL.createObjectURL(file);
+    setImage(imageURL);
   }
 
   function handleAddIngredients() {
@@ -51,40 +52,47 @@ export function New() {
     redirectTo(-1);
   }
 
+
   async function handleCreateDish() {
+    if (!name || !category || !price || !description || !imageFile) {
+      return toast.error(
+        "Por favor, preencha todos os campos e selecione uma imagem."
+      );
+    }
+
     const priceValue = parseFloat(price.replace(",", "."));
-
-    if (!image) {
-      return toast.error("Por favor, insira uma imagem.");
-    }
-
-    if (!name.trim() || !description.trim()) {
-      return toast.error("Por favor, preencha todos os campos.");
-    }
-
-    if (priceValue <= 0 || !priceValue) {
+    if (isNaN(priceValue) || priceValue <= 0) {
       return toast.error("Por favor, insira um preço válido.");
     }
 
     if (ingredients.length === 0) {
-      return toast.error("Por favor, insira um ingrediente do seu prato.");
+      return toast.error(
+        "Por favor, insira pelo menos um ingrediente do seu prato."
+      );
     }
 
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("name", name);
-    formData.append("category", category);
-    formData.append("price", priceValue);
-    formData.append("description", description);
-    formData.append("ingredients", JSON.stringify(ingredients));
-
     try {
-      const response = await api.post("/dishes", formData);
-      toast.success(response.data.message);
+      const dishData = {
+        name,
+        category,
+        description,
+        price: priceValue,
+        ingredients
+      };
+      const response = await api.post("/dishes", dishData);
+
+      if (imageFile) {
+        const imageFormData = new FormData();
+        imageFormData.append("image", imageFile);
+
+        await api.patch(`/dishes/${response.data.id}/image`, imageFormData);
+      }
+
+      toast.success("Prato criado com sucesso!");
       redirectTo(`/details/${response.data.id}`);
     } catch (error) {
       if (error.response) {
-        toast.error(error.response.data.message);
+        return alert(error.response.data.message);
       }
     }
   }
@@ -102,7 +110,7 @@ export function New() {
             <Section className="first-section">
               <InputFile
                 title="Imagem"
-                filename={filename}
+                filename={imageFile.name}
                 onChange={handleAddImageToDish}
               />
 
