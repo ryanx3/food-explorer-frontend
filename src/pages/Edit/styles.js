@@ -5,7 +5,7 @@ export const EditContainer = styled.div``;
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 2rem;
 
   > a {
     display: flex;
@@ -92,7 +92,7 @@ export const LabelTitle = styled.div`
 export const Buttons = styled.div`
   display: flex;
   gap: 2.4rem;
-  margin-bottom: 2.4rem;
+  margin-bottom: 2rem;
 
   button:nth-child(1) {
     background-color: ${({ theme }) => theme.COLORS.DARK_900};

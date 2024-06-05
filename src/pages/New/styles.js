@@ -11,7 +11,7 @@ export const Main = styled.main`
     align-items: center;
 
     width: fit-content;
-    margin-top: 2.4rem;
+    margin-top: 2rem;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
@@ -90,4 +90,8 @@ export const LabelTitle = styled.div`
     gap: 1.6rem;
     padding: 8px;
   }
+`;
+
+export const Buttons = styled.div`
+  margin-bottom: 2rem;
 `;

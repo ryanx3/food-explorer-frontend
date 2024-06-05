@@ -14,7 +14,7 @@ import { Select } from "../../components/Select";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Inputs/Input";
 
-import { NewContainer, Main, Form, LabelTitle } from "./styles";
+import { NewContainer, Main, Form, LabelTitle, Buttons } from "./styles";
 
 export function New() {
   const redirectTo = useNavigate();
@@ -52,7 +52,6 @@ export function New() {
     redirectTo(-1);
   }
 
-
   async function handleCreateDish() {
     if (!name || !category || !price || !description || !imageFile) {
       return toast.error(
@@ -77,7 +76,7 @@ export function New() {
         category,
         description,
         price: priceValue,
-        ingredients
+        ingredients,
       };
       const response = await api.post("/dishes", dishData);
 
@@ -160,11 +159,13 @@ export function New() {
               />
             </Section>
 
-            <Button
-              type="button"
-              title="Salvar alterações"
-              onClick={handleCreateDish}
-            />
+            <Buttons>
+              <Button
+                type="button"
+                title="Salvar alterações"
+                onClick={handleCreateDish}
+              />
+            </Buttons>
           </Form>
         </Main>
       </PageLayout>
