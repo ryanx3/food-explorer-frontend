@@ -18,8 +18,26 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
   const [favorite, setFavorites] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
-  function toggleFavorite() {
-    setFavorites((prevFavorites) => !prevFavorites);
+  async function handleClickFavorites() {
+    try {
+      const response = await api.post(`/favorites/${data.id}`);
+      if (response.data) {
+        setFavorites(true);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  async function handleClickNoFavorites() {
+    try {
+      const response = await api.delete(`/favorites/${data.id}`);
+      if (response.data) {
+        setFavorites(false);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   function handleRedirectToPageEdit(dish_id) {
@@ -36,10 +54,10 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
         <PiHeartStraightFill
           fill="red"
           className="favorite-red"
-          onClick={toggleFavorite}
+          onClick={handleClickNoFavorites}
         />
       ) : (
-        <PiHeartStraightBold fill="white" onClick={toggleFavorite} />
+        <PiHeartStraightBold fill="white" onClick={handleClickFavorites} />
       );
     } else {
       return (

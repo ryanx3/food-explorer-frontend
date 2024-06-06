@@ -19,7 +19,7 @@ import {
   CounterSection,
 } from "./styles";
 
-export function Details({ isAdmin = false }) {
+export function Details({ isAdmin = true }) {
   const redirectTo = useNavigate();
   const params = useParams();
 
