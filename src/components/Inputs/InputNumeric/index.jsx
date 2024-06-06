@@ -13,10 +13,10 @@ export function InputNumeric({ value, title, setPrice }) {
       decimalScale={2}
       fixedDecimalScale={true}
       allowedDecimalSeparators={["."]}
-      prefix="€"
+      prefix="R$"
       customInput={Input}
       onValueChange={(values) => setPrice(values.value)}
-      placeholder="€00,00"
+      placeholder="R$00,00"
     />
   </NumericContainer>
   )

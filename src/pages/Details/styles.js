@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-export const DetailsContainer = styled.div`
-`;
+export const DetailsContainer = styled.div``;
 
 export const Content = styled.div`
   display: flex;
@@ -62,22 +61,16 @@ export const DetailsContent = styled.div`
 
   h1 {
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
-    font-family: inherit;
+    font-family: "Poppins";
     font-size: 4rem;
     font-weight: 500;
     line-height: 140%;
     white-space: nowrap;
-
-    span {
-      color: ${({ theme }) => theme.COLORS.CAKE_200};
-      font-size: 2rem;
-
-    }
   }
 
   p {
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
-    font-family: inherit;
+    font-family: "Poppins";
     font-size: 2rem;
     font-weight: 400;
     line-height: 140%;
