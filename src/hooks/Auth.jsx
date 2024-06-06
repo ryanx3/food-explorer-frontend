@@ -62,7 +62,7 @@ function AuthProvider({ children }) {
     const user = localStorage.getItem("foodexplorer:user");
     const token = localStorage.getItem("foodexplorer:token");
 
-    if(token && user) {
+    if (token && user) {
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       setData({ token, user: JSON.parse(user) });
@@ -71,7 +71,12 @@ function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signIn, signOut, user: data.user, updateProfile }}
+      value={{
+        signIn,
+        signOut,
+        user: data.user,
+        updateProfile,
+      }}
     >
       {children}
     </AuthContext.Provider>
