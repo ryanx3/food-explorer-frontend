@@ -1,7 +1,7 @@
 import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
 import axios from "axios";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PiCaretLeft, PiFileArrowUpDuotone } from "react-icons/pi";
 import { useForm } from "react-hook-form";
@@ -20,6 +20,7 @@ export function Profile() {
   const redirectTo = useNavigate();
 
   const { user, updateProfile } = useAuth();
+  const [adress, setAdress] = useState({});
   const [loadingAddress, setLoadingAddress] = useState(false);
 
   const AvatarURL = user.avatar
@@ -52,27 +53,32 @@ export function Profile() {
   }
 
   const handleUpdatedUser = async (data) => {
-    const {
-      name,
-      email,
-      old_password,
-      password,
-      cep,
-      street,
-      neighborhood,
-      number_home,
-    } = data;
+    const { name, email, old_password, password, cep, street, city, number } =
+      data;
+
+    if (!street.trim() || !number.trim() || !city.trim()) {
+      return toast.error("Preencha todos os campos do seu endereço!");
+    }
+
+
+    if ((street, city, number)) {
+      const updatedAdress = {
+        cep,
+        street,
+        city,
+        number,
+      };
+
+      await api.put("/user-adress", updatedAdress);
+    }
 
     const updated = {
       name,
       email,
       old_password,
       password,
-      cep,
-      street,
-      neighborhood,
-      number_home,
     };
+
     const updatedUser = Object.assign(user, updated);
     await updateProfile({ user: updatedUser, avatarFile });
   };
@@ -86,9 +92,10 @@ export function Profile() {
         toast.error(response.data.error.message);
       } else {
         const data = response.data;
-        setFocus("number_home");
+        setFocus("number");
+        setValue("number", "");
         setValue("street", data.logradouro);
-        setValue("neighborhood", data.bairro);
+        setValue("city", data.localidade);
         setValue("cep", cep);
       }
     } catch (error) {
@@ -101,6 +108,14 @@ export function Profile() {
       setLoadingAddress(false);
     }
   };
+
+  useEffect(() => {
+    async function fetchUserAdress() {
+      const response = await api.get("/user-adress");
+      setAdress(response.data);
+    }
+    fetchUserAdress();
+  }, []);
 
   return (
     <ProfileContainer>
@@ -162,27 +177,27 @@ export function Profile() {
                     type="number"
                     placeholder="Digite o seu CEP"
                     {...register("cep")}
-                    defaultValue={user.CEP}
+                    defaultValue={adress.cep}
                     onBlur={checkCEP}
                   />
                   <Input
-                    title="Endereço"
-                    placeholder="Digite o seu endereço"
-                    defaultValue={user.street ? user.street : ""}
+                    title="Logradouro"
+                    placeholder="Digite o seu logradouro"
+                    defaultValue={adress.street ? adress.street : ""}
                     {...register("street")}
                   />
                   <Input
                     title="Número"
                     type="number"
                     placeholder="Digite o seu número"
-                    defaultValue={user.number_home ? user.number_home : ""}
-                    {...register("number_home")}
+                    defaultValue={adress.number}
+                    {...register("number")}
                   />
                   <Input
-                    title="Bairro"
-                    placeholder="Seu bairro"
-                    defaultValue={user.neighborhood ? user.neighborhood : ""}
-                    {...register("neighborhood")}
+                    title="Cidade"
+                    placeholder="Sua cidade"
+                    defaultValue={adress.city ? adress.city : ""}
+                    {...register("city")}
                   />
                 </div>
               </Section>
