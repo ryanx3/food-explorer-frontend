@@ -1,13 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 
 import { PiCaretLeft } from "react-icons/pi";
 
 import { PageLayout } from "../../components/Layouts/PagesLayout";
+import { FadeLoader } from "react-spinners";
 import { Section } from "../../components/Section";
 import { Counter } from "../../components/Counter";
 import { Button } from "../../components/Button";
+import { useDish } from "../../hooks/Dish";
 import { Tag } from "../../components/Tag";
 
 import {
@@ -16,16 +18,16 @@ import {
   DetailsContent,
   CounterSection,
 } from "./styles";
-import { useDish } from "../../hooks/Dish";
-import { FadeLoader } from "react-spinners";
 
-export function Details({ isAdmin = true }) {
+export function Details({ isAdmin = false }) {
   const redirectTo = useNavigate();
   const params = useParams();
+
+  const [quantity, setQuantity] = useState(1);
   const { dish, fetchDishDetails } = useDish();
 
   function handleBackPage() {
-    redirectTo(-1);
+    redirectTo("/");
   }
 
   function handleRedirectToEditDish(dish_id) {
@@ -51,6 +53,8 @@ export function Details({ isAdmin = true }) {
     );
   }
 
+  const totalPrice = (parseFloat(dish.price) * quantity).toFixed(2);
+
   const imageURL = `${api.defaults.baseURL}/files/${dish.image}`;
 
   return (
@@ -70,10 +74,7 @@ export function Details({ isAdmin = true }) {
 
               <DetailsContent>
                 <Section>
-                  <h1>
-                    {dish.name} {""}
-                    <span>R${parseFloat(dish.price).toFixed(2)}</span>
-                  </h1>
+                  <h1>{dish.name}</h1>
                   <p>{dish.description}</p>
                 </Section>
 
@@ -88,7 +89,9 @@ export function Details({ isAdmin = true }) {
                   </Section>
                 )}
                 <CounterSection>
-                  {!isAdmin && <Counter />}
+                  {!isAdmin && (
+                    <Counter quantity={quantity} setQuantity={setQuantity} />
+                  )}
 
                   {isAdmin && (
                     <Button
@@ -97,7 +100,7 @@ export function Details({ isAdmin = true }) {
                     />
                   )}
 
-                  {!isAdmin && <Button title={`incluir - R$ ${dish.price}`} />}
+                  {!isAdmin && <Button title={`incluir - R$ ${totalPrice}`} />}
                 </CounterSection>
               </DetailsContent>
             </div>
