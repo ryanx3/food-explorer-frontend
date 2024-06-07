@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   PiHeartStraightBold,
@@ -25,7 +25,9 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
         setFavorites(true);
       }
     } catch (error) {
-      console.error(error.message);
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
     }
   }
 
@@ -36,7 +38,9 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
         setFavorites(false);
       }
     } catch (error) {
-      console.error(error.message);
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
     }
   }
 
@@ -45,7 +49,6 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
   }
 
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
-
   const totalPrice = (parseFloat(data.price) * quantity).toFixed(2);
 
   const iconRender = () => {
@@ -65,6 +68,26 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
       );
     }
   };
+
+  useEffect(() => {
+    async function checkIfFavorited() {
+      try {
+        const response = await api.get(`/favorites`);
+        const favorites = response.data;
+
+        const isFavorited = favorites.some(
+          (favoriteDish) => favoriteDish.id === data.id
+        );
+        setFavorites(isFavorited);
+      } catch (error) {
+        if (error.response) {
+          toast.error(error.response.data.message);
+        }
+      }
+    }
+
+    checkIfFavorited();
+  }, [data.id]);
 
   return (
     <CardContainer isAdmin={isAdmin} data={data}>
