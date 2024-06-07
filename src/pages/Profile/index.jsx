@@ -60,7 +60,6 @@ export function Profile() {
       return toast.error("Preencha todos os campos do seu endereço!");
     }
 
-
     if ((street, city, number)) {
       const updatedAdress = {
         cep,
@@ -86,27 +85,30 @@ export function Profile() {
   const checkCEP = async (e) => {
     const cep = e.target.value.replace(/\D/g, "");
     setLoadingAddress(true);
-    try {
-      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-      if (response.data.error) {
-        toast.error(response.data.error.message);
-      } else {
-        const data = response.data;
-        setFocus("number");
-        setValue("number", "");
-        setValue("street", data.logradouro);
-        setValue("city", data.localidade);
-        setValue("cep", cep);
-      }
-    } catch (error) {
+
+    const dispatchError = () => {
       setFocus("cep");
-      reset({
-        cep: "",
-      });
+      reset({ cep: "", street: "", number: "", city: "" });
       toast.error("CEP inexistente. Por favor, insira um CEP válido.");
-    } finally {
-      setLoadingAddress(false);
+    };
+
+    if ( cep.length !== 8 || !cep) {
+      dispatchError();
     }
+
+    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+    if (response.data.erro) {
+      dispatchError();
+    } else {
+      const data = response.data;
+      setFocus("number");
+      setValue("number", "");
+      setValue("street", data.logradouro);
+      setValue("city", data.localidade);
+      setValue("cep", cep);
+    }
+
+    setLoadingAddress(false);
   };
 
   useEffect(() => {
