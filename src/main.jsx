@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       position="top-right"
       autoClose={2000}
       limit={3}
-      hideProgressBar={true}
+      hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
       rtl={false}
