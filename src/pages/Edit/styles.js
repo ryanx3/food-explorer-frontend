@@ -30,7 +30,6 @@ export const Main = styled.main`
     font-weight: 500;
     line-height: 140%;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
-    text-align: center;
   }
 `;
 

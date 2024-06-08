@@ -20,7 +20,7 @@ export function Profile() {
   const redirectTo = useNavigate();
 
   const { user, updateProfile } = useAuth();
-  const [adress, setAdress] = useState({});
+  const [address, setAddress] = useState({});
   const [loadingAddress, setLoadingAddress] = useState(false);
 
   const AvatarURL = user.avatar
@@ -61,14 +61,14 @@ export function Profile() {
     }
 
     if ((street, city, number)) {
-      const updatedAdress = {
+      const updatedAddress = {
         cep,
         street,
         city,
         number,
       };
 
-      await api.put("/user-adress", updatedAdress);
+      await api.put("/user-address", updatedAddress);
     }
 
     const updated = {
@@ -112,11 +112,11 @@ export function Profile() {
   };
 
   useEffect(() => {
-    async function fetchUserAdress() {
-      const response = await api.get("/user-adress");
-      setAdress(response.data);
+    async function fetchUseraddress() {
+      const response = await api.get("/user-address");
+      setAddress(response.data);
     }
-    fetchUserAdress();
+    fetchUseraddress();
   }, []);
 
   return (
@@ -173,32 +173,32 @@ export function Profile() {
                   )}
                 </div>
 
-                <div className="input-adress">
+                <div className="input-address">
                   <Input
                     title="CEP"
                     type="number"
                     placeholder="Digite o seu CEP"
                     {...register("cep")}
-                    defaultValue={adress.cep}
+                    defaultValue={address.cep}
                     onBlur={checkCEP}
                   />
                   <Input
                     title="Logradouro"
                     placeholder="Digite o seu logradouro"
-                    defaultValue={adress.street ? adress.street : ""}
+                    defaultValue={address.street ? address.street : ""}
                     {...register("street")}
                   />
                   <Input
                     title="Número"
                     type="number"
                     placeholder="Digite o seu número"
-                    defaultValue={adress.number}
+                    defaultValue={address.number}
                     {...register("number")}
                   />
                   <Input
                     title="Cidade"
                     placeholder="Sua cidade"
-                    defaultValue={adress.city ? adress.city : ""}
+                    defaultValue={address.city ? address.city : ""}
                     {...register("city")}
                   />
                 </div>

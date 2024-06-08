@@ -32,7 +32,6 @@ export const Main = styled.main`
     line-height: 140%;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     margin: 2.4rem 0;
-    align-self: center;
   }
 `;
 

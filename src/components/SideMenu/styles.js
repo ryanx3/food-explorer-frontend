@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SideMenuContainer = styled.aside`
   background-color: ${({ theme }) => theme.COLORS.DARK_500};
   position: fixed;
-  width: 27.5rem;
+  width: 100%;
   height: 100vh;
   z-index: 2;
   left: 0;
@@ -12,12 +12,12 @@ export const SideMenuContainer = styled.aside`
   visibility: hidden;
   box-shadow: 0 0 10px 3px ;
   display: grid;
-  grid-template-rows: 90px auto 90px;
+  grid-template-rows: 9rem auto 9rem;
   
   @media (max-width: 768px) {
     &[data-is-menu-open="true"] {
       visibility: visible;
-      animation: EffectSideBar 200ms ease-in-out;
+      animation: EffectSideBar 300ms linear;
     }
   }
 
@@ -28,7 +28,7 @@ export const SideMenuContainer = styled.aside`
     }
     to {
       opacity: 1;
-      width: 275px;
+      width: 100%;
     }
   }
 `;
@@ -42,7 +42,7 @@ export const Header = styled.header`
   border-radius: 0px 10px 0px 0px;
 
   h1 {
-    height: 114px;
+    height: 11.4rem;
     display: flex;
     align-items: center;
     gap: 1.6rem;

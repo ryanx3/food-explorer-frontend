@@ -30,7 +30,7 @@ export const Form = styled.form`
         flex-direction: column;
         gap: 2rem;
       }
-      .input-adress {
+      .input-address {
         width: 100%;
         display: flex;
         flex-direction: column;
