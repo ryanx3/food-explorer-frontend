@@ -12,6 +12,7 @@ import { Button } from "../Button";
 import { api } from "../../services/api";
 
 import { CardContainer, Picture, Title, Description, Order } from "./styles";
+import { toast } from "react-toastify";
 
 export function Card({ data, onClick, isAdmin, ...rest }) {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
     try {
       const response = await api.post(`/favorites/${data.id}`);
       if (response.data) {
+        toast.success("Prato adicionado aos seus favoritos!")
         setFavorites(true);
       }
     } catch (error) {
@@ -35,6 +37,7 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
     try {
       const response = await api.delete(`/favorites/${data.id}`);
       if (response.data) {
+        toast.error("Prato removido dos seus favoritos!");
         setFavorites(false);
       }
     } catch (error) {

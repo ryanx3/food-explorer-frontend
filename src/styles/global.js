@@ -8,12 +8,9 @@ export default createGlobalStyle`
   }
 
   .Toastify__toast {
-  font-size: 16px; 
+  font-size: 1.6rem; 
   } 
 
-  .Toastify__progress-bar {
-  background-color: #00ff00;
-}
 
 span,
 h1,
@@ -58,9 +55,9 @@ p
   }
 
   button:hover, a:hover {
-    filter: brightness(1.3);
-    transition: transform 0.2s ease;
-    transform: scale(1.05)
+    filter: brightness(1.2);
+    transition: transform 0.3s ease;
+    transform: scale(0.99)
   }
 
   body, input, textarea, select, button {
@@ -75,5 +72,11 @@ input:-webkit-autofill {
 
 input:-webkit-autofill {
     -webkit-text-fill-color: ${({ theme }) => theme.COLORS.LIGHT_100} !important;
+}
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 `;
