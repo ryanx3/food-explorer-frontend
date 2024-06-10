@@ -30,8 +30,6 @@ export const CardContainer = styled.div`
   }
 
   .favorite-red {
-    color: ${({ theme }) => theme.COLORS.TintsTomato300};
-
     animation: zoomIn 1.5s infinite alternate;
 
     @keyframes zoomIn {

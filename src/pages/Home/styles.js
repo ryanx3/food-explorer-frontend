@@ -115,45 +115,51 @@ export const Presentation = styled.section`
 export const Content = styled.div`
   margin-bottom: 4.5rem;
 
-  ${({ isempty }) => !isempty && css`
-    swiper-container::before,
-    swiper-container::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      z-index: 2;
-      pointer-events: none;
-      flex-shrink: 0;
-    }
+  ${({ $isempty }) =>
+    !$isempty &&
+    css`
+      swiper-container::before,
+      swiper-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 2;
+        pointer-events: none;
+        flex-shrink: 0;
+      }
 
-    swiper-container::before {
-      left: 0px;
-      width: 27.7rem;
-      background: linear-gradient(
-        90deg, 
-        #000A0F 0%, rgba(0, 10, 15, 0.27) 95%, transparent 100%
-      );
-    }
+      swiper-container::before {
+        left: 0px;
+        width: 27.7rem;
+        background: linear-gradient(
+          90deg,
+          #000a0f 0%,
+          rgba(0, 10, 15, 0.27) 95%,
+          transparent 100%
+        );
+      }
 
-    swiper-container::after {
-      right: 0px;
-      width: 22.4rem;
-      background: linear-gradient(
-        90deg, 
-        transparent 0%, rgba(0, 10, 15, 0.27) 10%, #000A0F 100%
-      );
-    } 
-  `}
+      swiper-container::after {
+        right: 0px;
+        width: 22.4rem;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(0, 10, 15, 0.27) 10%,
+          #000a0f 100%
+        );
+      }
+    `}
 
-  swiper-slide  {
+  swiper-slide {
     width: fit-content !important;
   }
 
-  @media (max-width:768px) {
+  @media (max-width: 768px) {
     swiper-container::before {
       display: none;
-    } 
+    }
     swiper-container::after {
       display: none;
     }

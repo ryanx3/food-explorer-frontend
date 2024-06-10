@@ -14,7 +14,7 @@ import { api } from "../../services/api";
 import { CardContainer, Picture, Title, Description, Order } from "./styles";
 import { toast } from "react-toastify";
 
-export function Card({ data, onClick, isAdmin, ...rest }) {
+export function Card({ data, onClick, isadmin, ...rest }) {
   const navigate = useNavigate();
   const [favorite, setFavorites] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -47,15 +47,15 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
     }
   }
 
-  function handleRedirectToPageEdit(dish_id) {
-    navigate(`/edit/${dish_id}`);
+  function handleRedirectToPageEdit() {
+    navigate(`/edit/${data.id}`);
   }
 
   const imageURL = `${api.defaults.baseURL}/files/${data.image}`;
   const totalPrice = (parseFloat(data.price) * quantity).toFixed(2);
 
   const iconRender = () => {
-    if (!isAdmin) {
+    if (!isadmin) {
       return favorite ? (
         <PiHeartStraightFill
           fill="red"
@@ -67,8 +67,8 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
       );
     } else {
       return (
-        <PiPencilSimple onClick={() => handleRedirectToPageEdit(data.id)} />
-      );
+        <PiPencilSimple onClick={handleRedirectToPageEdit} />
+      )
     }
   };
 
@@ -93,7 +93,7 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
   }, [data.id]);
 
   return (
-    <CardContainer isAdmin={isAdmin} data={data}>
+    <CardContainer isadmin={isadmin} data={data}>
       {iconRender()}
 
       <Picture onClick={onClick}>
@@ -110,7 +110,7 @@ export function Card({ data, onClick, isAdmin, ...rest }) {
         <h3>R$ {totalPrice}</h3>
       </Description>
 
-      {!isAdmin && (
+      {!isadmin && (
         <Order>
           <Counter quantity={quantity} setQuantity={setQuantity} />
           <Button title="incluir" />

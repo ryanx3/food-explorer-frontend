@@ -18,10 +18,10 @@ export const Main = styled.main`
     font-size: 2.4rem;
     font-weight: 700;
     line-height: 140%;
+    margin-top: 2.4rem;
 
     @media (max-width: 1024px) {
       font-weight: 500;
-      margin-top: 2.4rem;
     }
   }
 

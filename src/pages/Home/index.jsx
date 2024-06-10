@@ -16,6 +16,7 @@ import bannerDesktop from "../../assets/home-banner.png";
 import bannerMobile from "../../assets/banner-mobile.png";
 
 import { HomeContainer, Content, Presentation } from "./styles";
+import { toast } from "react-toastify";
 
 export function Home({ isAdmin = false }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -39,7 +40,7 @@ export function Home({ isAdmin = false }) {
 
   useEffect(() => {
     const configs = {
-      loop: Object.keys(cards).some((category) => cards[category].length > 3),
+      loop: Object.keys(cards).some((category) => cards[category].length > 4),
       slidesPerView: "auto",
       spaceBetween: isMobile ? 16 : 27,
       grabCursor: true,
@@ -69,15 +70,22 @@ export function Home({ isAdmin = false }) {
 
   useEffect(() => {
     async function FetchCardsOnApi() {
-      const response = await api.get(`/dishes?name=${search}`);
-      const meals = response.data.filter((dish) => dish.category === "meals");
-      const beverages = response.data.filter(
-        (dish) => dish.category === "beverages"
-      );
-      const desserts = response.data.filter(
-        (dish) => dish.category === "desserts"
-      );
-      setCards({ meals, beverages, desserts });
+      try {
+        const response = await api.get(`/dishes?name=${search}`);
+
+        const meals = response.data.filter((dish) => dish.category === "meals");
+        const beverages = response.data.filter(
+          (dish) => dish.category === "beverages"
+        );
+        const desserts = response.data.filter(
+          (dish) => dish.category === "desserts"
+        );
+        setCards({ meals, beverages, desserts });
+      } catch (error) {
+        if(error.response) {
+          toast.error(error.response.data.message)
+        }
+      }
     }
     FetchCardsOnApi();
   }, [search]);
@@ -88,7 +96,7 @@ export function Home({ isAdmin = false }) {
     <HomeContainer>
       <PageLayout>
         <main>
-          <Content isempty={search}>
+          <Content $isempty={search}>
             {!search && (
               <Presentation>
                 <img
@@ -113,7 +121,7 @@ export function Home({ isAdmin = false }) {
                 {cards.meals.map((card) => (
                   <swiper-slide key={String(card.id)}>
                     <Card
-                      isAdmin={isAdmin}
+                      isadmin={isAdmin}
                       data={card}
                       onClick={() => handleRedirectToPageDetails(card.id)}
                     />
@@ -131,7 +139,7 @@ export function Home({ isAdmin = false }) {
                 {cards.beverages.map((card) => (
                   <swiper-slide key={String(card.id)}>
                     <Card
-                      isAdmin={isAdmin}
+                      isadmin={isAdmin}
                       key={String(card.id)}
                       onClick={() => handleRedirectToPageDetails(card.id)}
                       data={card}
@@ -150,7 +158,7 @@ export function Home({ isAdmin = false }) {
                 {cards.desserts.map((card) => (
                   <swiper-slide key={String(card.id)}>
                     <Card
-                      isAdmin={isAdmin}
+                      isadmin={isAdmin}
                       key={String(card.id)}
                       onClick={() => handleRedirectToPageDetails(card.id)}
                       data={card}
