@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { redirect, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 import { useDish } from "../../hooks/Dish";
 import { PiCaretLeft } from "react-icons/pi";
@@ -19,7 +19,7 @@ import { api } from "../../services/api";
 
 import { EditContainer, Main, Form, Buttons, LabelTitle } from "./styles";
 
-export function Edit({ isAdmin = true }) {
+export function Edit({ isAdmin = false }) {
   const navigate = useNavigate();
   const params = useParams();
   const {
@@ -67,21 +67,6 @@ export function Edit({ isAdmin = true }) {
     }
   }
 
-  if (!dish) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <FadeLoader color="white" />
-      </div>
-    );
-  }
-
   async function handleUpdatedDish() {
     if (ingredientsExists.length === 0 && newIngredients === 0) {
       return toast.error(
@@ -120,24 +105,25 @@ export function Edit({ isAdmin = true }) {
     toast.success("Prato excluído com sucesso.");
   }
 
-  if (!dish) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <FadeLoader color="white" />
-      </div>
-    );
-  }
-
   useEffect(() => {
     fetchDishDetails(params.id);
   }, []);
+
+    if (!dish) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <FadeLoader color="white" />
+        </div>
+      );
+    }
+
 
   return (
     <EditContainer>

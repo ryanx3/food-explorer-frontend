@@ -33,7 +33,6 @@ export function AppRoutes() {
               </DishProvider>
             }
           />
-          <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
     </SearchProvider>

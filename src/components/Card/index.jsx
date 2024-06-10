@@ -23,7 +23,7 @@ export function Card({ data, onClick, isadmin, ...rest }) {
     try {
       const response = await api.post(`/favorites/${data.id}`);
       if (response.data) {
-        toast.success("Prato adicionado aos seus favoritos!")
+        toast.success(`${data.name} foi adicionado aos seus favoritos!`);
         setFavorites(true);
       }
     } catch (error) {
@@ -37,7 +37,7 @@ export function Card({ data, onClick, isadmin, ...rest }) {
     try {
       const response = await api.delete(`/favorites/${data.id}`);
       if (response.data) {
-        toast.error("Prato removido dos seus favoritos!");
+        toast.error(`${data.name} foi removido dos seus favoritos!`);
         setFavorites(false);
       }
     } catch (error) {
@@ -66,9 +66,7 @@ export function Card({ data, onClick, isadmin, ...rest }) {
         <PiHeartStraightBold fill="white" onClick={handleClickFavorites} />
       );
     } else {
-      return (
-        <PiPencilSimple onClick={handleRedirectToPageEdit} />
-      )
+      return <PiPencilSimple onClick={handleRedirectToPageEdit} />;
     }
   };
 
