@@ -15,6 +15,7 @@ import { useAuth } from "../../hooks/Auth";
 import { api } from "../../services/api";
 import { ProfileContainer, Avatar, Form } from "./styles";
 import { toast } from "react-toastify";
+import { ButtonBack } from "../../components/ButtonBack";
 
 export function Profile() {
   const redirectTo = useNavigate();
@@ -53,33 +54,53 @@ export function Profile() {
   }
 
   const handleUpdatedUser = async (data) => {
-    const { name, email, old_password, password, cep, street, city, number } =
-      data;
+    try {
+      const { name, email, old_password, password, cep, street, city, number } =
+        data;
 
-    if (!street.trim() || !number.trim() || !city.trim()) {
-      return toast.error("Preencha todos os campos do seu endereço!");
-    }
+      const someInputAdressIsEmpty =
+        !cep.trim() || !street.trim() || !number.trim() || !city.trim();
 
-    if ((street, city, number)) {
-      const updatedAddress = {
-        cep,
-        street,
-        city,
-        number,
+      const addressChanged =
+        address.cep !== cep ||
+        address.street !== street ||
+        address.number !== number ||
+        address.city !== city;
+
+      if (addressChanged && some) {
+        if (someInputAdressIsEmpty) {
+          toast.error("Por favor, preencha todos os campos do endereço.");
+          return;
+        }
+
+        const updatedAddress = {
+          cep,
+          street,
+          city,
+          number,
+        };
+
+        await api.put("/user-address", updatedAddress);
+      }
+
+      const updated = {
+        name,
+        email,
+        old_password,
+        password,
       };
 
-      await api.put("/user-address", updatedAddress);
+      const updatedUser = Object.assign(user, updated);
+      await updateProfile({ user: updatedUser, avatarFile });
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error(
+          "Ocorreu um erro ao atualizar o perfil do usuário. Por favor, tente novamente mais tarde."
+        );
+      }
     }
-
-    const updated = {
-      name,
-      email,
-      old_password,
-      password,
-    };
-
-    const updatedUser = Object.assign(user, updated);
-    await updateProfile({ user: updatedUser, avatarFile });
   };
 
   const checkCEP = async (e) => {
@@ -92,7 +113,7 @@ export function Profile() {
       toast.error("CEP inexistente. Por favor, insira um CEP válido.");
     };
 
-    if ( cep.length !== 8 || !cep) {
+    if (cep.length !== 8 || !cep) {
       dispatchError();
     }
 
@@ -100,6 +121,7 @@ export function Profile() {
     if (response.data.erro) {
       dispatchError();
     } else {
+      toast.success("CEP encontrado.");
       const data = response.data;
       setFocus("number");
       setValue("number", "");
@@ -107,17 +129,21 @@ export function Profile() {
       setValue("city", data.localidade);
       setValue("cep", cep);
     }
-
     setLoadingAddress(false);
   };
 
   useEffect(() => {
-    async function fetchUseraddress() {
+    async function fetchUserAddress() {
       const response = await api.get("/user-address");
       setAddress(response.data);
+      // Set default values for the form
+      setValue("cep", response.data.cep);
+      setValue("street", response.data.street);
+      setValue("number", response.data.number);
+      setValue("city", response.data.city);
     }
-    fetchUseraddress();
-  }, []);
+    fetchUserAddress();
+  }, [setValue]);
 
   return (
     <ProfileContainer>
@@ -125,9 +151,7 @@ export function Profile() {
         <main>
           <Form onSubmit={handleSubmit(handleUpdatedUser)}>
             <Avatar>
-              <a onClick={handleBackPage}>
-                <PiCaretLeft /> Voltar
-              </a>
+              <ButtonBack onClick={handleBackPage} />
 
               <img src={avatar} alt={`Avatar de ${user.name}`} />
 
@@ -204,7 +228,7 @@ export function Profile() {
                 </div>
               </Section>
 
-              <Button type="submit" title="Salvar alterações" />
+              <Button type="submit" loading title="Salvar alterações" />
             </div>
           </Form>
         </main>
