@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/Auth";
 
 import { PiMagnifyingGlassLight, PiReceipt, PiList } from "react-icons/pi";
@@ -18,12 +18,16 @@ import { api } from "../../services/api";
 
 import { HeaderContainer, Menu, Logo, Profile } from "./styles";
 import { useSideMenu } from "../../hooks/SideMenu";
+import { useCart } from "../../hooks/Cart";
 
 export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   const { setIsMenuOpen } = useSideMenu();
   const { signOut, user } = useAuth();
+
+  const { orderItemsCount } = useCart();
+
   const navigate = useNavigate();
 
   const AvatarURL = user.avatar
@@ -57,7 +61,7 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
       <PiReceipt />
     )
   ) : (
-    <img src={avatar}/>
+    <img src={avatar} />
   );
 
   return (
@@ -73,35 +77,30 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
           {isMobile ? LogoMobile : LogoDesktop}
         </Logo>
 
-        {!isMobile && (
-          <Search
-            onChange={onChangeSearch}
-          />
-        )}
+        {!isMobile && <Search onChange={onChangeSearch} />}
 
         {!isMobile && (
           <Button
             onClick={handleRedirectToDetails}
-            title={isAdmin ? "Novo Prato" : "Pedidos (0)"}
-            icon={isAdmin ? "" : PiReceipt}
+            title={isAdmin ? "Novo Prato" : `Pedidos (${orderItemsCount})`}
+            icon={isAdmin ? null : PiReceipt}
           />
         )}
 
         <Profile>
           {profileContent}
 
-            <nav>
-              <ul>
-                <li>
-                  <Link to={"/profile"}>Perfil</Link>
-                </li>
-                <li>
-                  <Link>Favoritos</Link>
-                </li>
-                <li onClick={handleSignOut}>Sair</li>
-              </ul>
-            </nav>
-          
+          <nav>
+            <ul>
+              <li>
+                <Link to={"/profile"}>Perfil</Link>
+              </li>
+              <li>
+                <Link>Favoritos</Link>
+              </li>
+              <li onClick={handleSignOut}>Sair</li>
+            </ul>
+          </nav>
         </Profile>
       </HeaderLayout>
     </HeaderContainer>
