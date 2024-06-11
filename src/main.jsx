@@ -7,7 +7,7 @@ import { AuthProvider } from "./hooks/Auth";
 import { ToastContainer } from "react-toastify";
 import { Routes } from "./routes";
 import { SideMenuProvider } from "./hooks/SideMenu";
-
+import { CartProvider } from "./hooks/Cart";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -28,9 +28,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <AuthProvider>
-        <SideMenuProvider>
+        <CartProvider>
+          <SideMenuProvider>
             <Routes />
-        </SideMenuProvider>
+          </SideMenuProvider>
+        </CartProvider>
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
