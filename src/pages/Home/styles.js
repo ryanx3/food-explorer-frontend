@@ -1,8 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const HomeContainer = styled.div`
-
-`
+export const HomeContainer = styled.div``;
 
 export const Presentation = styled.section`
   display: flex;
@@ -13,13 +11,13 @@ export const Presentation = styled.section`
   margin-top: 16.5rem;
 
   position: relative;
-  background: linear-gradient(180deg, #091E26 0%, #00131C 100%);
-  border-radius: .8rem;
+  background: linear-gradient(180deg, #091e26 0%, #00131c 100%);
+  border-radius: 0.8rem;
 
   > img {
-    width: 65.6rem;        
+    width: 65.6rem;
     position: absolute;
-    
+
     left: -7.1rem;
     bottom: -1.4rem;
   }
@@ -44,12 +42,12 @@ export const Presentation = styled.section`
   @media (max-width: 1024px) {
     height: 18rem;
     margin-top: 13.1rem;
-    
+
     img {
       width: 48rem;
       bottom: -1.1rem;
-      left: -5.15rem; 
-    } 
+      left: -5.15rem;
+    }
 
     > div {
       h1 {
@@ -65,19 +63,19 @@ export const Presentation = styled.section`
   @media (max-width: 768px) {
     height: 12rem;
     margin-top: 4rem;
-  
+
     img {
       width: 19.1rem;
       left: -3rem;
       bottom: 0;
-    } 
+    }
 
     > div {
       padding-left: 45%;
       padding-right: 1rem;
       display: flex;
       flex-direction: column;
-      
+
       h1 {
         font-size: 1.8rem;
         white-space: nowrap;
@@ -88,28 +86,27 @@ export const Presentation = styled.section`
 
   @media (max-width: 424px) {
     height: 8rem;
-    margin-top: 3rem; 
+    margin-top: 3rem;
     img {
-      width: 13rem; 
-      left: -2rem; 
-    } 
-    
+      width: 13rem;
+      left: -2rem;
+    }
+
     div {
       padding-right: 2rem;
-      
+
       h1 {
         text-align: center;
-        font-size: 1.2rem; 
+        font-size: 1.2rem;
         white-space: nowrap;
       }
-      
+
       span {
-        font-size: 1rem; 
+        font-size: 1rem;
         text-align: left;
       }
     }
   }
-
 `;
 
 export const Content = styled.div`
@@ -174,5 +171,21 @@ export const Content = styled.div`
     section > div:nth-child(3) {
       margin-right: -28px;
     }
+  }
+`;
+
+export const NotFound = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  svg {
+    color: ${({ theme }) => theme.COLORS.LIGHT_600};
+  }
+
+  p {
+    font-size: 1.6rem;
+    color: ${({ theme }) => theme.COLORS.LIGHT_600};
+    margin-bottom: 3.2rem;
   }
 `;
