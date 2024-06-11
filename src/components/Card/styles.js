@@ -30,9 +30,9 @@ export const CardContainer = styled.div`
   }
 
   .favorite-red {
-    animation: zoomIn 1.5s infinite alternate;
-
-    @keyframes zoomIn {
+    animation: beatingHeart 1s infinite alternate;
+    fill: ${({ theme }) => theme.COLORS.TOMATO_100};
+    @keyframes beatingHeart {
       0% {
         transform: scale(1);
       }
