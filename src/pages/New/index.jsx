@@ -15,6 +15,7 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Inputs/Input";
 
 import { NewContainer, Main, Form, LabelTitle, Buttons } from "./styles";
+import { ButtonBack } from "../../components/ButtonBack";
 
 export function New() {
   const redirectTo = useNavigate();
@@ -53,15 +54,19 @@ export function New() {
   }
 
   async function handleCreateDish() {
-    if (!name || !category || !price || !description || !imageFile) {
+    if (!name || !category || !price || !description) {
       return toast.error(
-        "Por favor, preencha todos os campos e selecione uma imagem."
+        "Por favor, preencha todos os campos do seu prato."
       );
     }
 
-    const priceValue = parseFloat(price.replace(",", "."));
+    if(!imageFile) {
+      return toast.error("Insira uma imagem válida para o seu prato.")
+    }
+
+    const priceValue = parseFloat(price.replace(".", ","));
     if (isNaN(priceValue) || priceValue <= 0) {
-      return toast.error("Por favor, insira um preço válido.");
+      return toast.error("Por favor, insira um preço válido para o seu prato.");
     }
 
     if (ingredients.length === 0) {
@@ -100,9 +105,7 @@ export function New() {
     <NewContainer>
       <PageLayout>
         <Main>
-          <a onClick={handleBackPage}>
-            <PiCaretLeft /> Voltar
-          </a>
+          <ButtonBack onClick={handleBackPage} />
           <h1>Criar prato</h1>
 
           <Form>

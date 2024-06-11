@@ -18,24 +18,24 @@ import { Textarea } from "../../components/Inputs/Textarea";
 import { api } from "../../services/api";
 
 import { EditContainer, Main, Form, Buttons, LabelTitle } from "./styles";
+import { ButtonBack } from "../../components/ButtonBack";
 
 export function Edit({ isAdmin = false }) {
   const navigate = useNavigate();
   const params = useParams();
-  const {
-    dish,
-    category,
-    setCategory,
-    ingredientsExists,
-    setIngredientsExists,
-    fetchDishDetails,
-  } = useDish();
+  const { dish, fetchDishDetails } = useDish();
 
+  const [ingredientsExists, setIngredientsExists] = useState([
+    ...dish.ingredients,
+  ]);
+  const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+
   const [newIngredients, setNewIngredients] = useState([]);
   const [addIngredients, setAddIngredients] = useState("");
+
   const [imageFile, setImageFile] = useState("");
   const [image, setImage] = useState(null);
 
@@ -82,6 +82,7 @@ export function Edit({ isAdmin = false }) {
         newIngredients,
         ingredientsExists,
       };
+
       await api.put(`/dishes/${params.id}`, updatedDish);
 
       if (imageFile && imageFile !== dish.image) {
@@ -100,38 +101,28 @@ export function Edit({ isAdmin = false }) {
   }
 
   async function handleDeleteDish() {
-    await api.delete(`/dishes/${params.id}`);
-    navigate("/");
-    toast.success("Prato excluído com sucesso.");
+    const confirmDelete = confirm(
+      `Tem certeza de que deseja excluir o prato ${dish.name}?`
+    );
+
+    if (confirmDelete) {
+      await api.delete(`/dishes/${params.id}`);
+      navigate("/");
+      toast.success("Prato excluído com sucesso.");
+    } else {
+       toast.info("Exclusão do prato cancelada.");
+    }
   }
 
   useEffect(() => {
-    fetchDishDetails(params.id);
+    fetchDishDetails(params.dish_id);
   }, []);
-
-    if (!dish) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
-          <FadeLoader color="white" />
-        </div>
-      );
-    }
-
 
   return (
     <EditContainer>
       <PageLayout>
         <Main>
-          <a onClick={handleBackPage}>
-            <PiCaretLeft /> Voltar
-          </a>
+          <ButtonBack onClick={handleBackPage} />
           <h1>Editar prato</h1>
 
           <Form>
