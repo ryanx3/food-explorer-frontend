@@ -26,7 +26,7 @@ export const Content = styled.div`
     }
   }
 
-  .DishInformations {
+  .dish-info {
     display: flex;
     place-items: center;
     place-self: center;

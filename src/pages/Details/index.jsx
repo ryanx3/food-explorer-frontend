@@ -1,15 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useDish } from "../../hooks/Dish";
 import { api } from "../../services/api";
 
-import { PiCaretLeft } from "react-icons/pi";
-
+import { LoaderSpinning } from "../../components/LoaderSpinning";
 import { PageLayout } from "../../components/Layouts/PagesLayout";
-import { FadeLoader } from "react-spinners";
+import { ButtonBack } from "../../components/ButtonBack";
 import { Section } from "../../components/Section";
 import { Counter } from "../../components/Counter";
 import { Button } from "../../components/Button";
-import { useDish } from "../../hooks/Dish";
 import { Tag } from "../../components/Tag";
 
 import {
@@ -18,13 +17,15 @@ import {
   DetailsContent,
   CounterSection,
 } from "./styles";
+import { useCart } from "../../hooks/Cart";
 
-export function Details({ isAdmin = true }) {
+export function Details({ isAdmin = false }) {
   const redirectTo = useNavigate();
   const params = useParams();
 
   const [quantity, setQuantity] = useState(1);
   const { dish, fetchDishDetails } = useDish();
+  const { handleAddDishToLocalStorage } = useCart();
 
   function handleBackPage() {
     redirectTo("/");
@@ -39,21 +40,8 @@ export function Details({ isAdmin = true }) {
   }, []);
 
   if (!dish) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <FadeLoader color="white" />
-      </div>
-    );
+    return <LoaderSpinning />;
   }
-
-  const totalPrice = (parseFloat(dish.price) * quantity).toFixed(2);
 
   const imageURL = `${api.defaults.baseURL}/files/${dish.image}`;
 
@@ -63,13 +51,10 @@ export function Details({ isAdmin = true }) {
         <main>
           <Content>
             <div>
-              <a onClick={handleBackPage}>
-                <PiCaretLeft size={32} />
-                Voltar
-              </a>
+              <ButtonBack onClick={handleBackPage} />
             </div>
 
-            <div className="DishInformations">
+            <div className="dish-info">
               <img src={imageURL} alt={`Imagem do prato ${dish.name}`} />
 
               <DetailsContent>
@@ -100,7 +85,7 @@ export function Details({ isAdmin = true }) {
                     />
                   )}
 
-                  {!isAdmin && <Button title={`incluir - R$ ${totalPrice}`} />}
+                  {!isAdmin && <Button title={`incluir - R$ ${dish.price}`} onClick={() => handleAddDishToLocalStorage(dish, quantity)} />}
                 </CounterSection>
               </DetailsContent>
             </div>
