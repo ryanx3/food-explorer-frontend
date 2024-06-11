@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
-function AuthProvider({ children }) {
+export function AuthProvider({ children }) {
   const [data, setData] = useState({});
 
   async function signIn({ email, password }) {
@@ -29,9 +29,7 @@ function AuthProvider({ children }) {
   }
 
   async function signOut() {
-    localStorage.removeItem("foodexplorer:user");
-    localStorage.removeItem("foodexplorer:token");
-
+    localStorage.clear();
     setData({});
   }
 
@@ -83,6 +81,4 @@ function AuthProvider({ children }) {
   );
 }
 
-const useAuth = () => useContext(AuthContext);
-
-export { AuthProvider, useAuth };
+export const useAuth = () => useContext(AuthContext);
