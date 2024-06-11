@@ -50,12 +50,11 @@ p
 
   button, a {
     cursor: pointer;
-    transition: filter 0.2s;
     text-decoration: none;
   }
 
   button:hover, a:hover {
-    filter: brightness(1.2);
+    filter: brightness(1.1);
     transition: transform 0.3s ease;
     transform: scale(0.99)
   }

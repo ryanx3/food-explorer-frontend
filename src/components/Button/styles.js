@@ -11,7 +11,7 @@ export const ButtonContainer = styled.button`
   padding: 1.2rem 3.2rem;
   border-radius: 0.5rem;
 
-  font-family: inherit;
+  font-family: "Roboto";
   font-weight: 500;
   font-size: 1.4rem;
   line-height: 2.4rem;
