@@ -6,22 +6,37 @@ const DishContext = createContext();
 
 function DishProvider({ children }) {
   const [dish, setDish] = useState(null);
+  const [ingredientsExists, setIngredientsExists] = useState([]);
+  const [category, setCategory] = useState("");
 
   async function fetchDishDetails(id) {
     try {
       const response = await api.get(`/dishes/${id}`);
       setDish(response.data);
+      setIngredientsExists([response.data.ingredients]);
+      setCategory(response.data.category);
     } catch (error) {
-        if (response.error) {
-          toast.error(error.response.data.message);
-        } else {
-          toast.error("Erro ao encontrar detalhes do prato.");
-        }
+      setDish(null);
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Erro ao encontrar detalhes do prato.");
+      }
     }
   }
 
   return (
-    <DishContext.Provider value={{ dish, setDish, fetchDishDetails }}>
+    <DishContext.Provider
+      value={{
+        dish,
+        setDish,
+        ingredientsExists,
+        setIngredientsExists,
+        category,
+        setCategory,
+        fetchDishDetails,
+      }}
+    >
       {children}
     </DishContext.Provider>
   );
