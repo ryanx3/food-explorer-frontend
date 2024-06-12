@@ -11,8 +11,13 @@ export const ProfileContainer = styled.div`
 export const Form = styled.form`
   width: 100%;
   display: flex;
-  gap: 4rem;
-  margin: 4rem auto;
+  gap: 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+
   .input-wrapper {
     display: flex;
     flex-direction: column;
@@ -30,6 +35,7 @@ export const Form = styled.form`
         flex-direction: column;
         gap: 2rem;
       }
+      
       .input-address {
         width: 100%;
         display: flex;
@@ -51,22 +57,6 @@ export const Avatar = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  a {
-    display: flex;
-    align-items: center;
-
-    color: ${({ theme }) => theme.COLORS.LIGHT_300};
-    font-family: inherit;
-    font-size: 2.4rem;
-    font-weight: 700;
-    line-height: 140%;
-
-    @media (max-width: 1024px) {
-      font-weight: 500;
-    }
-  }
-
   img {
     width: 18.6rem;
     height: 18.6rem;
@@ -81,7 +71,7 @@ export const Avatar = styled.div`
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
     white-space: nowrap;
     gap: 1rem;
-    
+
     font-family: inherit;
     font-weight: 500;
     font-size: 1.4rem;
@@ -95,7 +85,6 @@ export const Avatar = styled.div`
     justify-content: center;
 
     cursor: pointer;
-
     transition: filter 0.3s ease;
 
     &:hover {
@@ -110,5 +99,11 @@ export const Avatar = styled.div`
 
   input {
     display: none;
+  }
+
+  @media (max-width: 768px) {
+    img {
+      margin-bottom: 2rem;
+    }
   }
 `;

@@ -1,21 +1,21 @@
+import { PiFileArrowUpDuotone } from "react-icons/pi";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
 import axios from "axios";
 
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { PiFileArrowUpDuotone } from "react-icons/pi";
-import { useForm } from "react-hook-form";
-
 import { PageLayout } from "../../components/Layouts/PagesLayout";
-import { Input } from "../../components/Inputs/Input";
-import { Button } from "../../components/Button";
-import { Section } from "../../components/Section";
-
-import { useAuth } from "../../hooks/Auth";
-import { api } from "../../services/api";
-import { ProfileContainer, Avatar, Form } from "./styles";
-import { toast } from "react-toastify";
 import { ButtonBack } from "../../components/ButtonBack";
+import { useAuth } from "../../hooks/Auth";
+import { Section } from "../../components/Section";
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Inputs/Input";
+import { toast } from "react-toastify";
+import { api } from "../../services/api";
+
+import { ProfileContainer, Avatar, Form } from "./styles";
 
 export function Profile() {
   const redirectTo = useNavigate();
@@ -58,8 +58,7 @@ export function Profile() {
       const { name, email, old_password, password, cep, street, city, number } =
         data;
 
-      const someInputAdressIsEmpty =
-        !cep.trim() || !street.trim() || !number.trim() || !city.trim();
+      const someInputAddressIsEmpty = !cep || !street || !number || !city;
 
       const addressChanged =
         address.cep !== cep ||
@@ -67,10 +66,11 @@ export function Profile() {
         address.number !== number ||
         address.city !== city;
 
-      if (addressChanged && some) {
-        if (someInputAdressIsEmpty) {
-          toast.error("Por favor, preencha todos os campos do endereço.");
-          return;
+      if (addressChanged) {
+        if (someInputAddressIsEmpty) {
+          return toast.error(
+            "Por favor, preencha todos os campos do endereço."
+          );
         }
 
         const updatedAddress = {
@@ -93,6 +93,7 @@ export function Profile() {
       const updatedUser = Object.assign(user, updated);
       await updateProfile({ user: updatedUser, avatarFile });
     } catch (error) {
+      console.error(error);
       if (error.response) {
         toast.error(error.response.data.message);
       } else {
