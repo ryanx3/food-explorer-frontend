@@ -35,9 +35,9 @@ export function SideMenu({ active, onChangeSearch, ...rest }) {
   return (
     <SideMenuContainer data-is-menu-open={isMenuOpen} {...rest}>
       <Header>
-        <h1>
+        <div>
           <PiXBold onClick={() => setIsMenuOpen(false)} />
-        </h1>
+        </div>
       </Header>
 
       <Main>
@@ -45,23 +45,25 @@ export function SideMenu({ active, onChangeSearch, ...rest }) {
           <Search onChange={onChangeSearch} />
 
           {user.role === USER_ROLES.ADMIN ? (
-            <a href="/new">Adicionar novo prato</a>
+            <a href="/new">Novo prato</a>
           ) : (
-            <a href="">Meus Favoritos</a>
+            <>
+              <a href="">Meus Favoritos</a>
+              <a href="">Meus pedidos</a>
+            </>
           )}
         </nav>
       </Main>
 
       <Footer>
-        {user.role !== USER_ROLES.ADMIN && (
-          <div className="user" onClick={handleProfile}>
-            <img src={avatar} alt={`Imagem de ${user.name}`} />
-            <div className="name-user">
-              <h1>{user.name}</h1>
-              <span>Editar Perfil</span>
-            </div>
+        <div className="user" onClick={handleProfile}>
+          <img src={avatar} alt={`Imagem de ${user.name}`} />
+          <div className="name-user">
+            <h1>{user.name}</h1>
+            <span>Editar Perfil</span>
           </div>
-        )}
+        </div>
+
         <PiSignOut onClick={handleLogout} />
       </Footer>
     </SideMenuContainer>

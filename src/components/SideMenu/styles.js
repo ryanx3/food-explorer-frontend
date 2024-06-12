@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SideMenuContainer = styled.aside`
-  background-color: ${({ theme }) => theme.COLORS.DARK_500};
+  background: ${({ theme }) => theme.COLORS.DARK_500};
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -10,10 +10,10 @@ export const SideMenuContainer = styled.aside`
   top: 0;
   flex-direction: column;
   visibility: hidden;
-  box-shadow: 0 0 10px 3px ;
+  box-shadow: 0 0 10px 3px;
   display: grid;
   grid-template-rows: 9rem auto 9rem;
-  
+
   @media (max-width: 768px) {
     &[data-is-menu-open="true"] {
       visibility: visible;
@@ -34,6 +34,7 @@ export const SideMenuContainer = styled.aside`
 `;
 
 export const Header = styled.header`
+  background: ${({ theme }) => theme.COLORS.DARK_700};
   display: flex;
   align-items: center;
 
@@ -41,7 +42,7 @@ export const Header = styled.header`
   height: 11.4rem;
   border-radius: 0px 10px 0px 0px;
 
-  h1 {
+  div {
     height: 11.4rem;
     display: flex;
     align-items: center;
@@ -72,25 +73,26 @@ export const Main = styled.main`
   > nav {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 
     > a {
       width: 100%;
+      display: flex;
+      align-items: center;
+
       background: none;
       border: none;
+
       padding: 1rem 0;
       margin: 0;
+
       font-family: inherit;
       font-weight: 300;
       font-size: 2.4rem;
       line-height: 140%;
+
       color: ${({ theme }) => theme.COLORS.LIGHT_200};
       border-bottom: 1px solid ${({ theme }) => theme.COLORS.DARK_1100};
-      display: flex;
-      align-items: center;
-
-      &:not(:first-child) {
-        margin-top: 3.2rem;
-      }
     }
   }
 `;
@@ -99,11 +101,11 @@ export const Footer = styled.footer`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 0px 0px 10px 0px;
-
-  padding: 0 2.8rem;
   gap: 1.6rem;
+
   background: ${({ theme }) => theme.COLORS.DARK_700};
+  border-radius: 0px 0px 10px 0px;
+  padding: 0 2.8rem;
 
   img {
     width: 4.8rem;
