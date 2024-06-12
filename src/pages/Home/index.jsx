@@ -21,7 +21,7 @@ import bannerMobile from "../../assets/banner-mobile.png";
 
 import { HomeContainer, Content, Presentation, NotFound } from "./styles";
 
-export function Home({ isAdmin = false }) {
+export function Home() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const navigate = useNavigate();
 
@@ -154,7 +154,6 @@ export function Home({ isAdmin = false }) {
                   {cards.meals.map((card) => (
                     <swiper-slide key={String(card.id)}>
                       <Card
-                        isadmin={isAdmin}
                         dish={card}
                         onClick={() => handleRedirectToPageDetails(card.id)}
                       />
@@ -172,7 +171,6 @@ export function Home({ isAdmin = false }) {
                   {cards.beverages.map((card) => (
                     <swiper-slide key={String(card.id)}>
                       <Card
-                        isadmin={isAdmin}
                         key={String(card.id)}
                         onClick={() => handleRedirectToPageDetails(card.id)}
                         dish={card}
@@ -191,7 +189,6 @@ export function Home({ isAdmin = false }) {
                   {cards.desserts.map((card) => (
                     <swiper-slide key={String(card.id)}>
                       <Card
-                        isadmin={isAdmin}
                         key={String(card.id)}
                         onClick={() => handleRedirectToPageDetails(card.id)}
                         dish={card}

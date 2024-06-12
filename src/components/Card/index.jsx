@@ -7,19 +7,25 @@ import {
   PiPencilSimple,
 } from "react-icons/pi";
 
+import { USER_ROLES } from "../../utils/roles";
+
 import { Counter } from "../Counter";
 import { Button } from "../Button";
 import { api } from "../../services/api";
 
-import { CardContainer, Picture, Title, Description, Order } from "./styles";
 import { toast } from "react-toastify";
 import { useCart } from "../../hooks/Cart";
+import { useAuth } from "../../hooks/Auth";
 
-export function Card({ dish, onClick, isadmin, ...rest }) {
+import { CardContainer, Picture, Title, Description, Order } from "./styles";
+
+export function Card({ dish, onClick, ...rest }) {
   const navigate = useNavigate();
   const [favorite, setFavorites] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { handleAddDishToLocalStorage } = useCart();
+
+  const { user } = useAuth();
 
   async function handleClickFavorites() {
     try {
@@ -56,7 +62,7 @@ export function Card({ dish, onClick, isadmin, ...rest }) {
   const imageURL = `${api.defaults.baseURL}/files/${dish.image}`;
 
   const iconRender = () => {
-    if (!isadmin) {
+    if (user.role === USER_ROLES.CUSTOMER) {
       return favorite ? (
         <PiHeartStraightFill
           className="favorite-red"
@@ -65,7 +71,7 @@ export function Card({ dish, onClick, isadmin, ...rest }) {
       ) : (
         <PiHeartStraightBold fill="white" onClick={handleClickFavorites} />
       );
-    } else {
+    } else if (user.role === USER_ROLES.ADMIN) {
       return <PiPencilSimple onClick={handleRedirectToPageEdit} />;
     }
   };
@@ -91,7 +97,7 @@ export function Card({ dish, onClick, isadmin, ...rest }) {
   }, [dish.id]);
 
   return (
-    <CardContainer isadmin={isadmin} dish={dish} {...rest}>
+    <CardContainer dish={dish} {...rest}>
       {iconRender()}
 
       <Picture onClick={onClick}>
@@ -105,10 +111,10 @@ export function Card({ dish, onClick, isadmin, ...rest }) {
 
       <Description>
         <p>{dish.description}</p>
-        <h3>R$ {dish.price.toLocaleString("pt-BR")}</h3>
+        <h3>R$ {dish.price.toFixed(2).toLocaleString("pt-BR")}</h3>
       </Description>
 
-      {!isadmin && (
+      {user.role === USER_ROLES.CUSTOMER && (
         <Order>
           <Counter quantity={quantity} setQuantity={setQuantity} />
           <Button

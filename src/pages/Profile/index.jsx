@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PiCaretLeft, PiFileArrowUpDuotone } from "react-icons/pi";
+import { PiFileArrowUpDuotone } from "react-icons/pi";
 import { useForm } from "react-hook-form";
 
 import { PageLayout } from "../../components/Layouts/PagesLayout";
@@ -136,7 +136,6 @@ export function Profile() {
     async function fetchUserAddress() {
       const response = await api.get("/user-address");
       setAddress(response.data);
-      // Set default values for the form
       setValue("cep", response.data.cep);
       setValue("street", response.data.street);
       setValue("number", response.data.number);

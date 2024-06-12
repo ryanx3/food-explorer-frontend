@@ -20,7 +20,7 @@ import { api } from "../../services/api";
 import { EditContainer, Main, Form, Buttons, LabelTitle } from "./styles";
 import { ButtonBack } from "../../components/ButtonBack";
 
-export function Edit({ isAdmin = false }) {
+export function Edit() {
   const navigate = useNavigate();
   const params = useParams();
   const { dish, fetchDishDetails } = useDish();
@@ -110,7 +110,7 @@ export function Edit({ isAdmin = false }) {
       navigate("/");
       toast.success("Prato excluído com sucesso.");
     } else {
-       toast.info("Exclusão do prato cancelada.");
+      toast.info("Exclusão do prato cancelada.");
     }
   }
 

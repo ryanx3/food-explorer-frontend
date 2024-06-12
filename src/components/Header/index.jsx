@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../hooks/Auth";
 
-import { PiMagnifyingGlassLight, PiReceipt, PiList } from "react-icons/pi";
+import { PiReceipt, PiList } from "react-icons/pi";
+
+import { USER_ROLES } from "../../utils/roles";
 
 import { HeaderLayout } from "../Layouts/PagesLayout";
 import { Search } from "../Search";
@@ -20,7 +22,7 @@ import { HeaderContainer, Menu, Logo, Profile } from "./styles";
 import { useSideMenu } from "../../hooks/SideMenu";
 import { useCart } from "../../hooks/Cart";
 
-export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
+export function Header({ onChangeSearch, onClick, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   const { setIsMenuOpen } = useSideMenu();
@@ -51,11 +53,13 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
     }
   }
 
-  const LogoDesktop = !isAdmin ? <Brand /> : <BrandAdmin />;
-  const LogoMobile = !isAdmin ? <BrandMobile /> : <BrandMobileAdmin />;
+  const LogoDesktop =
+    user.role !== USER_ROLES.ADMIN ? <Brand /> : <BrandAdmin />;
+  const LogoMobile =
+    user.role !== USER_ROLES.ADMIN ? <BrandMobile /> : <BrandMobileAdmin />;
 
   const profileContent = isMobile ? (
-    isAdmin ? (
+    user.role === USER_ROLES.ADMIN ? (
       <div />
     ) : (
       <PiReceipt />
@@ -63,7 +67,6 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
   ) : (
     <img src={avatar} />
   );
-
   return (
     <HeaderContainer {...rest}>
       <HeaderLayout>
@@ -82,8 +85,12 @@ export function Header({ isAdmin = false, onChangeSearch, onClick, ...rest }) {
         {!isMobile && (
           <Button
             onClick={handleRedirectToDetails}
-            title={isAdmin ? "Novo Prato" : `Pedidos (${orderItemsCount})`}
-            icon={isAdmin ? null : PiReceipt}
+            title={
+              user.role === USER_ROLES.ADMIN
+                ? "Novo Prato"
+                : `Pedidos (${orderItemsCount})`
+            }
+            icon={user.role === USER_ROLES.ADMIN ? null : PiReceipt}
           />
         )}
 

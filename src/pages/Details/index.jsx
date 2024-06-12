@@ -18,14 +18,17 @@ import {
   CounterSection,
 } from "./styles";
 import { useCart } from "../../hooks/Cart";
+import { USER_ROLES } from "../../utils/roles";
+import { useAuth } from "../../hooks/Auth";
 
-export function Details({ isAdmin = false }) {
+export function Details() {
   const redirectTo = useNavigate();
   const params = useParams();
 
   const [quantity, setQuantity] = useState(1);
   const { dish, fetchDishDetails } = useDish();
   const { handleAddDishToLocalStorage } = useCart();
+  const { user } = useAuth();
 
   function handleBackPage() {
     redirectTo("/");
@@ -74,18 +77,25 @@ export function Details({ isAdmin = false }) {
                   </Section>
                 )}
                 <CounterSection>
-                  {!isAdmin && (
+                  {user.role !== USER_ROLES.ADMIN && (
                     <Counter quantity={quantity} setQuantity={setQuantity} />
                   )}
 
-                  {isAdmin && (
+                  {user.role === USER_ROLES.ADMIN && (
                     <Button
                       title={`Editar prato`}
                       onClick={() => handleRedirectToEditDish(dish.id)}
                     />
                   )}
 
-                  {!isAdmin && <Button title={`incluir - R$ ${dish.price}`} onClick={() => handleAddDishToLocalStorage(dish, quantity)} />}
+                  {user.role !== USER_ROLES.ADMIN && (
+                    <Button
+                      title={`incluir - R$ ${dish.price}`}
+                      onClick={() =>
+                        handleAddDishToLocalStorage(dish, quantity)
+                      }
+                    />
+                  )}
                 </CounterSection>
               </DetailsContent>
             </div>

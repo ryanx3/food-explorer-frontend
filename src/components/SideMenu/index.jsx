@@ -7,8 +7,9 @@ import { PiXBold, PiSignOut } from "react-icons/pi";
 import { SideMenuContainer, Main, Header, Footer } from "./styles";
 import { Search } from "../Search";
 import { useSideMenu } from "../../hooks/SideMenu";
+import { USER_ROLES } from "../../utils/roles";
 
-export function SideMenu({ isAdmin = false, active, onChangeSearch, ...rest }) {
+export function SideMenu({ active, onChangeSearch, ...rest }) {
   const RedirectTo = useNavigate();
   const { user, signOut } = useAuth();
   const { isMenuOpen, setIsMenuOpen } = useSideMenu();
@@ -42,8 +43,8 @@ export function SideMenu({ isAdmin = false, active, onChangeSearch, ...rest }) {
       <Main>
         <nav>
           <Search onChange={onChangeSearch} />
-          
-          {isAdmin ? (
+
+          {user.role === USER_ROLES.ADMIN ? (
             <a href="/new">Adicionar novo prato</a>
           ) : (
             <a href="">Meus Favoritos</a>
@@ -52,7 +53,7 @@ export function SideMenu({ isAdmin = false, active, onChangeSearch, ...rest }) {
       </Main>
 
       <Footer>
-        {!isAdmin && (
+        {user.role !== USER_ROLES.ADMIN && (
           <div className="user" onClick={handleProfile}>
             <img src={avatar} alt={`Imagem de ${user.name}`} />
             <div className="name-user">

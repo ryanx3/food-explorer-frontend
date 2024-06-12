@@ -64,10 +64,10 @@ export function New() {
       return toast.error("Insira uma imagem válida para o seu prato.")
     }
 
-    const priceValue = parseFloat(price.replace(".", ","));
-    if (isNaN(priceValue) || priceValue <= 0) {
-      return toast.error("Por favor, insira um preço válido para o seu prato.");
-    }
+   const priceValue = parseFloat(price.replace(",", "."));
+   if (isNaN(priceValue) || priceValue <= 0) {
+     return toast.error("Por favor, insira um preço válido para o seu prato.");
+   }
 
     if (ingredients.length === 0) {
       return toast.error(
