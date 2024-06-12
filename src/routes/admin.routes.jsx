@@ -9,7 +9,7 @@ import { SearchProvider } from "../hooks/Search";
 import { DefaultLayout } from "../components/Layouts/DefaultLayout";
 import { DishProvider } from "../hooks/Dish";
 
-export function AppRoutes() {
+export function AdminRoutes() {
   return (
     <SearchProvider>
       <Routes>
