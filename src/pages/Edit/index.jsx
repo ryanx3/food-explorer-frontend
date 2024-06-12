@@ -1,34 +1,36 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FadeLoader } from "react-spinners";
-import { useDish } from "../../hooks/Dish";
-import { PiCaretLeft } from "react-icons/pi";
 import { toast } from "react-toastify";
 
 import { PageLayout } from "../../components/Layouts/PagesLayout";
 import { IngredientTag } from "../../components/IngredientTag";
-import { Input } from "../../components/Inputs/Input";
-import { InputFile } from "../../components/Inputs/InputFile";
 import { InputNumeric } from "../../components/Inputs/InputNumeric";
+import { ButtonBack } from "../../components/ButtonBack";
+import { InputFile } from "../../components/Inputs/InputFile";
+import { Input } from "../../components/Inputs/Input";
 import { Select } from "../../components/Select";
 import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
 import { Textarea } from "../../components/Inputs/Textarea";
 
 import { api } from "../../services/api";
+import { useDish } from "../../hooks/Dish";
 
 import { EditContainer, Main, Form, Buttons, LabelTitle } from "./styles";
-import { ButtonBack } from "../../components/ButtonBack";
 
 export function Edit() {
   const navigate = useNavigate();
   const params = useParams();
-  const { dish, fetchDishDetails } = useDish();
 
-  const [ingredientsExists, setIngredientsExists] = useState([
-    ...dish.ingredients,
-  ]);
-  const [category, setCategory] = useState("");
+  const {
+    dish,
+    ingredientsExists,
+    setIngredientsExists,
+    category,
+    setCategory,
+    fetchDishDetails,
+  } = useDish();
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -40,7 +42,7 @@ export function Edit() {
   const [image, setImage] = useState(null);
 
   function handleBackPage() {
-    navigate(-1);
+    navigate(`/details/${params.id}`);
   }
 
   function handleAddImageToDish(e) {
@@ -68,7 +70,7 @@ export function Edit() {
   }
 
   async function handleUpdatedDish() {
-    if (ingredientsExists.length === 0 && newIngredients === 0) {
+    if (ingredientsExists.length === 0 && newIngredients.length === 0) {
       return toast.error(
         "Por favor, insira pelo menos um ingrediente do seu prato."
       );
@@ -92,7 +94,7 @@ export function Edit() {
         await api.patch(`/dishes/${params.id}/image`, imageFormData);
       }
       toast.success("Prato atualizado com sucesso!");
-      handleBackPage();
+      navigate(`/details/${params.id}`);
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
@@ -115,8 +117,18 @@ export function Edit() {
   }
 
   useEffect(() => {
-    fetchDishDetails(params.dish_id);
-  }, []);
+    fetchDishDetails(params.id);
+  }, [params.id]);
+
+  useEffect(() => {
+    if (dish) {
+      setIngredientsExists(dish.ingredients || []);
+    }
+  }, [dish]);
+
+  if (!dish) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <EditContainer>
@@ -128,9 +140,9 @@ export function Edit() {
           <Form>
             <Section className="first-section">
               <InputFile
-                onChange={handleAddImageToDish}
                 title="Imagem"
                 filename={imageFile ? imageFile.name : dish.image}
+                onChange={handleAddImageToDish}
               />
 
               <Input
