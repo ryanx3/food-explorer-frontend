@@ -24,11 +24,11 @@ import { useAuth } from "../../hooks/Auth";
 export function Details() {
   const redirectTo = useNavigate();
   const params = useParams();
-
   const [quantity, setQuantity] = useState(1);
+
+  const { user } = useAuth();
   const { dish, fetchDishDetails } = useDish();
   const { handleAddDishToLocalStorage } = useCart();
-  const { user } = useAuth();
 
   function handleBackPage() {
     redirectTo("/");
