@@ -9,16 +9,17 @@ export function AuthProvider({ children }) {
 
   async function signIn({ email, password }) {
     try {
-      const response = await api.post("/sessions", { email, password });
+      const response = await api.post(
+        "/sessions",
+        { email, password },
+        { withCredentials: true }
+      );
 
-      const { user, token } = response.data;
+      const { user } = response.data;
 
-      localStorage.setItem("foodexplorer:user", JSON.stringify(user));
-      localStorage.setItem("foodexplorer:token", token);
+      localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
 
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-      setData({ user, token });
+      setData({ user });
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
@@ -29,7 +30,8 @@ export function AuthProvider({ children }) {
   }
 
   async function signOut() {
-    localStorage.clear();
+    localStorage.removeItem("@foodexplorer:user");
+    localStorage.clear()
     setData({});
   }
 
@@ -43,9 +45,9 @@ export function AuthProvider({ children }) {
         user.avatar = response.data.avatar;
       }
       await api.put("/users", user);
-      localStorage.setItem("foodexplorer:user", JSON.stringify(user));
+      localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
 
-      setData({ user, token: data.token });
+      setData({ user });
       toast.success("Perfil atualizado!");
     } catch (error) {
       if (error.response) {
@@ -57,13 +59,10 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const user = localStorage.getItem("foodexplorer:user");
-    const token = localStorage.getItem("foodexplorer:token");
+    const user = localStorage.getItem("@foodexplorer:user");
 
-    if (token && user) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-      setData({ token, user: JSON.parse(user) });
+    if (user) {
+      setData({ user: JSON.parse(user) });
     }
   }, []);
 
