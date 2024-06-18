@@ -21,36 +21,38 @@ import { CardContainer, Picture, Title, Description, Order } from "./styles";
 
 export function Card({ dish, onClick, ...rest }) {
   const navigate = useNavigate();
-  const [favorite, setFavorites] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { handleAddDishToLocalStorage } = useCart();
 
   const { user } = useAuth();
 
-  async function handleClickFavorites() {
+  async function handleClickFavorites(e) {
+    e.stopPropagation();
     try {
-      const response = await api.post(`/favorites/${dish.id}`);
-      if (response.dish) {
-        toast.success(`${dish.name} foi adicionado aos seus favoritos!`);
-        setFavorites(true);
-      }
+      await api.post(`/favorites/${dish.id}`);
+      toast.success(`${dish.name} foi adicionado aos seus favoritos!`);
+      setFavorite(true);
     } catch (error) {
       if (error.response) {
-        toast.error(error.response.dish.message);
+        toast.error(error.response.data.error);
+      } else {
+        toast.error("Erro ao favoritar o prato");
       }
     }
   }
 
-  async function handleClickNoFavorites() {
+  async function handleClickNoFavorites(e) {
+    e.stopPropagation();
     try {
-      const response = await api.delete(`/favorites/${dish.id}`);
-      if (response.dish) {
-        toast.error(`${dish.name} foi removido dos seus favoritos!`);
-        setFavorites(false);
-      }
+      await api.delete(`/favorites/${dish.id}`);
+      toast.error(`${dish.name} foi removido dos seus favoritos!`);
+      setFavorite(false);
     } catch (error) {
       if (error.response) {
-        toast.error(error.response.dish.message);
+        toast.error(error.response.data.error);
+      } else {
+        toast.error("Erro ao desfavoritar o prato");
       }
     }
   }
@@ -62,16 +64,16 @@ export function Card({ dish, onClick, ...rest }) {
   const imageURL = `${api.defaults.baseURL}/files/${dish.image}`;
 
   const iconRender = () => {
-    if (user.role === USER_ROLES.CUSTOMER) {
-      return favorite ? (
+    if (user?.role === USER_ROLES.CUSTOMER) {
+      return !favorite ? (
+        <PiHeartStraightBold fill="white" onClick={handleClickFavorites} />
+      ) : (
         <PiHeartStraightFill
           className="favorite-red"
           onClick={handleClickNoFavorites}
         />
-      ) : (
-        <PiHeartStraightBold fill="white" onClick={handleClickFavorites} />
       );
-    } else if (user.role === USER_ROLES.ADMIN) {
+    } else if (user?.role === USER_ROLES.ADMIN) {
       return <PiPencilSimple onClick={handleRedirectToPageEdit} />;
     }
   };
@@ -80,15 +82,17 @@ export function Card({ dish, onClick, ...rest }) {
     async function checkIfFavorited() {
       try {
         const response = await api.get(`/favorites`);
-        const favorites = response.dish;
+        const favorites = response.data;
 
         const isFavorited = favorites.some(
           (favoriteDish) => favoriteDish.id === dish.id
         );
-        setFavorites(isFavorited);
+        setFavorite(isFavorited);
       } catch (error) {
         if (error.response) {
-          toast.error(error.response.dish.message);
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Erro ao verificar favoritos");
         }
       }
     }
@@ -111,10 +115,10 @@ export function Card({ dish, onClick, ...rest }) {
 
       <Description>
         <p>{dish.description}</p>
-        <h3>R$ {dish.price.toFixed(2).toLocaleString("pt-BR")}</h3>
+        <h3>R$ {dish.price.toFixed(2).replace(".", ",")}</h3>
       </Description>
 
-      {user.role === USER_ROLES.CUSTOMER && (
+      {user?.role === USER_ROLES.CUSTOMER && (
         <Order>
           <Counter quantity={quantity} setQuantity={setQuantity} />
           <Button
