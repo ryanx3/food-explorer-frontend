@@ -76,27 +76,29 @@ export function Details() {
                     ))}
                   </Section>
                 )}
-                <CounterSection>
-                  {user.role !== USER_ROLES.ADMIN && (
-                    <Counter quantity={quantity} setQuantity={setQuantity} />
-                  )}
+                {user && (
+                  <CounterSection>
+                    {user?.role !== USER_ROLES.ADMIN && (
+                      <Counter quantity={quantity} setQuantity={setQuantity} />
+                    )}
 
-                  {user.role === USER_ROLES.ADMIN && (
-                    <Button
-                      title={`Editar prato`}
-                      onClick={() => handleRedirectToEditDish(dish.id)}
-                    />
-                  )}
+                    {user?.role === USER_ROLES.ADMIN && (
+                      <Button
+                        title={`Editar prato`}
+                        onClick={() => handleRedirectToEditDish(dish.id)}
+                      />
+                    )}
 
-                  {user.role !== USER_ROLES.ADMIN && (
-                    <Button
-                      title={`incluir - R$ ${dish.price}`}
-                      onClick={() =>
-                        handleAddDishToLocalStorage(dish, quantity)
-                      }
-                    />
-                  )}
-                </CounterSection>
+                    {user?.role !== USER_ROLES.ADMIN && (
+                      <Button
+                        title={`incluir - R$ ${dish.price.toFixed(2)}`}
+                        onClick={() =>
+                          handleAddDishToLocalStorage(dish, quantity)
+                        }
+                      />
+                    )}
+                  </CounterSection>
+                )}
               </DetailsContent>
             </div>
           </Content>

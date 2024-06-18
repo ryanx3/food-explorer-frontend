@@ -110,17 +110,6 @@ export const CounterSection = styled.section`
     justify-content: center;
     text-align: center;
     gap: 1.6rem;
-
-    button {
-      width: fit-content;
-      margin-bottom: 2.4rem;
-    }
-
-    span {
-      color: ${({ theme }) => theme.COLORS.LIGHT_300};
-      font-family: inherit;
-      font-size: 2rem;
-      font-weight: 400;
-    }
+    margin-bottom: 2.4rem;
   }
 `;
