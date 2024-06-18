@@ -1,9 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { useAuth } from "../../hooks/Auth";
 
-import { PiReceipt, PiList } from "react-icons/pi";
+import { PiReceipt, PiList, PiArrowLineRight } from "react-icons/pi";
 
 import { USER_ROLES } from "../../utils/roles";
 
@@ -32,16 +32,18 @@ export function Header({ onChangeSearch, onClick, ...rest }) {
 
   const navigate = useNavigate();
 
-  const AvatarURL = user.avatar
-    ? `${api.defaults.baseURL}/files/${user.avatar}`
-    : avatarPlaceholder;
+  const AvatarURL =
+    user && user.avatar
+      ? `${api.defaults.baseURL}/files/${user.avatar}`
+      : avatarPlaceholder;
   const [avatar, setAvatar] = useState(AvatarURL);
 
   function handleRedirectHome() {
-    navigate("/");
+    if (user?.role === USER_ROLES.ADMIN) navigate("/new");
+    if (user?.role === USER_ROLES.CUSTOMER) navigate("/");
   }
 
-  function handleRedirectToDetails() {
+  function handleRedirectToCorrectRoutes() {
     navigate("/new");
   }
 
@@ -54,14 +56,12 @@ export function Header({ onChangeSearch, onClick, ...rest }) {
   }
 
   const LogoDesktop =
-    user.role !== USER_ROLES.ADMIN ? <Brand /> : <BrandAdmin />;
+    user?.role !== USER_ROLES.ADMIN ? <Brand /> : <BrandAdmin />;
   const LogoMobile =
-    user.role !== USER_ROLES.ADMIN ? <BrandMobile /> : <BrandMobileAdmin />;
+    user?.role !== USER_ROLES.ADMIN ? <BrandMobile /> : <BrandMobileAdmin />;
 
   const profileContent = isMobile ? (
-    user.role === USER_ROLES.ADMIN ? (
-      <div />
-    ) : (
+    user?.role === USER_ROLES.ADMIN ? null : (
       <PiReceipt />
     )
   ) : (
@@ -82,33 +82,41 @@ export function Header({ onChangeSearch, onClick, ...rest }) {
 
         {!isMobile && <Search onChange={onChangeSearch} />}
 
-        {!isMobile && (
-          <Button
-            onClick={handleRedirectToDetails}
-            title={
-              user.role === USER_ROLES.ADMIN
-                ? "Novo Prato"
-                : `Pedidos (${orderItemsCount})`
-            }
-            icon={user.role === USER_ROLES.ADMIN ? null : PiReceipt}
-          />
+        {!user ? (
+          <NavLink to={"/login"} title="Fazer login">
+            <PiArrowLineRight />
+          </NavLink>
+        ) : (
+          !isMobile && (
+            <Button
+              onClick={handleRedirectToCorrectRoutes}
+              title={
+                user?.role === USER_ROLES.ADMIN
+                  ? "Novo Prato"
+                  : `Pedidos (${orderItemsCount})`
+              }
+              icon={user?.role === USER_ROLES.ADMIN ? null : PiReceipt}
+            />
+          )
         )}
 
-        <Profile>
-          {profileContent}
+        {user && (
+          <Profile>
+            {profileContent}
 
-          <nav>
-            <ul>
-              <li>
-                <Link to={"/profile"}>Perfil</Link>
-              </li>
-              <li>
-                <Link>Favoritos</Link>
-              </li>
-              <li onClick={handleSignOut}>Sair</li>
-            </ul>
-          </nav>
-        </Profile>
+            <nav>
+              <ul>
+                <li>
+                  <Link to={"/profile"}>Perfil</Link>
+                </li>
+                <li>
+                  <Link>Favoritos</Link>
+                </li>
+                <li onClick={handleSignOut}>Sair</li>
+              </ul>
+            </nav>
+          </Profile>
+        )}
       </HeaderLayout>
     </HeaderContainer>
   );
