@@ -69,13 +69,14 @@ export function Home() {
       ],
     };
 
-    if (swiperRef1.current) Object.assign(swiperRef1.current, configs);
-    if (swiperRef2.current) Object.assign(swiperRef2.current, configs);
-    if (swiperRef3.current) Object.assign(swiperRef3.current, configs);
-
-    if (swiperRef1.current) swiperRef1.current.initialize();
-    if (swiperRef2.current) swiperRef2.current.initialize();
-    if (swiperRef3.current) swiperRef3.current.initialize();
+    if (swiperRef1.current && swiperRef2.current && swiperRef3.current) {
+      Object.assign(swiperRef1.current, configs);
+      Object.assign(swiperRef2.current, configs);
+      Object.assign(swiperRef3.current, configs);
+      swiperRef1.current.initialize();
+      swiperRef2.current.initialize();
+      swiperRef3.current.initialize();
+    }
   }, [cards, isMobile]);
 
   useEffect(() => {

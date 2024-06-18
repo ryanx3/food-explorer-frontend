@@ -12,11 +12,7 @@ import { useForm } from "react-hook-form";
 export function SignIn() {
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const { signIn } = useAuth();
 
@@ -25,8 +21,8 @@ export function SignIn() {
   }
 
   const handleLogin = (data) => {
-  
     signIn(data);
+    navigate("/")
   };
 
   return (

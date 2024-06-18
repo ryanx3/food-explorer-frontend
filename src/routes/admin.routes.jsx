@@ -14,6 +14,7 @@ export function AdminRoutes() {
     <SearchProvider>
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
+
           <Route element={<Home />} path="/" />
           <Route element={<Profile />} path="/profile" />
           <Route element={<New />} path="/new" />
@@ -33,6 +34,7 @@ export function AdminRoutes() {
               </DishProvider>
             }
           />
+          
         </Route>
       </Routes>
     </SearchProvider>

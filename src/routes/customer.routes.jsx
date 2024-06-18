@@ -22,8 +22,7 @@ export function CustomerRoutes() {
               </DishProvider>
             }
           />
-      <Route path="*" exact={true} element={<Home />} />
-
+          <Route path="*" exact={true} element={<Home />} />
         </Route>
       </Routes>
     </SearchProvider>
