@@ -20,12 +20,13 @@ export const CounterContainer = styled.div`
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     svg {
-      font-size: 2.4rem;
+      font-size: 2rem;
     }
   }
 
   @media (max-width: 768px) {
-    span {
+    span,
+    button svg {
       font-size: 1.6rem;
     }
   }
