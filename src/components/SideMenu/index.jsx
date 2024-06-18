@@ -1,6 +1,6 @@
 import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/Auth";
 import { api } from "../../services/api";
 import { PiXBold, PiSignOut } from "react-icons/pi";
@@ -14,9 +14,10 @@ export function SideMenu({ active, onChangeSearch, ...rest }) {
   const { user, signOut } = useAuth();
   const { isMenuOpen, setIsMenuOpen } = useSideMenu();
 
-  const AvatarURL = user.avatar
-    ? `${api.defaults.baseURL}/files/${user.avatar}`
-    : AvatarPlaceholder;
+  const AvatarURL =
+    user && user.avatar
+      ? `${api.defaults.baseURL}/files/${user.avatar}`
+      : AvatarPlaceholder;
   const [avatar, setAvatar] = useState(AvatarURL);
 
   function handleLogout() {
@@ -35,37 +36,42 @@ export function SideMenu({ active, onChangeSearch, ...rest }) {
   return (
     <SideMenuContainer data-is-menu-open={isMenuOpen} {...rest}>
       <Header>
-        <div>
+        <h1>
           <PiXBold onClick={() => setIsMenuOpen(false)} />
-        </div>
+          Menu
+        </h1>
       </Header>
 
       <Main>
         <nav>
           <Search onChange={onChangeSearch} />
 
-          {user.role === USER_ROLES.ADMIN ? (
-            <a href="/new">Novo prato</a>
-          ) : (
+          {user && user.role === USER_ROLES.ADMIN ? (
+            <NavLink to={"/new"}>Novo prato</NavLink>
+          ) : user ? (
             <>
-              <a href="">Meus Favoritos</a>
-              <a href="">Meus pedidos</a>
+              <NavLink>Meus Favoritos</NavLink>
+              <NavLink>Meus Pedidos</NavLink>
             </>
+          ) : (
+            <NavLink to={"/login"}>Fazer login</NavLink>
           )}
         </nav>
       </Main>
 
-      <Footer>
-        <div className="user" onClick={handleProfile}>
-          <img src={avatar} alt={`Imagem de ${user.name}`} />
-          <div className="name-user">
-            <h1>{user.name}</h1>
-            <span>Editar Perfil</span>
+      {user && (
+        <Footer>
+          <div className="user" onClick={handleProfile}>
+            <img src={avatar} alt={`Imagem de ${user.name}`} />
+            <div className="name-user">
+              <h1>{user.name}</h1>
+              <span>Editar Perfil</span>
+            </div>
           </div>
-        </div>
 
-        <PiSignOut onClick={handleLogout} />
-      </Footer>
+          <PiSignOut onClick={handleLogout} />
+        </Footer>
+      )}
     </SideMenuContainer>
   );
 }

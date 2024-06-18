@@ -42,7 +42,7 @@ export const Header = styled.header`
   height: 11.4rem;
   border-radius: 0px 10px 0px 0px;
 
-  div {
+  h1 {
     height: 11.4rem;
     display: flex;
     align-items: center;
