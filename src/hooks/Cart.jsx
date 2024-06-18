@@ -12,15 +12,11 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       const storedOrderItemsCount =
-        parseInt(
-          localStorage.getItem(`@foodExplorer:${user.id}:orderItemsCount`),
-          10
-        ) || 0;
+        parseInt(localStorage.getItem(`@foodexplorer:order`), 10) || 0;
       setOrderItemsCount(storedOrderItemsCount);
     } else {
       const storedOrderItemsCount =
-        parseInt(localStorage.getItem("@foodExplorer:orderItemsCount"), 10) ||
-        0;
+        parseInt(localStorage.getItem(`@foodexplorer:order`), 10) || 0;
       setOrderItemsCount(storedOrderItemsCount);
     }
   }, [user]);
@@ -37,9 +33,9 @@ export const CartProvider = ({ children }) => {
       category: dishToAdd.category,
     };
 
-    let orderItemsKey = "@foodExplorer:orderItems";
+    let orderItemsKey = "@foodExplorer:order";
     if (user) {
-      orderItemsKey = `@foodExplorer:${user.id}:orderItems`;
+      orderItemsKey = `@foodexplorer:order`;
     }
 
     const orderItems = JSON.parse(localStorage.getItem(orderItemsKey)) || [];
@@ -59,18 +55,15 @@ export const CartProvider = ({ children }) => {
       (acc, item) => acc + item.quantity,
       0
     );
-    let orderItemsCountKey = "@foodExplorer:orderItemsCount";
+    let orderItemsCountKey = "@foodexplorer:order";
     if (user) {
-      orderItemsCountKey = `@foodExplorer:${user.id}:orderItemsCount`;
+      orderItemsCountKey = `@foodexplorer:order`;
     }
     localStorage.setItem(orderItemsCountKey, updatedOrderItemsCount.toString());
 
     setOrderItemsCount(updatedOrderItemsCount);
-    toast.success(
-      ` ${dishToAdd.name} foi adicionado ao seu carrinho.`
-    );
+    toast.success(` ${dishToAdd.name} foi adicionado ao seu carrinho.`);
   };
-
 
   return (
     <CartContext.Provider
