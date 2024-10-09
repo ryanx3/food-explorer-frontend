@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import { Container, TextareaContainer } from './styles';
+import { Container, TextareaContainer } from '../styles/TextArea';
 
 export const Textarea = forwardRef(({ defaultValue, title, ...rest }, ref) => {
   return (

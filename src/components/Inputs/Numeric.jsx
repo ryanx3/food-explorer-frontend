@@ -1,6 +1,6 @@
 import { NumericFormat } from "react-number-format";
-import { Input } from "../Input";
-import { NumericContainer } from "./styles";
+import { Input } from "./Input";
+import { NumericContainer } from "./InputNumeric/Numeric";
 
 export function InputNumeric({ value, title, setPrice }) {
   return (
