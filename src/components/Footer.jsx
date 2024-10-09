@@ -1,11 +1,11 @@
 import { useMediaQuery } from "react-responsive";
 
-import { BrandFooter } from "../../assets/brand-footer";
-import { BrandMobileFooter } from "../../assets/brand-mobile-footer";
+import { BrandFooter } from "../assets/brand-footer";
+import { BrandMobileFooter } from "../assets/brand-mobile-footer";
 
-import { FooterLayout } from "../Layouts/PagesLayout";
+import { FooterLayout } from "./Layouts/PagesLayout";
 
-import { FooterContainer, Brand, Copyright } from "./styles";
+import { FooterContainer, Brand, Copyright } from "./Footer";
 
 export function Footer() {
   const isMobile = useMediaQuery({ maxWidth: 768 });

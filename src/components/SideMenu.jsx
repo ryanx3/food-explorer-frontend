@@ -1,13 +1,13 @@
 import AvatarPlaceholder from "../../assets/avatarPlaceholder.png";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/Auth";
-import { api } from "../../services/api";
+import { useAuth } from "../hooks/Auth";
+import { api } from "../services/api";
 import { PiXBold, PiSignOut } from "react-icons/pi";
-import { SideMenuContainer, Main, Header, Footer } from "./styles";
-import { Search } from "../Search";
-import { useSideMenu } from "../../hooks/SideMenu";
-import { USER_ROLES } from "../../utils/roles";
+import { SideMenuContainer, Main, Header, Footer } from "./SideMenu";
+import { Search } from "./Search";
+import { useSideMenu } from "../hooks/SideMenu";
+import { USER_ROLES } from "../utils/roles";
 
 export function SideMenu({ active, onChangeSearch, ...rest }) {
   const RedirectTo = useNavigate();

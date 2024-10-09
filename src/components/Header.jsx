@@ -1,26 +1,26 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
-import { useAuth } from "../../hooks/Auth";
+import { useAuth } from "../hooks/Auth";
 
 import { PiReceipt, PiList, PiArrowLineRight } from "react-icons/pi";
 
-import { USER_ROLES } from "../../utils/roles";
+import { USER_ROLES } from "../utils/roles";
 
-import { HeaderLayout } from "../Layouts/PagesLayout";
-import { Search } from "../Search";
-import { Button } from "../Button";
+import { HeaderLayout } from "./Layouts/PagesLayout";
+import { Search } from "./Search";
+import { Button } from "./Button";
 
 import avatarPlaceholder from "../../assets/avatarPlaceholder.png";
-import { BrandMobileAdmin } from "../../assets/brand-mobile-admin";
-import { BrandMobile } from "../../assets/brand-mobile";
-import { BrandAdmin } from "../../assets/brand-admin";
-import { Brand } from "../../assets/brand";
-import { api } from "../../services/api";
+import { BrandMobileAdmin } from "../assets/brand-mobile-admin";
+import { BrandMobile } from "../assets/brand-mobile";
+import { BrandAdmin } from "../assets/brand-admin";
+import { Brand } from "../assets/brand";
+import { api } from "../services/api";
 
-import { HeaderContainer, Menu, Logo, Profile } from "./styles";
-import { useSideMenu } from "../../hooks/SideMenu";
-import { useCart } from "../../hooks/Cart";
+import { HeaderContainer, Menu, Logo, Profile } from "./Header/styles";
+import { useSideMenu } from "../hooks/SideMenu";
+import { useCart } from "../hooks/Cart";
 
 export function Header({ onChangeSearch, onClick, ...rest }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });

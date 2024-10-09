@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, forwardRef } from "react";
-import { Container, Content } from "./styles";
+import { Container, Content } from "./Select";
 
 export const Select = forwardRef(({ defaultValue, title, ...rest }, ref) => {
   const selectRef = useRef(null);

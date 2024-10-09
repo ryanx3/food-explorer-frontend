@@ -1,11 +1,11 @@
-import { Input } from "../Inputs/Input";
+import { Input } from "./Inputs/Input";
 import { BsSearchHeart, BsArrowLeftShort } from "react-icons/bs";
 
-import { useSearch } from "../../hooks/Search";
+import { useSearch } from "../hooks/Search";
 import { useNavigate } from "react-router-dom";
-import { useSideMenu } from "../../hooks/SideMenu";
+import { useSideMenu } from "../hooks/SideMenu";
 
-import { SearchContainer } from "./styles";
+import { SearchContainer } from "./Search";
 
 export function Search({ ...rest }) {
   const RedirectTo = useNavigate();

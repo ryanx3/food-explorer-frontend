@@ -7,17 +7,17 @@ import {
   PiPencilSimple,
 } from "react-icons/pi";
 
-import { USER_ROLES } from "../../utils/roles";
+import { USER_ROLES } from "../utils/roles";
 
-import { Counter } from "../Counter";
-import { Button } from "../Button";
-import { api } from "../../services/api";
+import { Counter } from "./Counter";
+import { Button } from "./Button";
+import { api } from "../services/api";
 
 import { toast } from "react-toastify";
-import { useCart } from "../../hooks/Cart";
-import { useAuth } from "../../hooks/Auth";
+import { useCart } from "../hooks/Cart";
+import { useAuth } from "../hooks/Auth";
 
-import { CardContainer, Picture, Title, Description, Order } from "./styles";
+import { CardContainer, Picture, Title, Description, Order } from "./Card";
 
 export function Card({ dish, onClick, ...rest }) {
   const navigate = useNavigate();

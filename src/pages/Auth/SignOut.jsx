@@ -1,5 +1,5 @@
 import { Input } from "../../components/Inputs/Input";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/Button/Button";
 import { Brand } from "../../assets/brand";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";

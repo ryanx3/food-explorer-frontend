@@ -1,5 +1,5 @@
 import { PiCaretLeft } from "react-icons/pi";
-import { ButtonBackContainer } from "./styles";
+import { ButtonBackContainer } from "./ButtonBack";
 
 export function ButtonBack({ ...rest }) {
   return (
