@@ -15,7 +15,7 @@ import { Input } from "../../components/Inputs/Input";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 
-import { ProfileContainer, Avatar, Form } from "./styles";
+import { ProfileContainer, Avatar, Form } from "./Profile";
 
 export function Profile() {
   const redirectTo = useNavigate();

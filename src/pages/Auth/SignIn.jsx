@@ -6,7 +6,7 @@ import { Brand } from "../../assets/brand";
 
 import { useAuth } from "../../hooks/Auth";
 
-import { SignInContainer, Form, Logo } from "./styles";
+import { SignInContainer, Form, Logo } from "../SignIn/styles";
 import { useForm } from "react-hook-form";
 
 export function SignIn() {

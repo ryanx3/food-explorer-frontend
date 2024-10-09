@@ -14,7 +14,7 @@ import { Select } from "../../components/Select";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Inputs/Input";
 
-import { NewContainer, Main, Form, LabelTitle, Buttons } from "./styles";
+import { NewContainer, Main, Form, LabelTitle, Buttons } from "./NewDish";
 import { ButtonBack } from "../../components/ButtonBack";
 
 export function New() {

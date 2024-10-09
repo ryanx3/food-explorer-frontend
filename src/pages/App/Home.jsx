@@ -19,7 +19,7 @@ import { useSearch } from "../../hooks/Search";
 import bannerDesktop from "../../assets/home-banner.png";
 import bannerMobile from "../../assets/banner-mobile.png";
 
-import { HomeContainer, Content, Presentation, NotFound } from "./styles";
+import { HomeContainer, Content, Presentation, NotFound } from "./Home";
 
 export function Home() {
   const isMobile = useMediaQuery({ maxWidth: 768 });

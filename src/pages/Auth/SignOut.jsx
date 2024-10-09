@@ -4,7 +4,7 @@ import { Brand } from "../../assets/brand";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Container, Form, Logo } from "./styles";
+import { Container, Form, Logo } from "./SignOut";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
