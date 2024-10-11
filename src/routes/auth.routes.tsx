@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 
-import { SignIn } from "../pages/SignIn";
-import { SignUp } from "../pages/SignUp";
-import { Home } from "../pages/Home";
+import { SignIn } from "../pages/Auth/SignIn";
+import { SignUp } from "../pages/Auth/SignOut";
+import { Home } from "../pages/App/Home";
 import { SearchProvider } from "../hooks/Search";
-import { Details } from "../pages/Details";
+import { Details } from "../pages/App/Details";
 import { DishProvider } from "../hooks/Dish";
 import { DefaultLayout } from "../components/Layouts/DefaultLayout";
 
@@ -13,7 +13,6 @@ export function AuthRoutes() {
     <SearchProvider>
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
-
           <Route element={<Home />} path="/" />
           <Route
             path="/details/:id"
@@ -27,7 +26,6 @@ export function AuthRoutes() {
         <Route element={<SignIn />} path="/login" />
         <Route element={<SignUp />} path="/register" />
         <Route path="*" exact={true} element={<Home />} />
-        
       </Routes>
     </SearchProvider>
   );

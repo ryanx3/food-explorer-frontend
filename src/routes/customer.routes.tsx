@@ -1,8 +1,8 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import { Home } from "../pages/Home";
-import { Details } from "../pages/Details";
-import { Profile } from "../pages/Profile";
+import { Home } from "../pages/App/Home";
+import { Details } from "../pages/App/Details";
+import { Profile } from "../pages/App/Profile";
 import { SearchProvider } from "../hooks/Search";
 import { DefaultLayout } from "../components/Layouts/DefaultLayout";
 import { DishProvider } from "../hooks/Dish";
