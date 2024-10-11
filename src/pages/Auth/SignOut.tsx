@@ -1,10 +1,10 @@
 import { Input } from "../../components/Inputs/Input";
-import { Button } from "../../components/Button/Button";
+import { Button } from "../../components/Button";
 import { Brand } from "../../assets/brand";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Container, Form, Logo } from "./SignOut";
+import { Container, Form, Logo } from "../styles/SignOut";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 

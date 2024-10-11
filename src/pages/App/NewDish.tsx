@@ -6,15 +6,21 @@ import { api } from "../../services/api";
 
 import { PageLayout } from "../../components/Layouts/PagesLayout";
 import { IngredientTag } from "../../components/IngredientTag";
-import { InputNumeric } from "../../components/Inputs/InputNumeric";
-import { InputFile } from "../../components/Inputs/InputFile";
-import { Textarea } from "../../components/Inputs/Textarea";
+import { InputNumeric } from "../../components/Inputs/Numeric";
+import { InputFile } from "../../components/Inputs/File";
+import { Textarea } from "../../components/Inputs/TextArea";
 import { Section } from "../../components/Section";
 import { Select } from "../../components/Select";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Inputs/Input";
 
-import { NewContainer, Main, Form, LabelTitle, Buttons } from "./NewDish";
+import {
+  NewContainer,
+  Main,
+  Form,
+  LabelTitle,
+  Buttons,
+} from "../styles/NewDish";
 import { ButtonBack } from "../../components/ButtonBack";
 
 export function New() {

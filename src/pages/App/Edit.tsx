@@ -4,19 +4,19 @@ import { toast } from "react-toastify";
 
 import { PageLayout } from "../../components/Layouts/PagesLayout";
 import { IngredientTag } from "../../components/IngredientTag";
-import { InputNumeric } from "../../components/Inputs/InputNumeric";
+import { InputNumeric } from "../../components/Inputs/Numeric";
 import { ButtonBack } from "../../components/ButtonBack";
-import { InputFile } from "../../components/Inputs/InputFile";
+import { InputFile } from "../../components/Inputs/File";
 import { Input } from "../../components/Inputs/Input";
 import { Select } from "../../components/Select";
 import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
-import { Textarea } from "../../components/Inputs/Textarea";
+import { Textarea } from "../../components/Inputs/TextArea";
 
 import { api } from "../../services/api";
 import { useDish } from "../../hooks/Dish";
 
-import { EditContainer, Main, Form, Buttons, LabelTitle } from "./styles";
+import { EditContainer, Main, Form, Buttons, LabelTitle } from "../styles/Edit";
 
 export function Edit() {
   const navigate = useNavigate();

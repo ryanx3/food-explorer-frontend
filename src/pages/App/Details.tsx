@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useDish } from "../../hooks/Dish";
 import { api } from "../../services/api";
 
-import { LoaderSpinning } from "../../components/styles/Loading";
+import { LoaderSpinning } from "../../components/Loading";
 import { PageLayout } from "../../components/Layouts/PagesLayout";
 import { ButtonBack } from "../../components/ButtonBack";
-import { Section } from "../../components/styles/Section";
+import { Section } from "../../components/Section";
 import { Counter } from "../../components/Counter";
 import { Button } from "../../components/Button";
 import { Tag } from "../../components/Tag";
@@ -16,7 +16,7 @@ import {
   Content,
   DetailsContent,
   CounterSection,
-} from "./styles";
+} from "../styles/Details";
 import { useCart } from "../../hooks/Cart";
 import { USER_ROLES } from "../../utils/roles";
 import { useAuth } from "../../hooks/Auth";

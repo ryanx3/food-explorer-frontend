@@ -6,7 +6,7 @@ import { BsExclamationTriangle } from "react-icons/bs";
 register();
 
 import { toast } from "react-toastify";
-import { LoaderSpinning } from "../../components/LoaderSpinning";
+import { LoaderSpinning } from "../../components/Loading";
 import { Button } from "../../components/Button";
 import { Section } from "../../components/Section";
 import { Card } from "../../components/Card";
@@ -19,7 +19,7 @@ import { useSearch } from "../../hooks/Search";
 import bannerDesktop from "../../assets/home-banner.png";
 import bannerMobile from "../../assets/banner-mobile.png";
 
-import { HomeContainer, Content, Presentation, NotFound } from "./Home";
+import { HomeContainer, Content, Presentation, NotFound } from "../styles/Home";
 
 export function Home() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
