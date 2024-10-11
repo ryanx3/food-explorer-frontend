@@ -1,5 +1,5 @@
 import { PiPlusBold, PiXBold } from "react-icons/pi";
-import { IngredientContainer } from "./IngredientTag";
+import { IngredientContainer } from "./styles/IngredientTag";
 
 export function IngredientTag({
   icon: Icon,

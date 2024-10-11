@@ -1,7 +1,7 @@
 import {  useState } from "react";
 import { PiPlus, PiMinus } from "react-icons/pi";
 
-import { CounterContainer } from "./Counter";
+import { CounterContainer } from "./styles/Counter";
 
 export function Counter({ title, quantity, setQuantity, ...rest }) {
 

@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 import { useCart } from "../hooks/Cart";
 import { useAuth } from "../hooks/Auth";
 
-import { CardContainer, Picture, Title, Description, Order } from "./Card";
+import { CardContainer, Picture, Title, Description, Order } from "./styles/Card";
 
 export function Card({ dish, onClick, ...rest }) {
   const navigate = useNavigate();

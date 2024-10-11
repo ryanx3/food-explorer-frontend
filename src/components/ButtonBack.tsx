@@ -1,10 +1,10 @@
 import { PiCaretLeft } from "react-icons/pi";
-import { ButtonBackContainer } from "./ButtonBack";
+import { ButtonBackContainer } from "./styles/ButtonBack";
 
 export function ButtonBack({ ...rest }) {
   return (
     <ButtonBackContainer {...rest}>
-      <PiCaretLeft size={32}/>
+      <PiCaretLeft size={32} />
       Voltar
     </ButtonBackContainer>
   );

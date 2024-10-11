@@ -1,5 +1,5 @@
 import { FadeLoader } from "react-spinners";
-import { LoaderContainer } from "./LoaderSpinning/Loading";
+import { LoaderContainer } from "./styles/Loading";
 
 export function LoaderSpinning() {
   return (

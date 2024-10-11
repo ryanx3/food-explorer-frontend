@@ -5,7 +5,7 @@ import { BrandMobileFooter } from "../assets/brand-mobile-footer";
 
 import { FooterLayout } from "./Layouts/PagesLayout";
 
-import { FooterContainer, Brand, Copyright } from "./Footer";
+import { FooterContainer, Brand, Copyright } from "./styles/Footer";
 
 export function Footer() {
   const isMobile = useMediaQuery({ maxWidth: 768 });

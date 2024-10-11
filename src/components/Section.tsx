@@ -1,4 +1,4 @@
-import { SectionContainer } from './Section/Section'
+import { SectionContainer } from './styles/Section'
 
 export function Section({ children, title, ...rest }) {
   return( 

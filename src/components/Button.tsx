@@ -1,8 +1,14 @@
+import { IconType } from "react-icons/lib";
 import { ButtonContainer } from "./styles/Button";
 
-export function Button({ icon: Icon, title, ...rest }) {
+interface ButtonProps {
+  icon: IconType
+  title: string
+}
+
+export function Button({icon: Icon, title, ...props }: ButtonProps) {
   return (
-    <ButtonContainer {...rest}>
+    <ButtonContainer {...props}>
       {Icon && <Icon size={32} />}
       {title}
     </ButtonContainer>

@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/Auth";
 import { api } from "../services/api";
 import { PiXBold, PiSignOut } from "react-icons/pi";
-import { SideMenuContainer, Main, Header, Footer } from "./SideMenu";
+import { SideMenuContainer, Main, Header, Footer } from "./styles/SideMenu";
 import { Search } from "./Search";
 import { useSideMenu } from "../hooks/SideMenu";
 import { USER_ROLES } from "../utils/roles";

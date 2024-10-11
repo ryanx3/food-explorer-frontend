@@ -18,7 +18,7 @@ import { BrandAdmin } from "../assets/brand-admin";
 import { Brand } from "../assets/brand";
 import { api } from "../services/api";
 
-import { HeaderContainer, Menu, Logo, Profile } from "./Header/styles";
+import { HeaderContainer, Menu, Logo, Profile } from "./styles/Header";
 import { useSideMenu } from "../hooks/SideMenu";
 import { useCart } from "../hooks/Cart";
 

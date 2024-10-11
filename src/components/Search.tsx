@@ -5,7 +5,7 @@ import { useSearch } from "../hooks/Search";
 import { useNavigate } from "react-router-dom";
 import { useSideMenu } from "../hooks/SideMenu";
 
-import { SearchContainer } from "./Search";
+import { SearchContainer } from "./styles/Search";
 
 export function Search({ ...rest }) {
   const RedirectTo = useNavigate();
